@@ -1,0 +1,26 @@
+﻿@{
+    string URL = String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44350").ToLower();
+    string FullURL = Request.Url.ToString().ToLower();
+} @*chú ý con số :44350*@
+<style>
+    .menu {
+        display: inline-block;
+        padding: 3px 8px;
+        color: white;
+        background: #666;
+        width: 100px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+        .menu.active {
+            background: blue;
+        }
+</style>
+<a href="@URL/home/about" id="tmp" class="menu @((FullURL.Contains("/home/about") || FullURL.Contains("login/index"))?"active":"")">
+    Content 1
+</a>
+<a href="@URL/home/contact" class="menu @(FullURL.Contains("/home/contact")?"active":"")">
+    Content 2
+</a>
+
