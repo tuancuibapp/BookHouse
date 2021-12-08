@@ -14,8 +14,8 @@ namespace BookHouse.Controllers
         public ActionResult SignIn()
         {
             DBIO db = new DBIO();
-            TVLT_Users u = db.GetObject_User("khoa", "123");
-            return View(u);
+            Class1 uu = db.GetObject_Tmp();
+            return View(uu);
         }
         public ActionResult SignUp()
         {

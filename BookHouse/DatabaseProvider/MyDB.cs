@@ -8,7 +8,7 @@ namespace DatabaseProvider
     public partial class MyDB : DbContext
     {
         public MyDB()
-            : base("name=MyDB")
+            : base("name=MyDB1")
         {
         }
 

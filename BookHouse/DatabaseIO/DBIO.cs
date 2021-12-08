@@ -21,5 +21,12 @@ namespace DatabaseIO
                 new SqlParameter("@P", pass)
                 ).FirstOrDefault();
         }
+        public Class1 GetObject_Tmp()
+        {
+            return mydb.Database.SqlQuery<Class1>(
+                "SELECT Uid, Pwd FROM TVLT_Users WHERE Uid=@U",
+                new SqlParameter("@U", "khoa")
+                ).FirstOrDefault();
+        }
     }
 }
