@@ -182,6 +182,7 @@
     <Content Include="Views\User\DeliveryTracking.cshtml" />
     <Content Include="Views\User\Rating.cshtml" />
     <Content Include="Views\User\OrderConfirm.cshtml" />
+    <Content Include="Views\User\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
