@@ -171,11 +171,12 @@
     <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\Menu\MainMenu.cshtml" />
     <Content Include="Views\Menu\SubMenu.cshtml" />
+    <Content Include="Views\Admin\HomePage.cshtml" />
+    <Content Include="Views\User\SearchPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -196,7 +197,7 @@
       <Name>DatabaseIO</Name>
     </ProjectReference>
     <ProjectReference Include="..\DatabaseProvider\DatabaseProvider.csproj">
-      <Project>{ecfbd025-120b-42c1-b4d1-dda2c126c1c0}</Project>
+      <Project>{93239334-b996-4cbf-bcb0-014a6e07689f}</Project>
       <Name>DatabaseProvider</Name>
     </ProjectReference>
   </ItemGroup>

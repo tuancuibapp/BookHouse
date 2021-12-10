@@ -9,7 +9,8 @@ namespace BookHouse.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
+        
+        public ActionResult HomePage()
         {
             return View();
         }

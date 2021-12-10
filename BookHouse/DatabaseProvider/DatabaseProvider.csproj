@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ECFBD025-120B-42C1-B4D1-DDA2C126C1C0}</ProjectGuid>
+    <ProjectGuid>{93239334-B996-4CBF-BCB0-014A6E07689F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DatabaseProvider</RootNamespace>
@@ -50,13 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyDB.cs" />
+    <Compile Include="MyDB\Admin.cs" />
+    <Compile Include="MyDB\Book.cs" />
+    <Compile Include="MyDB\Category.cs" />
+    <Compile Include="MyDB\CommentBook.cs" />
+    <Compile Include="MyDB\Customer.cs" />
+    <Compile Include="MyDB\FAQ.cs" />
+    <Compile Include="MyDB\Img.cs" />
+    <Compile Include="MyDB\MyDB.cs" />
+    <Compile Include="MyDB\OrderCart.cs" />
+    <Compile Include="MyDB\OrderCartDetail.cs" />
+    <Compile Include="MyDB\Rating.cs" />
+    <Compile Include="NewClassForUI\BookInforUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TVLT_Users.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

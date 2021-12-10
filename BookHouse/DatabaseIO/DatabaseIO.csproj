@@ -55,14 +55,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseProvider\DatabaseProvider.csproj">
-      <Project>{ecfbd025-120b-42c1-b4d1-dda2c126c1c0}</Project>
-      <Name>DatabaseProvider</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseProvider\DatabaseProvider.csproj">
+      <Project>{93239334-b996-4cbf-bcb0-014a6e07689f}</Project>
+      <Name>DatabaseProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,5 +1,7 @@
 ﻿using DatabaseIO;
 using DatabaseProvider;
+using DatabaseProvider.MyDB;
+using DatabaseProvider.NewClassForUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,16 @@ namespace BookHouse.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
+        // GET: User    
+        public ActionResult HomePage()
+        {
+            return View();
+        }
         public ActionResult SignIn()
         {
             DBIO db = new DBIO();
-            return View();
+            Img u = db.GetObject_User();
+            return View(u);
         }
         public ActionResult SignUp()
         {
