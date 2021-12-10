@@ -12,5 +12,6 @@ namespace DatabaseProvider.NewClassForUI
         public float rating { get; set; }
         public List<string> comments { get; set; }
         public List<string> images { get; set; }
+        public int sold { get; set; }
     }
 }
