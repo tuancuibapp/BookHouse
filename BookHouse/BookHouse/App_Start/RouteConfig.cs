@@ -14,13 +14,13 @@ namespace BookHouse
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default1",
+                name: "Default",
                 url: "Admin/HomePage",
                 defaults: new { controller = "Admin", action = "HomePage", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "Default",
+                name: "Default1",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "User", action = "SignIn", id = UrlParameter.Optional }
             );
