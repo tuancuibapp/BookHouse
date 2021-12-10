@@ -15,6 +15,39 @@ namespace BookHouse.Controllers
         // GET: User    
         public ActionResult HomePage()
         {
+            //query for the books -_-
+            BookInforUI yay = new BookInforUI
+            {
+                book = new Book {
+                    BookName = "My life is not a joke, jokes have meaning.",
+                    BookID = "1",
+                    Price = 100000
+                },
+
+                rating = 4,
+                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+            };
+
+            ViewData["bestSellers"] = new List<BookInforUI>
+            { 
+                yay, yay, yay, yay, yay
+            };
+
+            ViewData["newBooks"] = new List<BookInforUI>
+            {
+                yay, yay, yay, yay, yay
+            };
+
+            ViewData["History"] = new List<BookInforUI>
+            {
+                yay, yay, yay, yay, yay
+            };
+
+            ViewData["Economical"] = new List<BookInforUI>
+            {
+                yay, yay, yay, yay, yay
+            };
+
             return View();
         }
         public ActionResult SignIn()
