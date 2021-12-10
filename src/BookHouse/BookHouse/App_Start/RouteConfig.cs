@@ -22,7 +22,7 @@ namespace BookHouse
             routes.MapRoute(
                 name: "Default1",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "User", action = "SignIn", id = UrlParameter.Optional }
+                defaults: new { controller = "User", action = "HomePage", id = UrlParameter.Optional }
             );
         }
     }
