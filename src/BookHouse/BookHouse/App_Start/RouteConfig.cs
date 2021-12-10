@@ -16,7 +16,7 @@ namespace BookHouse
             routes.MapRoute(
                 name: "Default",
                 url: "Admin/HomePage",
-                defaults: new { controller = "Admin", action = "HomePage", id = UrlParameter.Optional }
+                defaults: new { controller = "User", action = "HomePage", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

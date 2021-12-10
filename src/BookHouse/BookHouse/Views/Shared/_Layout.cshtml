@@ -1,25 +1,93 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    ViewBag.Background = "../Models/Images/background.jpg";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-</head> 
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+    
+</head>
+<body style="font-family:Arial">
+    <style>
+        body {
+            background: url("@ViewBag.Background") no-repeat fixed 100%;
+            background-size: 100%;
+            z-index: -1;
+        }
+        #top{
+            width: 100%;
+            height: 100px;
+        }
 
+        #menu {
+            width: 100%;
+            height: 50px;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            background-color: dodgerblue;
+        }
+
+        #middle {
+            width: 100%;
+            height:100px;
+        }
+
+        #left {
+            width: 100px;
+            float: left;
+            margin: 0px;
+            border: 1px dashed orange;
+        }
+
+        #content {
+            width: calc(100% - 208px);
+            float: left;
+            margin: 0px;
+            border: 1px dashed orange;
+            background-color:white;
+        }
+
+        #right {
+            width: 100px;
+            float: right;
+            margin: 0px;
+            border: 1px dashed orange;
+        }
+
+        #bottom {
+            width: 100%;
+            height: 40px;
+            border-top: 1px solid orange;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            text-align: center;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+    <div id="top">
+        This is the place to insert the banner
+    </div>
+    <div id="menu">
+        Menu
+    </div>
+    <div id="middle">
+        <div id="left">a
+        </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div id="right">a
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="bottom">
+        This is the bottom of website
+    </div>
 </body>
 </html>
