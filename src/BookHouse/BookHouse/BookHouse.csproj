@@ -183,6 +183,7 @@
     <Content Include="Views\User\Rating.cshtml" />
     <Content Include="Views\User\OrderConfirm.cshtml" />
     <Content Include="Views\User\HomePage.cshtml" />
+    <Content Include="Views\Shared\_PartialHomepage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
