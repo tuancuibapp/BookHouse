@@ -173,6 +173,15 @@
     <Content Include="Views\Menu\SubMenu.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
     <Content Include="Views\User\SearchPage.cshtml" />
+    <Content Include="Views\User\SignUp.cshtml" />
+    <Content Include="Views\User\_Profile.cshtml" />
+    <Content Include="Views\User\FAQ.cshtml" />
+    <Content Include="Views\User\Cart.cshtml" />
+    <Content Include="Views\User\ProductInfor.cshtml" />
+    <Content Include="Views\User\OrderManaging.cshtml" />
+    <Content Include="Views\User\DeliveryTracking.cshtml" />
+    <Content Include="Views\User\Rating.cshtml" />
+    <Content Include="Views\User\OrderConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

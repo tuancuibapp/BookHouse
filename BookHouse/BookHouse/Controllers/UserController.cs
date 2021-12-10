@@ -19,9 +19,7 @@ namespace BookHouse.Controllers
         }
         public ActionResult SignIn()
         {
-            DBIO db = new DBIO();
-            Img u = db.GetObject_User();
-            return View(u);
+            return View();
         }
         public ActionResult SignUp()
         {
