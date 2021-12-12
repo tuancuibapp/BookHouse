@@ -1,4 +1,5 @@
 ﻿using DatabaseProvider.MyDB;
+using DatabaseProvider.NewClassForUI;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

@@ -1,5 +1,5 @@
 ﻿@{ 
-    ViewBag.Background = "../Models/Images/background.jpg";
+    ViewBag.Background = "../Images/UIDesign/background.jpg";
 }
 <!DOCTYPE html>
 <html>
@@ -15,10 +15,49 @@
             background: url("@ViewBag.Background") no-repeat fixed 100%;
             background-size: cover;
         }
-        #top{
+        #top {
+            display: flex;
+            justify-content: space-between;
+            height: 40px;
             width: 100%;
-            height: 50px;
+            color: white;
         }
+
+            #top div {
+                text-align: center;
+            }
+
+        #topLeft, #topRight {
+            display: flex;
+            align-items: center;
+        }
+
+            #topLeft div {
+                width: 100px;
+                line-height: 40px;
+                font-size: 20px;
+            }
+            #topLeft div a{
+                color: white;
+            }
+            #topLeft div a:hover{
+                color: orange;
+            }
+
+        #topMiddle {
+            width: 200px;
+            line-height: 40px;
+            font-size: 20px;
+        }
+
+        #topRight div {
+            width: 50px;
+            line-height: 40px;
+        }
+        #topRight div img:hover{
+            color: orange;
+        }
+
         #menu {
             width: 100%;
             position: absolute;
@@ -126,7 +165,16 @@
     
     </style>
     <div id="top">
-        This is the place to insert the banner
+        <div id="topLeft">
+            <div><a href="#" style="text-decoration:none;">About</a></div>
+            <div><a href="#" style="text-decoration:none;">FAQ</a></div>
+        </div>
+        <div id="topMiddle">BOOK HOUSE</div>
+        <div id="topRight">
+            <div id="Notification"><img class="far fa-bell" height="40" width="40" onclick="hello()" /></div>
+            <div id="Cart"><img class="fas fa-shopping-cart" height="40" width="40" onclick="hello()" /></div>
+            <div id="SignIn"><img src="../Images/UIDesign/duck.jpg" height="40" width="40" onclick="hello()" /></div>
+        </div>
     </div>
     <div id="menu">
         <ul>
