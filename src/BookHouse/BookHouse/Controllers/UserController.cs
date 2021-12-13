@@ -74,7 +74,7 @@ namespace BookHouse.Controllers
         {
             return View();
         }
-        public ActionResult ProductInfor()
+        public ActionResult BookInfor()
         {
             return View();
         }
