@@ -69,7 +69,7 @@
 <div id="bookDescription" style="border-bottom: 1px solid darkseagreen;">
     <div id="bookDescriptionTop" style="display: flex; justify-content:space-between;">
         <div id="bookImage" style="justify-content:space-between; display:flex;">
-            @*        *@
+            <img height=50 width=40 src="../Images/Book/00000.jpg" />
             <div style="height:50px; width:50px;">Xem thêm 32 hình</div>
         </div>
         <div>
@@ -122,7 +122,7 @@
         </div>
     </div>
 </div>
-<script>
+@*<script>
     $(document).ready(function () {
         var obj = document.getElementById("bookImage");
         @foreach (DatabaseProvider.MyDB.Img u in Model.images)
@@ -130,4 +130,4 @@
             var tmp = "<img height=\"50\" width=\"40\" src=" + u.ImagePath + "/>";
         }
     });
-</script>
+</script>*@
