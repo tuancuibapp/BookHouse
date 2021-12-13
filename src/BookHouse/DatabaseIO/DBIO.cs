@@ -25,6 +25,25 @@ namespace DatabaseIO
                 "SELECT * FROM Img"
                 ).FirstOrDefault();
         }
-        
+        public Book GetObject_Book()
+        {
+            return mydb.Database.SqlQuery<Book>(
+                "SELECT * FROM Book"
+                ).FirstOrDefault();
+        }
+        public List<CommentBook> GetObject_CommentBook(string bid)
+        {
+            return mydb.Database.SqlQuery<CommentBook>(
+                "SELECT * FROM CommentBook WHERE BookID=@B",
+                new SqlParameter("@B", bid)
+                ).ToList();
+        }
+        public List<Img> GetObject_Image(string bid)
+        {
+            return mydb.Database.SqlQuery<Img>(
+                "SELECT * FROM Img WHERE BookID=@B",
+                new SqlParameter("@B", bid)
+                ).ToList();
+        }
     }
 }

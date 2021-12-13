@@ -12,6 +12,7 @@ namespace BookHouse.Controllers
 {
     public class UserController : Controller
     {
+        DBIO db = new DBIO();
         // GET: User    
         public ActionResult HomePage()
         {
@@ -25,7 +26,7 @@ namespace BookHouse.Controllers
                 },
 
                 rating = 4,
-                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+                //images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
             };
 
             ViewData["bestSellers"] = new List<BookInforUI>
@@ -76,7 +77,19 @@ namespace BookHouse.Controllers
         }
         public ActionResult BookInfor()
         {
-            return View();
+            BookInforUI u = new BookInforUI();
+            u.book = db.GetObject_Book();
+            u.comments = db.GetObject_CommentBook(u.book.BookID);
+            u.rating = 2;
+            u.sold = 35;
+            u.images = db.GetObject_Image(u.book.BookID);
+            if (u.book == null || u.images == null)
+                Response.Redirect("https://localhost:44339/User/Homepage");
+            foreach(Img tmp in u.images)
+            {
+                tmp.ImagePath = "../Images/Book/"+tmp.ImagePath;
+            }
+            return View(u);
         }
         public ActionResult OrderManaging()
         {

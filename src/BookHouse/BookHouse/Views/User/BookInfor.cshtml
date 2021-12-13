@@ -1,13 +1,15 @@
-﻿
+﻿@model DatabaseProvider.NewClassForUI.BookInforUI
+    
 @{
     ViewBag.Title = "BookInfor";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.FirstImage = "../Images/Book/" + Model.images[0].ImagePath;
 }
 <link href="~/Content/BookInfor.css" rel="stylesheet" />
 <div id="bookInfor">
-    <div id="bookInforLeft"><img src="../Images/Book/00000.jpg" height="350" width="300" /></div>
+    <div id="bookInforLeft"><img src=@Model.images[0].ImagePath height="350" width="300" /></div>
     <div id="bookInforRight">
-        <p>CHUYỆN CHÚ CHÓ TÊN LÀ TRUNG THÀNH</p>
+        <p>@Model.book.BookName</p>
         <div>
             <div>
                 <img class="fas fa-star" />
@@ -66,10 +68,8 @@
 </div>
 <div id="bookDescription" style="border-bottom: 1px solid darkseagreen;">
     <div id="bookDescriptionTop" style="display: flex; justify-content:space-between;">
-        <div style="justify-content:space-between; display:flex;">
-            <img height="50" width="40" src="../Images/Book/00000.jpg" />
-            <img height="50" width="40" src="../Images/Book/00000.jpg" />
-            <img height="50" width="40" src="../Images/Book/00000.jpg" />
+        <div id="bookImage" style="justify-content:space-between; display:flex;">
+            ///
             <div style="height:50px; width:50px;">Xem thêm 32 hình</div>
         </div>
         <div>
@@ -122,3 +122,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        var obj = document.getElementById("bookImage");
+        @foreach (DatabaseProvider.MyDB.Img u in Model.images)
+        {
+            var tmp = "<img height=\"50\" width=\"40\" src=" + u.ImagePath + "/>";
+            $("#bookImage").append(tmp);
+        }
+    });
+</script>
