@@ -26,7 +26,7 @@ namespace BookHouse.Controllers
                 },
 
                 rating = 4,
-                //images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
             };
 
             ViewData["bestSellers"] = new List<BookInforUI>
@@ -63,9 +63,58 @@ namespace BookHouse.Controllers
         {
             return View();
         }
-        public ActionResult SearchPage()
+        public ActionResult SearchPage(string Query, int page = 1)
         {
-            return View();
+            //create filters
+            Filters filters = new Filters
+            {
+                categories = new List<string> {
+                    "Tiểu thuyết", "Truyện ngắn", "Thơ", "Trinh thám", "Truyện tranh", "Lịch sử", "Triết học",
+                    "Kinh tế", "Tâm lý học", "Tham khảo", "Viễn tưởng" },
+
+                values = new List<bool> {
+                    false, false, false, false, false,
+                    false, false, false, false, false, false },
+
+                rating = 0,
+                sortInc = false,
+                sortDec = false,
+                priceRange = new List<int>{ -1, -1 },
+                query = Query
+            };
+
+            //here is for query the books from database using filters
+            BookInforUI yay = new BookInforUI
+            {
+                book = new Book
+                {
+                    BookName = "My life is not a joke, jokes have meaning.",
+                    BookID = "1",
+                    Price = 100000
+                },
+
+                rating = 4,
+                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+            };
+
+            List<BookInforUI> queryResult = new List<BookInforUI>
+            {yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay};
+
+            //get the info for the view
+            int pageSize = 20;
+            ViewData["Filters"] = filters;
+            ViewData["CurrentPage"] = page;
+
+            int NumPage = queryResult.Count / pageSize;
+            if (queryResult.Count % pageSize != 0)
+                NumPage++;
+            ViewData["NumPage"] = NumPage;
+            ViewData["Query"] = Query;
+
+            List<BookInforUI> searchData = queryResult.GetRange(pageSize * page, Math.Min(pageSize, queryResult.Count - pageSize * page));
+            return View(searchData);
         }
         public ActionResult FAQ()
         {
@@ -75,6 +124,7 @@ namespace BookHouse.Controllers
         {
             return View();
         }
+        /*
         public ActionResult BookInfor()
         {
             BookInforUI u = new BookInforUI();
@@ -91,6 +141,7 @@ namespace BookHouse.Controllers
             }
             return View(u);
         }
+        */
         public ActionResult OrderManaging()
         {
             return View();

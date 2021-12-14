@@ -1,0 +1,19 @@
+﻿@model DatabaseProvider.NewClassForUI.Filters
+@using System.Globalization
+
+<div class="filter-container">
+    <form action="/User/SearchPage?query=@Model.query">
+        <h3 class="filter-heading">Danh mục sản phẩm</h3>
+        @for (int i = 0; i < Model.categories.Count; ++i)
+        {
+            @Html.CheckBoxFor(m => m.values[i], new { @class = "filter-checkbox" });
+            <label> @Model.categories[i]</label>
+        }
+        <h3 class="filter-heading">Đánh giá</h3>
+        <h3 class="filter-heading">Khoảng giá</h3>
+        <h3 class="filter-heading">Thứ tự sắp xếp</h3>
+
+        <input type="submit" value="@Model.query">
+
+    </form>
+</div>

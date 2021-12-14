@@ -9,7 +9,30 @@
         z-index: 1;
     }
 </style>
+<link href="~/Content/HomePage.css" rel="stylesheet">
 <body id="HomePage">
-    <h2>HomePageee</h2>
+    <div>
+        @Html.Partial("_PartialHeading", "Sách bán chạy")
+
+        @Html.Partial("_PartialHomePage", ViewData["bestSellers"])
+    </div>
+
+    <div>
+        @Html.Partial("_PartialHeading", "Sách mới về")
+
+        @Html.Partial("_PartialHomePage", ViewData["newBooks"])
+    </div>
+
+    <div>
+        @Html.Partial("_PartialHeading", "Sách lịch sử")
+
+        @Html.Partial("_PartialHomePage", ViewData["History"])
+    </div>
+
+    <div>
+        @Html.Partial("_PartialHeading", "Sách kinh tế")
+
+        @Html.Partial("_PartialHomePage", ViewData["Economical"])
+    </div>
 </body>
 

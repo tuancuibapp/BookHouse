@@ -1,2 +1,33 @@
-﻿@model DatabaseProvider.NewClassForUI.BookInforUI
+﻿@model List<DatabaseProvider.NewClassForUI.BookInforUI>
+@using System.Globalization
 
+<div style="display: flex; justify-content: center;">
+@for (int i = 0; i < 5; ++i)
+{
+    <a class="partialIn4" href="">
+        <div class="partialIn4">
+
+            <div class="partialIn4Pic">
+                <img class="partialIn4Pic" src="@Model[i].images[0]">
+            </div>
+
+            <p class="partialIn4">@Model[i].book.BookName</p>
+
+            @for (float j = 0; j < 5; ++j){
+                if (j + 0.5 > Model[i].rating){
+                    <span class="fa fa-star unchecked"></span>
+                }
+                else{
+                    <span class="fa fa-star checked"></span>
+                }
+            }
+
+            @{CultureInfo CI = new CultureInfo("vi-VN");
+                string price_string = Model[i].book.Price.ToString("C0", CI);}
+            <p class="price-tag"> @price_string </p>
+
+        </div>
+    </a>
+}
+
+</div>
