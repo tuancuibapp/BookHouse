@@ -53,7 +53,9 @@ namespace BookHouse.Controllers
         }
         public ActionResult SignIn()
         {
-            return View();
+            FAQUI u = new FAQUI();
+            u = db.GetObject_FAQUI("something");
+            return View(u);
         }
         public ActionResult SignUp()
         {

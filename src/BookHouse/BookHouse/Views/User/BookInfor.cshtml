@@ -1,5 +1,5 @@
 ﻿@model DatabaseProvider.NewClassForUI.BookInforUI
-    
+
 @{
     ViewBag.Title = "BookInfor";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,35 +17,35 @@
                 <img class="fas fa-star" />
                 <img class="fas fa-star" />
                 <img class="fas fa-star" />
-                | Đã bán: 50
+                | Đã bán: @Model.sold
             </div>
         </div>
         <table>
             <tr>
                 <td>Mã sản phẩm:</td>
-                <th style="color: green;">123456789</th>
+                <th style="color: green;">@Model.book.BookID</th>
             </tr>
             <tr>
                 <td>Tác giả: </td>
-                <th style="color: green;">Vũ Ngọc Tuấn</th>
+                <th style="color: green;">@Model.book.AuthorName</th>
             </tr>
             <tr>
                 <td>Dịch giả: </td>
-                <th style="color: green;">Hoàng Nhụy</th>
-                <th style="background-color: darkgray; border-radius: 5px;">Giá bìa: 70.000VNĐ</th>
+                <th style="color: green;">@Model.book.PublishingCom</th>
+                <th style="background-color: darkgray; border-radius: 5px;">Giá bìa: @Model.book.Price VNĐ</th>
             </tr>
             <tr>
                 <td>Nhà xuất bản: </td>
                 <th style="color: green;">Hội nhà văn</th>
-                <td rowspan="2" style="color: white; background-color:forestgreen; border-radius:5px;">Giá BookHouse:<br />60.000VNĐ(Đã có VAT)</td>
+                <td rowspan="2" style="color: white; background-color:forestgreen; border-radius:5px;">Giá BookHouse:<br />@Model.book.Price VNĐ(Đã có VAT)</td>
             </tr>
             <tr>
                 <td>Ngày xuất bản: </td>
-                <th style="color: green;">26-10-2021</th>
+                <th style="color: green;">@Model.book.ReleaseDate</th>
             </tr>
             <tr>
                 <td>Số trang</td>
-                <th style="color: green;">100</th>
+                <th style="color: green;">@Model.book.NumOfPage</th>
                 <td>Số lượng:</td>
             </tr>
             <tr>
@@ -69,11 +69,26 @@
 <div id="bookDescription" style="border-bottom: 1px solid darkseagreen;">
     <div id="bookDescriptionTop" style="display: flex; justify-content:space-between;">
         <div id="bookImage" style="justify-content:space-between; display:flex;">
-            @Model.images[0]
-            <img height=50 width=40 src="../Images/Book/00000.jpg" />
-            <img height=50 width=40 src="../Images/Book/00000.jpg" />
-            <img height=50 width=40 src="../Images/Book/00000.jpg" />
-            <div style="height:50px; width:50px;">Xem thêm 32 hình</div>
+            @{ int remainBook = 0;}
+            @if (Model.images.Count() > 3)
+            {
+                remainBook = Model.images.Count() - 3;
+                for (int i = 0; i < 3; i++)
+                {
+                    <img height=50 width=40 src=@Model.images[i].ImagePath />
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Model.images.Count(); i++)
+                {
+                    <img height=50 width=40 src=@Model.images[i].ImagePath />
+                }
+            }
+            @if (remainBook != 0)
+            {
+                <div style="height:50px; width:50px;">Xem thêm @remainBook hình</div>
+            }
         </div>
         <div>
             <p style="background-color:darkseagreen; padding:10px; border-radius:5px;">GIỚI THIỆU SÁCH</p>
@@ -126,11 +141,11 @@
     </div>
 </div>
 @*<script>
-    $(document).ready(function () {
-        var obj = document.getElementById("bookImage");
-        @foreach (DatabaseProvider.MyDB.Img u in Model.images)
-        {
-            var tmp = "<img height=\"50\" width=\"40\" src=" + u.ImagePath + "/>";
-        }
-    });
-</script>*@
+        $(document).ready(function () {
+            var obj = document.getElementById("bookImage");
+            @foreach (DatabaseProvider.MyDB.Img u in Model.images)
+            {
+                var tmp = "<img height=\"50\" width=\"40\" src=" + u.ImagePath + "/>";
+            }
+        });
+    </script>*@

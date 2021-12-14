@@ -62,6 +62,7 @@
     <Compile Include="MyDB\OrderCartDetail.cs" />
     <Compile Include="MyDB\Rating.cs" />
     <Compile Include="NewClassForUI\BookInforUI.cs" />
+    <Compile Include="NewClassForUI\FAQUI.cs" />
     <Compile Include="NewClassForUI\Filters.cs" />
     <Compile Include="NewClassForUI\SearchingUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
