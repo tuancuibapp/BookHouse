@@ -67,14 +67,23 @@ img.partialIn4Pic {
     color: grey;
 }
 
-.filter-container {
+div.filter-container {
+    position: absolute;
+    left: 0;
     width: 20%;
     height: 100%;
-    border:solid 3px;
+    border: solid 3px;
     border-color: green;
 }
 
 .search-results-container 
 {
     width: calc(80% - 10px);
+    position: absolute;
+    right: 0;
+}
+
+body
+{
+    background-color: white;
 }

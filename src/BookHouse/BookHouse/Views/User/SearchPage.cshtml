@@ -6,41 +6,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/HomePage.css" rel="stylesheet">
+<link href="~/Content/SearchPage.css" rel="stylesheet">
+<body id="SearchPage">
 
-@Html.Partial("_PartialFilters", ViewData["Filters"])
+    @Html.Partial("_PartialFilters", ViewData["Filters"])
 
-<div class="search-results-container"> 
-<h2>Search result for: @ViewData["Query"]</h2>
+    <div class="search-results-container">
+        <h2>Search result for: @ViewData["Query"]</h2>
 
-@for (int i = 0; i < Model.Count; ++i)
-{
-    <a class="partialIn4" href="">
-        <div class="partialIn4">
+        @for (int i = 0; i < Model.Count; ++i)
+        {
+            <a class="partialIn4" href="">
+                <div class="partialIn4">
 
-            <div class="partialIn4Pic">
-                <img class="partialIn4Pic" src="@Model[i].images[0]">
-            </div>
+                    <div class="partialIn4Pic">
+                        <img class="partialIn4Pic" src="@Model[i].images[0]">
+                    </div>
 
-            <p class="partialIn4">@Model[i].book.BookName</p>
+                    <p class="partialIn4">@Model[i].book.BookName</p>
 
-            @for (float j = 0; j < 5; ++j)
-            {
-                if (j + 0.5 > Model[i].rating)
-                {
-                    <span class="fa fa-star unchecked"></span>
-                }
-                else
-                {
-                    <span class="fa fa-star checked"></span>
-                }
-            }
+                    @for (float j = 0; j < 5; ++j)
+                    {
+                        if (j + 0.5 > Model[i].rating)
+                        {
+                            <span class="fa fa-star unchecked"></span>
+                        }
+                        else
+                        {
+                            <span class="fa fa-star checked"></span>
+                        }
+                    }
 
-            @{CultureInfo CI = new CultureInfo("vi-VN");
-                string price_string = Model[i].book.Price.ToString("C0", CI);}
-            <p class="price-tag"> @price_string </p>
+                    @{CultureInfo CI = new CultureInfo("vi-VN");
+                        string price_string = Model[i].book.Price.ToString("C0", CI);}
+                    <p class="price-tag"> @price_string </p>
 
-        </div>
-    </a>
-}
-</div>
+                </div>
+            </a>
+        }
+    </div>
+</body>
