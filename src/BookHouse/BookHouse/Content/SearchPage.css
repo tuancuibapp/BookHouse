@@ -68,7 +68,7 @@ img.partialIn4Pic {
 }
 
 div.filter-container {
-    position: absolute;
+    position: relative;
     left: 0;
     width: 20%;
     height: 100%;
@@ -78,8 +78,9 @@ div.filter-container {
 
 .search-results-container 
 {
-    width: calc(80% - 10px);
-    position: absolute;
+    width: calc(80% - 20px);
+    height: 100%;
+    position: relative;
     right: 0;
 }
 
