@@ -45,5 +45,13 @@ namespace DatabaseIO
                 new SqlParameter("@B", bid)
                 ).ToList();
         }
+<<<<<<< Updated upstream
+=======
+        public FAQUI GetObject_FAQUI(string fid)
+        {
+            FAQUI u = new FAQUI();
+            return u;
+        }
+>>>>>>> Stashed changes
     }
 }
