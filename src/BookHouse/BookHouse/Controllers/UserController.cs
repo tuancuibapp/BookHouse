@@ -77,13 +77,53 @@ namespace BookHouse.Controllers
                     false, false, false, false, false, false },
 
                 rating = 0,
-                sortInc = false,
-                sortDec = false,
-                priceRange = new List<int>{ -1, -1 },
+                sortBy = "sold",
+                priceRange = new List<int>{ 0, 0},
                 query = Query
             };
 
             //here is for query the books from database using filters
+            BookInforUI yay = new BookInforUI
+            {
+                book = new Book
+                {
+                    BookName = "My life is not a joke, jokes have meaning.",
+                    BookID = "1",
+                    Price = 100000
+                },
+
+                rating = 4,
+                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+            };
+
+            List<BookInforUI> queryResult = new List<BookInforUI>
+            {yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay};
+
+            //get the info for the view
+            int pageSize = 20;
+            ViewData["Filters"] = filters;
+            ViewData["CurrentPage"] = page;
+
+            int NumPage = queryResult.Count / pageSize;
+            if (queryResult.Count % pageSize != 0)
+                NumPage++;
+            ViewData["NumPage"] = NumPage;
+            ViewData["Query"] = Query;
+
+            List<BookInforUI> searchData = queryResult.GetRange(pageSize * page, Math.Min(pageSize, queryResult.Count - pageSize * page));
+            return View(searchData);
+        }
+
+        [HttpPost]
+        public ActionResult SearchPage(string Query, Filters filters, int page = 1)
+        {
+            //here is for query the books from database using filters
+            filters.categories = new List<string> {
+                    "Tiểu thuyết", "Truyện ngắn", "Thơ", "Trinh thám", "Truyện tranh", "Lịch sử", "Triết học",
+                    "Kinh tế", "Tâm lý học", "Tham khảo", "Viễn tưởng" };
+
             BookInforUI yay = new BookInforUI
             {
                 book = new Book

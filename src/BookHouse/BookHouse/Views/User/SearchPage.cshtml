@@ -1,4 +1,4 @@
-﻿@Model List<DatabaseProvider.NewClassForUI.BookInforUI>
+﻿@model List<DatabaseProvider.NewClassForUI.BookInforUI>
 @using System.Globalization
 
 @{
@@ -12,7 +12,7 @@
     @Html.Partial("_PartialFilters", ViewData["Filters"])
 
     <div class="search-results-container">
-        <h2>Search result for: @ViewData["Query"]</h2>
+        <h2>Kết quả tìm kiếm theo từ khóa:   @ViewData["Query"]</h2>
 
         @for (int i = 0; i < Model.Count; ++i)
         {

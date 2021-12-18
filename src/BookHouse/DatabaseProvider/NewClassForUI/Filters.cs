@@ -12,8 +12,7 @@ namespace DatabaseProvider.NewClassForUI
         public List<bool> values { get; set; }
         public List<int> priceRange { get; set; }
         public float rating { get; set; }
-        public bool sortInc { get; set; }
-        public bool sortDec { get; set; }
+        public string sortBy { get; set; } // can be "sold", "decrease", "increase"
         public string query { get; set; }
         
     }

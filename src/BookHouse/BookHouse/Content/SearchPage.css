@@ -68,20 +68,28 @@ img.partialIn4Pic {
 }
 
 div.filter-container {
-    position: relative;
-    left: 0;
+
+    float:left;
     width: 20%;
     height: 100%;
-    border: solid 3px;
-    border-color: green;
+    padding-left:40px;
 }
 
 .search-results-container 
 {
-    width: calc(80% - 20px);
+    width: calc(80% - 10px);
     height: 100%;
-    position: relative;
-    right: 0;
+    float:right;
+    border-left: solid 4px;
+    border-left-color: green;
+}
+
+.price-input {
+    width: 50px;
+}
+
+.rating-input {
+    width: 50px;
 }
 
 body
