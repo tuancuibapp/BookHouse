@@ -1,0 +1,41 @@
+﻿@model DatabaseProvider.NewClassForUI.Filters
+@using System.Globalization
+
+<div class="filter-container">
+    <form action="/User/SearchPage?query=@Model.query" method="post">
+        <h3 class="filter-heading">Danh mục sản phẩm</h3>
+        @for (int i = 0; i < Model.categories.Count; ++i)
+        {
+            @Html.CheckBoxFor(m => m.values[i] ,new { @class = "filter-checkbox" });
+            <label class=" filter-label"> @Model.categories[i]</label>
+            <br />
+        }
+        <h3 class="filter-heading">Đánh giá</h3>
+        @Html.TextBoxFor(m => m.rating, new { @class = "rating-input"})
+
+    <label class=" filter-label">
+        /5 </label>
+        <span class="fa fa-star checked"></span>
+
+        <h3 class="filter-heading">Khoảng giá</h3>
+        @Html.TextBoxFor(m => m.priceRange[0], new { @class ="price-input" })
+        <label> tới </label>
+        @Html.TextBoxFor(m => m.priceRange[1], new { @class = "price-input" })
+
+
+        <h3 class="filter-heading">Thứ tự sắp xếp</h3>
+        @Html.RadioButtonFor(m => m.sortBy, "sold")
+        <label class=" filter-label"> Lượt mua </label>
+        <br />
+        @Html.RadioButtonFor(m => m.sortBy, "increase")
+        <label class=" filter-label"> Giá tăng dần </label>
+        <br />
+        @Html.RadioButtonFor(m => m.sortBy, "decrease")
+        <label> Giá giảm dần </label>
+        <br />
+        <br />
+        <br />
+        <input type="submit" value="Lọc" class= "submit-button">
+
+</form>
+</div>

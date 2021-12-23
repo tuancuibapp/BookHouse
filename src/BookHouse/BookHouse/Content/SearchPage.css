@@ -1,0 +1,115 @@
+﻿
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+div.partialIn4 {
+    float: left;
+    justify-content: center;
+    width: 150px;
+    height: 270px;
+    word-wrap: break-word;
+    line-height: 90%;
+    margin-left: 20px;
+    margin-top: 20px
+}
+
+p.partialIn4 {
+    font-size: 13.5px;
+    color: green;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 3px;
+}
+
+
+a.partialIn4 {
+    width: 200px;
+}
+
+.price-tag {
+    margin-top: 5px;
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+}
+
+div.partialIn4Pic {
+    width: 100%;
+    height: 70%;
+    margin: 0 auto;
+    margin-bottom: 0px;
+}
+
+img.partialIn4Pic {
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.checked {
+    color: orange;
+}
+
+.unchecked {
+    color: grey;
+}
+
+div.filter-container {
+    float: left;
+    width: 20%;
+    height: 100%;
+    padding-left: 10px;
+}
+
+.search-results-container {
+    width: calc(80% - 20px);
+    float: right;
+    border-left: solid 4px;
+    border-left-color: green;
+}
+
+.price-input {
+    width: 50px;
+}
+
+.rating-input {
+    width: 50px;
+}
+
+.paging {
+    display: inline-block;
+}
+
+.paging {
+    color: green;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.currentPage {
+    font-weight: bolder;
+    color: orangered;
+}
+
+.paging-container {
+    position: relative;
+    bottom: 20px;
+    width: 100%;
+}
+
+body {
+    background-color: white;
+}

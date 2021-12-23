@@ -146,6 +146,9 @@
     <Content Include="Content\Layout.css" />
     <Content Include="Content\SignIn.css" />
     <Content Include="Content\SignUp.css" />
+    <Content Include="Content\HomePage.css" />
+    <Content Include="Content\Layout.css" />
+    <Content Include="Content\SearchPage.css" />
     <Content Include="Content\_Layout.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -193,6 +196,9 @@
     <Content Include="Views\User\BookInfor.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_PartialHeading.cshtml" />
+    <Content Include="Views\Shared\_PartialFilters.cshtml" />
+    <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -49,12 +49,12 @@
             <li><a href="#">Sách mới về</a></li>
             <li><a href="#">Sách phổ biến</a></li>
             <li>
-                <div class="search-box">
-                    <input class="search-txt" type="text" name="" placeholder="Type of search" />
+                <form class="search-box" action="@Url.Action("SearchPage", "User")">
+                    <input class="search-txt" type="text" name="query" placeholder="Type of search" />
                     <a class="search-btn" href="#">
                         <i class="fas fa-search"></i>
                     </a>
-                </div>
+                </form>
             </li>
             <li></li>
         </ul>

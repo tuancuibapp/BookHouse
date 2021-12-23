@@ -1,8 +1,92 @@
-﻿
+﻿@model List<DatabaseProvider.NewClassForUI.BookInforUI>
+@using System.Globalization
+
 @{
     ViewBag.Title = "SearchPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SearchPage</h2>
+<link href="~/Content/SearchPage.css" rel="stylesheet">
+<body id="SearchPage">
 
+    @Html.Partial("_PartialFilters", ViewData["Filters"])
+
+    <div class="search-results-container">
+        <h2>Kết quả tìm kiếm theo từ khóa:   @ViewData["Query"]</h2>
+
+        @for (int i = 0; i < Model.Count; ++i)
+        {
+            <a class="partialIn4" href="">
+                <div class="partialIn4">
+
+                    <div class="partialIn4Pic">
+                        <img class="partialIn4Pic" src="@Model[i].images[0]">
+                    </div>
+
+                    <p class="partialIn4">@Model[i].book.BookName</p>
+
+                    @for (float j = 0; j < 5; ++j)
+                    {
+                        if (j + 0.5 > Model[i].rating)
+                        {
+                            <span class="fa fa-star unchecked"></span>
+                        }
+                        else
+                        {
+                            <span class="fa fa-star checked"></span>
+                        }
+                    }
+
+                    @{CultureInfo CI = new CultureInfo("vi-VN");
+                        string price_string = Model[i].book.Price.ToString("C0", CI);}
+                    <p class="price-tag"> @price_string </p>
+
+                </div>
+            </a>
+        }
+
+        <br/>
+        <br/>
+
+        <div class="paging-container">
+
+            @if (ViewBag.currentPage <= 3)
+            {
+                for (int i = 1; i < ViewBag.currentPage; ++i)
+                {
+                    <a href="#" class=" paging"> @i </a>
+                }
+            }
+            else
+            {
+                <a href="#"> &laquo; </a>
+                for (int i = ViewBag.currentPage - 2; i < ViewBag.currentPage; ++i)
+                {
+
+                    <a href="#" class=" paging"> @i </a>
+                }
+            }
+
+            <a href="#" class=" paging currentPage"> @ViewBag.currentPage </a>
+
+            @if (ViewBag.numPage - ViewBag.currentPage <= 2)
+            {
+                for (int i = ViewBag.currentPage + 1; i <= ViewBag.numPage; ++i)
+                {
+                    <a href="#" class="paging"> @i </a>
+                }
+            }
+            else
+            {
+                for (int i = ViewBag.currentPage + 1; i <= ViewBag.currentPage + 2; ++i)
+                {
+                    <a href="#" class="paging"> @i </a>
+                }
+                <a href="#">&raquo;</a>
+            }
+        </div>
+
+    </div>
+
+
+</body>
