@@ -22,8 +22,8 @@ div.partialIn4 {
     height: 270px;
     word-wrap: break-word;
     line-height: 90%;
-    margin: 3px;
-    margin-top: 20px;
+    margin-left: 20px;
+    margin-top: 20px
 }
 
 p.partialIn4 {
@@ -68,18 +68,15 @@ img.partialIn4Pic {
 }
 
 div.filter-container {
-
-    float:left;
+    float: left;
     width: 20%;
     height: 100%;
-    padding-left:40px;
+    padding-left: 10px;
 }
 
-.search-results-container 
-{
-    width: calc(80% - 10px);
-    height: 100%;
-    float:right;
+.search-results-container {
+    width: calc(80% - 20px);
+    float: right;
     border-left: solid 4px;
     border-left-color: green;
 }
@@ -92,7 +89,27 @@ div.filter-container {
     width: 50px;
 }
 
-body
-{
+.paging {
+    display: inline-block;
+}
+
+.paging {
+    color: green;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.currentPage {
+    font-weight: bolder;
+    color: orangered;
+}
+
+.paging-container {
+    position: relative;
+    bottom: 20px;
+    width: 100%;
+}
+
+body {
     background-color: white;
 }

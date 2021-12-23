@@ -99,17 +99,25 @@ namespace BookHouse.Controllers
             List<BookInforUI> queryResult = new List<BookInforUI>
             {yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
             yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
+            yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay,
             yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay, yay};
 
             //get the info for the view
             int pageSize = 20;
             ViewData["Filters"] = filters;
-            ViewData["CurrentPage"] = page;
+            ViewBag.currentPage = page;
 
             int NumPage = queryResult.Count / pageSize;
             if (queryResult.Count % pageSize != 0)
                 NumPage++;
-            ViewData["NumPage"] = NumPage;
+            ViewBag.numPage = NumPage;
             ViewData["Query"] = Query;
 
             List<BookInforUI> searchData = queryResult.GetRange(pageSize * page, Math.Min(pageSize, queryResult.Count - pageSize * page));

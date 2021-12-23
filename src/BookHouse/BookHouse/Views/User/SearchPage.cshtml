@@ -44,5 +44,49 @@
                 </div>
             </a>
         }
+
+        <br/>
+        <br/>
+
+        <div class="paging-container">
+
+            @if (ViewBag.currentPage <= 3)
+            {
+                for (int i = 1; i < ViewBag.currentPage; ++i)
+                {
+                    <a href="#" class=" paging"> @i </a>
+                }
+            }
+            else
+            {
+                <a href="#"> &laquo; </a>
+                for (int i = ViewBag.currentPage - 2; i < ViewBag.currentPage; ++i)
+                {
+
+                    <a href="#" class=" paging"> @i </a>
+                }
+            }
+
+            <a href="#" class=" paging currentPage"> @ViewBag.currentPage </a>
+
+            @if (ViewBag.numPage - ViewBag.currentPage <= 2)
+            {
+                for (int i = ViewBag.currentPage + 1; i <= ViewBag.numPage; ++i)
+                {
+                    <a href="#" class="paging"> @i </a>
+                }
+            }
+            else
+            {
+                for (int i = ViewBag.currentPage + 1; i <= ViewBag.currentPage + 2; ++i)
+                {
+                    <a href="#" class="paging"> @i </a>
+                }
+                <a href="#">&raquo;</a>
+            }
+        </div>
+
     </div>
+
+
 </body>
