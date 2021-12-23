@@ -24,7 +24,7 @@ namespace BookHouse.Controllers
                     BookID = "1",
                     Price = 100000
                 },
-
+                
                 rating = 4,
                 //images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
             };
@@ -53,13 +53,63 @@ namespace BookHouse.Controllers
         }
         public ActionResult SignIn()
         {
-            FAQUI u = new FAQUI();
-            u = db.GetObject_FAQUI("something");
-            return View(u);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SignIn(FormCollection data)
+        {
+            string pN = data["pN"];
+            string p = data["p"];
+            JsonResult jr = new JsonResult();
+            if(pN == "123" && p == "a")
+            {
+                Session["user"] = new Customer();
+                jr.Data = new
+                {
+                    status = "OK"
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
         }
         public ActionResult SignUp()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult SignUp(FormCollection data)
+        {
+            string fN = data["fN"];
+            string nN = data["nN"];
+            string bD = data["bD"];
+            string s = data["s"];
+            string e = data["e"];
+            string a = data["a"];
+            string pN = data["pN"];
+            string p = data["p"];
+            string rP = data["rP"];
+            JsonResult jr = new JsonResult();
+            if (e != "123" && pN == "1")
+            {
+                jr.Data = new
+                {
+                    status = "OK"
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
         }
         public ActionResult _Profile()
         {
@@ -108,6 +158,82 @@ namespace BookHouse.Controllers
         public ActionResult OrderConfirm()
         {
             return View();
+        }
+        public ActionResult ChangePassword()
+        {
+            if (Session["user"] == null)
+                Response.Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+            return View();
+        }
+        [HttpPost]
+        public JsonResult ChangePassword(FormCollection data)
+        {
+            string pN = data["pN"];
+            string oP = data["oP"];
+            string nP = data["nP"];
+            string rNP = data["rNP"];
+            JsonResult jr = new JsonResult();
+            /*Customer u = (Customer)Session["user"];
+            if(u != null && u.CustomerPhone == pN && u.Password == oP)
+            {
+                jr.Data = new
+                {
+                    status = "OK"
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }*/
+            if (pN == "123" && oP == "a")
+            {
+                jr.Data = new
+                {
+                    status = "OK"
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ForgotPassword(string ePN ="")
+        {
+            /*if (Session["user"] == null)
+               RedirectToAction("HomePage");*/
+            ViewBag.ePN = ePN;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(FormCollection data)
+        {
+            string ePN = data["ePN"];
+            string otpC = data["otpC"];
+            string nP = data["nP"];
+            string rNP = data["rNP"];
+            JsonResult jr = new JsonResult();
+            if (ePN == "123" && otpC == "1")
+            {
+                jr.Data = new
+                {
+                    status = "OK"
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
         }
     }
 }

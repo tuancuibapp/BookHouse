@@ -3,6 +3,199 @@
     ViewBag.Title = "SignUp";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/SignUp.css" rel="stylesheet" />
 
-<h2>SignUp</h2>
-
+<div id="body" style="display: flex;" onclick="body_click()">
+    <div style="width: 15%; height: 100%;">
+        <p style="display: block; font-size: 20px; height: 20%; "><b>ĐĂNG KÝ</b></p>
+        <img src="../Images/UIDesign/gif01.gif" style="padding-top: 10%;" height="100%" width="100%">
+    </div>
+    <div style="width: 80%; display: flex; justify-content: space-around;flex-direction: column; align-items: center;">
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Họ và tên: </label>
+            <input id="fullName" type="text" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Nickname: </label>
+            <input id="nickName" type="text" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Ngày sinh: </label>
+            Ngày: <input id="day" type="text" class="birthday" style="padding: 5px 5px;" onkeypress="prevent_non_numerical_input(event), check_length_day(event)" onkeyup="check_date_day()">
+            Tháng: <input id="month" type="text" class="birthday" style="padding: 5px 5px;" onkeypress="prevent_non_numerical_input(event), check_length_month(event)" onkeyup="check_date_month()">
+            Năm: <input id="year" type="text" class="birthday" style="padding: 5px 5px; width:30px;" onkeypress="prevent_non_numerical_input(event), check_length_year(event)" onkeyup="check_date_year()">
+        </div>
+        <div class="margin">
+            <label style="width: 130px; float: left; padding: 5px 20px 5px 0px;">Giới tính:</label>
+            <div id="male" class="input" style="float: left; width: 90px; padding: 5px 10px; margin-right: 20px;" onclick="set_male()">Nam</div>
+            <div id="female" class="input" style="float: left; width: 90px; padding: 5px 10px; background-color: green;" onclick="set_female()">Nữ</div>
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Email: </label>
+            <input id="email" type="email" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Địa chỉ: </label>
+            <input id="address" type="text" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Số điện thoại: </label>
+            <input id="phoneNumber" type="tel" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Mật khẩu: </label>
+            <input id="password" type="password" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="margin">
+            <label style="display: inline-block; width: 150px;">Xác nhận mật khẩu: </label>
+            <input id="repeatPassword" type="password" class="input" style="padding: 5px 20px;">
+        </div>
+        <div class="btn" style="margin:20px 0px;" onclick="sign_up()">Đăng ký</div>
+        <div>
+            <div style="display: flex;align-items: center;">
+                Bạn đã có tài khoản? Hãy
+                <div class="btn" onclick="sign_in()">Đăng Nhập</div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 15%; height: 100%;">
+        <img src="../Images/UIDesign/gif01.gif" style="padding-top: 50%;" height="100%" width="100%">
+    </div>
+</div>
+<div id="ms" style="color: red;"></div>
+<script>
+    function body_click() {
+        $("#ms").html('');
+    }
+    function check_length_day(e) {
+        var d = $("#day").val();
+        if (d.length > 1) {
+            e.preventDefault();
+            $("#ms").html('Chúng ta chỉ có tối đa 31 ngày!');
+        } else { $("#ms").html(''); }
+    }
+    function check_length_month(e) {
+        var m = $("#month").val();
+        if (m.length > 1) {
+            e.preventDefault();
+            $("#ms").html('Chúng ta chỉ có 12 tháng!');
+        } else { $("#ms").html(''); }
+    }
+    function check_length_year(e) {
+        var y = $("#year").val();
+        if (y.length > 3) {
+            e.preventDefault();
+            $("#ms").html('Tôi đang tự hỏi lúc bạn nhập đươc 5 con số thì tôi đang ở đâu!');
+        } else { $("#ms").html(''); }
+    }
+    function check_date_day() {
+        var d = $("#day").val();
+        if (parseInt(d) > 31) {
+            $("#ms").html('Ngày không thể lớn hơn 31!');
+            $("#day").val(d[0]);
+        } else if (parseInt(d) == 0 && d.length == 2) {
+            $("#ms").html('Không có ngày số 0 trên đời!');
+        } else if (d.length < 2) { $("#ms").html(''); }
+    }
+    function check_date_month() {
+        var m = $("#month").val();
+        if (parseInt(m) > 12) {
+            $("#ms").html('Tháng không thể lớn hơn 12!');
+            $("#month").val(m[0]);
+        } else if (parseInt(d) == 0 && d.length == 2) {
+            $("#ms").html('Không có tháng số 0 trên đời!');
+        } else if (m.length < 2) { $("#ms").html(''); }
+    }
+    function check_date_year() {
+        if ($("#year").val().length < 4)
+            $("#ms").html('');
+    }
+    function set_male() {
+        $("#male").css("background-color", "green");
+        $("#female").css("background-color", "darkseagreen");
+    }
+    function set_female() {
+        $("#male").css("background-color", "darkseagreen");
+        $("#female").css("background-color", "green");
+    }
+    var IsRunning = false;
+    function sign_up() {
+        if (!IsRunning) {
+            IsRunning = true;
+            var fN = $("#fullName").val();
+            var nN = $("#nickName").val();
+            var bD = $("#day").val() + '/' + $("#month").val() + '/' + $("#year").val();
+            var s = $("#male").css("background-color");
+            if (s.match("0, 128, 0"))
+                s = "male";
+            else
+                s = "female";
+            var e = $("#email").val();
+            var a = $("#address").val();
+            var pN = $("#phoneNumber").val();
+            var p = $("#password").val();
+            var rP = $("#repeatPassword").val();
+            console.log("fN: " + fN);
+            console.log("nN:" + nN);
+            console.log("bD:" + bD);
+            console.log("s: " + s);
+            console.log("e:" + e);
+            console.log("a:" + a);
+            console.log("pN: " + pN);
+            console.log("p:" + p);
+            console.log("rP: " + rP);
+            if (fN == '' || nN == '' || bD == '' || s == '' || e == '' || a == '' || pN == '' || p == ''|| rP == '') {
+                $('#ms').html("Vui lòng nhập đầy đủ thông tin!");
+                IsRunning = false;
+            }
+            else if (p != rP) {
+                $('#ms').html("Mật khẩu và nhập lại không giống nhau!");
+                IsRunning = false;
+            }
+            else {
+                var form = new FormData();
+                form.append("fN", fN);
+                form.append("nN", nN);
+                form.append("bD", bD);
+                form.append("s", s);
+                form.append("e", e);
+                form.append("a", a);
+                form.append("pN", pN);
+                form.append("p", p);
+                form.append("rP", rP);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", domain + '/User/SignUp', true);
+                xhr.timeout = 30000;
+                xhr.ontimeout = function () {
+                    $("#ms").html("Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!");
+                    IsRunning = false;
+                }
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var r = xhr.responseText;
+                        var j = JSON.parse(r);
+                        if (j.Data.status == "OK") {
+                            $("#body").html("<h1>Bạn đã đăng ký thành công!</h1>");
+                            $("#body").css("position", "fixed");
+                            $("#body").css("top", "50%");
+                            $("#body").css("left", "50%");
+                            $("#body").css("transform", "translate(-50%,-50%)");
+                            $("#body").css("color", "orange");
+                            setTimeout(function () {
+                                window.location = "/user/homepage";
+                            }, 2000);
+                        }
+                        else
+                            $('#ms').html("Email hoặc số điện thoại đã tồn tại trong hệ thống!");
+                        IsRunning = false;
+                    }
+                }
+                xhr.send(form);
+                console.log("send");
+            }
+        }
+    }
+    function sign_in() {
+        window.location = '/user/signin';
+    }
+</script>

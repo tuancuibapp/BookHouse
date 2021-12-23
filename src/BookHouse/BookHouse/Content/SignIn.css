@@ -1,0 +1,36 @@
+﻿body {
+    font-weight: bold;
+}
+
+.btn {
+    background-color: green;
+    border-radius: 30px;
+    color: white;
+    width: fit-content;
+    padding: 5px 30px;
+    border: 2px solid white;
+}
+    .btn:hover {
+        border: 2px solid greenyellow;
+        cursor: pointer;
+    }
+
+.input {
+    background-color: darkseagreen;
+    border-radius: 5px;
+    border: 0px;
+    border: 2px solid white;
+}
+    .input:hover {
+        border: 2px solid greenyellow;
+    }
+
+#box {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid green;
+    padding: 5px 5px;
+}

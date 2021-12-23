@@ -49,7 +49,7 @@ namespace DatabaseIO
         {
             var huhu = mydb.Database.SqlQuery<FAQUI>("EXEC tmp");
             FAQUI hhe = new FAQUI();
-            return huhu; 
+            return hhe; 
         }
     }
 }
