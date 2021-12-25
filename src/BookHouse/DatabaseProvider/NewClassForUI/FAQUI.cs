@@ -10,6 +10,5 @@ namespace DatabaseProvider.NewClassForUI
     public class FAQUI
     {
         public List<FAQ> faqs { get; set; }
-        public Admin AdminUser { get; set; }
     }
 }

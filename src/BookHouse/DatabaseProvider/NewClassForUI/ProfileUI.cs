@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DatabaseProvider.MyDB;
 namespace DatabaseProvider.NewClassForUI
 {
-    class ProfileUI
+    public class ProfileUI
     {
         public Customer customer { get; set; }
         public List<OrderCart> order { get; set; }

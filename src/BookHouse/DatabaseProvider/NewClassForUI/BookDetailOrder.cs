@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DatabaseProvider.MyDB;
 namespace DatabaseProvider.NewClassForUI
 {
-    class BookDetailOrder
+    public class BookDetailOrder
     {
         public Book book { get; set; }
         public int number { get; set; }

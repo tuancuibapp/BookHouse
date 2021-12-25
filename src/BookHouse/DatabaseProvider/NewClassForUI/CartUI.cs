@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DatabaseProvider.MyDB;
 namespace DatabaseProvider.NewClassForUI
 {
-    class CartUI
+    public class CartUI
     {
         public string bookName { get; set; }
         public int quantity { get; set; }
