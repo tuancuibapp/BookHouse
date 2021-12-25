@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "BookInfor";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.FirstImage = "../Images/Book/" + Model.images[0].ImagePath;
+    ViewBag.FirstImage = "../Images/Book/" + Model.images[0];
 }
 <link href="~/Content/BookInfor.css" rel="stylesheet" />
 <div id="bookInfor">
-    <div id="bookInforLeft"><img src=@Model.images[0].ImagePath height="350" width="300" /></div>
+    <div id="bookInforLeft"><img src=@Model.images[0] height="350" width="300" /></div>
     <div id="bookInforRight">
         <p>@Model.book.BookName</p>
         <div>
@@ -75,14 +75,14 @@
                 remainBook = Model.images.Count() - 3;
                 for (int i = 0; i < 3; i++)
                 {
-                    <img height=50 width=40 src=@Model.images[i].ImagePath />
+                    <img height=50 width=40 src=@Model.images[i] />
                 }
             }
             else
             {
                 for (int i = 0; i < Model.images.Count(); i++)
                 {
-                    <img height=50 width=40 src=@Model.images[i].ImagePath />
+                    <img height=50 width=40 src=@Model.images[i] />
                 }
             }
             @if (remainBook != 0)

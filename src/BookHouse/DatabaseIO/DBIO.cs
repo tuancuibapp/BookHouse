@@ -45,11 +45,12 @@ namespace DatabaseIO
                 new SqlParameter("@B", bid)
                 ).ToList();
 
-        public FAQUI GetObject_FAQUI(string fid)
-        {
-            var huhu = mydb.Database.SqlQuery<FAQUI>("EXEC tmp");
-            FAQUI hhe = new FAQUI();
-            return hhe; 
+            /*public FAQUI GetObject_FAQUI(string fid)
+            {
+                var huhu = mydb.Database.SqlQuery<FAQUI>("EXEC tmp");
+                FAQUI hhe = new FAQUI();
+                return hhe; 
+            }*/
         }
     }
 }

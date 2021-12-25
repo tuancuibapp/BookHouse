@@ -51,6 +51,11 @@ namespace BookHouse.Controllers
 
             return View();
         }
+        public ActionResult BookInfor()
+        {
+            BookInforUI u = new BookInforUI();
+            return View(new BookInforUI());
+        }
         public ActionResult SignIn()
         {
             return View();
