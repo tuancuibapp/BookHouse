@@ -128,7 +128,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -199,6 +198,7 @@
     <Content Include="Views\Shared\_PartialHeading.cshtml" />
     <Content Include="Views\Shared\_PartialFilters.cshtml" />
     <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
+    <Content Include="Views\User\SignInn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
