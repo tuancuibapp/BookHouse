@@ -9,13 +9,16 @@
         z-index: 1;
     }
 </style>
-<link href="~/Content/HomePage.css" rel="stylesheet">
+<link href="~/Content/HomePage.css" rel="stylesheet" />
 <body id="HomePage">
     <div>
         @Html.Partial("_PartialHeading", "Sách bán chạy")
 
         @Html.Partial("_PartialHomePage", ViewData["bestSellers"])
     </div>
+    <div class="btn" onclick="sign_out()">Tìm lại mật khẩu</div>
+    <div id="ms" style="color:red;">kkk</div>
+    <div class="btn" onclick="sign_in()">SignIn</div>
 
     <div>
         @Html.Partial("_PartialHeading", "Sách mới về")
@@ -36,6 +39,24 @@
     </div>
 </body>
 <script>
-    console.log("voi noi");
+    function sign_out() {
+        var form = new FormData();
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", domain + '/User/SignOut', true);
+        xhr.timeout = 30000;
+        xhr.ontimeout = function () {
+            $("#ms").html('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+            IsRunning = false;
+        }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                $("#ms").html('Bạn đã đăng xuất!');
+            }
+        }
+        xhr.send(form);
+    }
+    function sign_in() {
+        window.location = "/user/signin";
+    }
 </script>
 

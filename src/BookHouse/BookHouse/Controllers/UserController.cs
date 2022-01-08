@@ -14,6 +14,13 @@ namespace BookHouse.Controllers
     {
         DBIO db = new DBIO();
         // GET: User    
+        [HttpPost]
+        public ActionResult SignOut(FormCollection data)
+        {
+            JsonResult jr = new JsonResult();
+            Session["user"] = null;
+            return Json(jr, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult HomePage()
         {
             //query for the books -_-
@@ -56,22 +63,24 @@ namespace BookHouse.Controllers
             BookInforUI u = new BookInforUI();
             return View(new BookInforUI());
         }
-        public ActionResult SignIn()
+        public ActionResult SignInn()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult SignIn(FormCollection data)
+        public JsonResult SignInn(FormCollection data)
         {
             string pN = data["pN"];
             string p = data["p"];
             JsonResult jr = new JsonResult();
-            if(pN == "123" && p == "a")
+            Customer u = db.GetObject_Customer(pN);
+            if (u != null && u.Password.Contains(p))
             {
                 Session["user"] = new Customer();
                 jr.Data = new
                 {
-                    status = "OK"
+                    status = "OK",
+                    tmp = u.CustomerName
                 };
             }
             else
@@ -316,7 +325,7 @@ namespace BookHouse.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ForgotPassword(FormCollection data)
+        public JsonResult ForgotPassword(FormCollection data)
         {
             string ePN = data["ePN"];
             string otpC = data["otpC"];

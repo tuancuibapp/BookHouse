@@ -12,6 +12,11 @@ namespace DatabaseIO
     public class DBIO
     {
         MyDB mydb = new MyDB();
+
+        public Customer GetObject_Customer(string phone)
+        {
+            return mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerPhone = @phone", new SqlParameter("@phone", phone)).FirstOrDefault();
+        }
         public Img GetObject_User()
         {
             /*string SQL = "SELECT * FROM TVLT_USers WHERE Uid = '"+uid+"' AND Pwd='" + pass + "'";

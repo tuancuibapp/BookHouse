@@ -178,7 +178,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\Menu\MainMenu.cshtml" />
     <Content Include="Views\Menu\SubMenu.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
@@ -199,6 +198,8 @@
     <Content Include="Views\Shared\_PartialHeading.cshtml" />
     <Content Include="Views\Shared\_PartialFilters.cshtml" />
     <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
+    <Content Include="Views\User\tmp.cshtml" />
+    <Content Include="Views\User\SignInn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

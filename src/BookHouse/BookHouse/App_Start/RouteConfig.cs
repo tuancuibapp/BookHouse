@@ -15,15 +15,10 @@ namespace BookHouse
 
             routes.MapRoute(
                 name: "Default",
-                url: "User/HomePage",
-                defaults: new { controller = "User", action = "HomePage", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "Default1",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "User", action = "HomePage", id = UrlParameter.Optional }
             );
+
         }
     }
 }
