@@ -12,7 +12,7 @@ namespace DatabaseProvider.NewClassForUI
         public string category { get; set; }
         public float rating { get; set; }
         public List<CommentBook> comments { get; set; }
-        public List<string> images { get; set; }
+        public string images { get; set; }
         public int sold { get; set; }
     }
 }
