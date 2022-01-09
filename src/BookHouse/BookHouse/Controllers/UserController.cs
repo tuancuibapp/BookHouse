@@ -225,7 +225,9 @@ namespace BookHouse.Controllers
         }
         public ActionResult FAQ()
         {
-            return View();
+            Book book = db.GetObject_Book();
+
+            return View(book);
         }
         public ActionResult Cart()
         {

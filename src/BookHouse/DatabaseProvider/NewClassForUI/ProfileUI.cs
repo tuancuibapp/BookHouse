@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseProvider.MyDB;
-
 namespace DatabaseProvider.NewClassForUI
 {
-    public class FAQUI
+    public class ProfileUI
     {
-        public List<FAQ> faqs { get; set; }
+        public Customer customer { get; set; }
+        public List<OrderCart> order { get; set; }
     }
 }
