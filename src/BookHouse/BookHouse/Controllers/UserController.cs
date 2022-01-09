@@ -198,6 +198,11 @@ namespace BookHouse.Controllers
         {
             return View();
         }
+        public ActionResult DetailOrder()
+        {
+
+            return View();
+        }
         public ActionResult Rating()
         {
             return View();

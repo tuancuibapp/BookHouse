@@ -1,8 +1,38 @@
-﻿
+﻿@model DatabaseProvider.NewClassForUI.DetailOrderUI
+@using System.Globalization
 @{
     ViewBag.Title = "OrderConfirm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OrderConfirm</h2>
+<h2>XÁC NHẬN ĐƠN HÀNG</h2>
+@{CultureInfo CI = new CultureInfo("vi-VN"); }
+    <table>
+        <tr>
+            <th></th>
+            <th>Đơn hàng</th>
+            <th>Tổng tiền</th>
+            <th>Tiền ship</th>
+            <th>Phương thức thanh toán</th>
+        </tr>
 
+        <tr>
+            <th><img src="../Images/UIDesign/order.png"></th>
+            <th>
+                <p class=" order-detail">Mã đơn hàng: @Model.order.OrderCartID</p>
+                <br />
+                <a href="">Chi tiết đơn hàng</a>
+            </th>
+            <th>
+                @{string price_string = Model.order.TotalPrice.ToString("C0", CI);}
+                 @price_string
+            </th>
+            <th>
+                @{ price_string = Model.order.DeliveryCharge.ToString("C0", CI);}
+                @price_string
+            </th>
+            <th>
+                @Model.order.DeliveryMethod
+            </th>
+        </tr>
+    </table>
