@@ -10,5 +10,6 @@ namespace DatabaseProvider.NewClassForUI
     {
         public OrderCart order { get; set; }
         public Customer customer { get; set; }
+        public List<BookDetailOrder> bookDetailOrder { get; set; }
     }
 }

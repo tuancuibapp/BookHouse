@@ -2,7 +2,9 @@
 using DatabaseProvider.NewClassForUI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,50 +15,44 @@ namespace DatabaseIO
     {
         MyDB mydb = new MyDB();
 
-        public Customer GetObject_Customer(string phone)
+        public Customer GetObject_User(string uid)
         {
-            return mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerPhone = @phone", new SqlParameter("@phone", phone)).FirstOrDefault();
+            return mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerPhone = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
         }
 
-        public Img GetObject_User()
+        public BookInforUI GetObject_BookInforUI(string bid)
         {
-            /*string SQL = "SELECT * FROM TVLT_USers WHERE Uid = '"+uid+"' AND Pwd='" + pass + "'";
-            return mydb.Database.SqlQuery<TVLT_Users>(SQL).FirstOrDefault();*/
-            /*return mydb.Database.SqlQuery<Book>(
-                "SELECT * FROM Img",
-                new SqlParameter("@U", uid),
-                new SqlParameter("@P", pass)
-                ).FirstOrDefault();*/
-            return mydb.Database.SqlQuery<Img>(
-                "SELECT * FROM Img"
-                ).FirstOrDefault();
+            BookInforUI bookInforUI = new BookInforUI();
+            DataTable retVal = new DataTable();
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BookInfor(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
+            bookInforUI.book.BookID = bid;
+            bookInforUI.book.BookName = retVal.Rows[1]["BookName"].ToString();
+            bookInforUI.book.AuthorName = retVal.Rows[1]["AuthorName"].ToString();
+            bookInforUI.book.Description = retVal.Rows[1]["Description"].ToString();
+            bookInforUI.book.Price = int.Parse(retVal.Rows[1]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.book.Stock = short.Parse(retVal.Rows[1]["Stock"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.book.NumOfPage = short.Parse(retVal.Rows[1]["NumOfPage"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.book.PublishingCom = retVal.Rows[1]["PublishingCom"].ToString();
+            bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[1]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
+            bookInforUI.category = retVal.Rows[1]["CategoryName"].ToString();
+            bookInforUI.rating = float.Parse(retVal.Rows[1]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.comments = mydb.Database.SqlQuery<CommentBook>("SELECT * FROM BookComment(@bid)", new SqlParameter("@bid", bid)).ToList<CommentBook>();
+            return bookInforUI;
         }
-        public Book GetObject_Book()
-        {
-            return mydb.Database.SqlQuery<Book>(
-                "SELECT * FROM Book"
-                ).FirstOrDefault();
-        }
-        public List<CommentBook> GetObject_CommentBook(string bid)
-        {
-            return mydb.Database.SqlQuery<CommentBook>(
-                "SELECT * FROM CommentBook WHERE BookID=@B",
-                new SqlParameter("@B", bid)
-                ).ToList();
-        }
-        public List<Img> GetObject_Image(string bid)
-        {
-            return mydb.Database.SqlQuery<Img>(
-                "SELECT * FROM Img WHERE BookID=@B",
-                new SqlParameter("@B", bid)
-                ).ToList();
 
-            /*public FAQUI GetObject_FAQUI(string fid)
-            {
-                var huhu = mydb.Database.SqlQuery<FAQUI>("EXEC tmp");
-                FAQUI hhe = new FAQUI();
-                return hhe; 
-            }*/
+        public FAQUI GetObject_FAQUI()
+        {
+            FAQUI faq = new FAQUI();
+            faq.faqs = mydb.Database.SqlQuery<FAQ>("SELECT * FROM FAQ").ToList<FAQ>();
+            return faq;
         }
+
+        public HomepageUI GetObject_HomePageUI(string bid)
+        {
+
+            return null;
+        }
+
+
     }
 }

@@ -14,7 +14,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <link href="~/Content/Layout.css" rel="stylesheet" />
 </head>
-<body style="font-family:Arial">
+<body style="font-family:Arial" onclick="body_click()">
     <div id="top">
         <div id="topLeft">
             <div><a href="#" style="text-decoration:none;">About</a></div>
@@ -85,5 +85,8 @@
             e.preventDefault();
             $("#ms").html('Bạn không thể nhập kí tự!');
         }
+    }
+    function body_click() {
+        $("#ms").html('');
     }
 </script>

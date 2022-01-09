@@ -40,8 +40,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,9 +65,15 @@
     <Compile Include="MyDB\Rating.cs" />
     <Compile Include="NewClassForUI\BookDetailOrder.cs" />
     <Compile Include="NewClassForUI\BookInforUI.cs" />
+    <Compile Include="NewClassForUI\BookOnHomepage.cs" />
+    <Compile Include="NewClassForUI\CartUI.cs" />
     <Compile Include="NewClassForUI\DetailOrderUI.cs" />
     <Compile Include="NewClassForUI\FAQUI.cs" />
     <Compile Include="NewClassForUI\Filters.cs" />
+    <Compile Include="NewClassForUI\HomepageUI.cs" />
+    <Compile Include="NewClassForUI\OrderConfirmUI.cs" />
+    <Compile Include="NewClassForUI\ProfileUI.cs" />
+    <Compile Include="NewClassForUI\RatingUI.cs" />
     <Compile Include="NewClassForUI\SearchingUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

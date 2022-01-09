@@ -9,7 +9,6 @@ namespace DatabaseProvider.NewClassForUI
 {
     public class FAQUI
     {
-        public Category tmpp { get; set; }
-        public Img tmp { get; set; }
+        public List<FAQ> faqs { get; set; }
     }
 }

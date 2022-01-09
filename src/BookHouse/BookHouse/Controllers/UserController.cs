@@ -66,7 +66,7 @@ namespace BookHouse.Controllers
             string pN = data["pN"];
             string p = data["p"];
             JsonResult jr = new JsonResult();
-            Customer u = db.GetObject_Customer(pN);
+            Customer u = db.GetObject_User(pN);
             if (u != null && u.Password.Contains(p))
             {
                 Session["user"] = new Customer();
@@ -225,7 +225,9 @@ namespace BookHouse.Controllers
         }
         public ActionResult FAQ()
         {
-            return View();
+            Book book = new Book();
+
+            return View(book);
         }
         public ActionResult Cart()
         {
