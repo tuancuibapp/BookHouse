@@ -48,9 +48,69 @@ namespace DatabaseIO
 
         public HomepageUI GetObject_HomePageUI(string bid)
         {
+            HomepageUI homepage = new HomepageUI();
+            DataTable retVal = new DataTable();
+            homepage.bestSellingBooks = new List<BookOnHomepage>(5);
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
+            for (int i = 0; i < 5; i++)
+            {
+                homepage.bestSellingBooks[i] = new BookOnHomepage();
 
+            }
+            homepage.foreignLiteratureBooks = new List<BookOnHomepage>(5);
+            for (int i = 0; i < 5; i++)
+            {
+                homepage.foreignLiteratureBooks[i] = new BookOnHomepage();
+            }
+            homepage.vietnameseLiteratureBooks = new List<BookOnHomepage>(5);
+            for (int i = 0; i < 5; i++)
+            {
+                homepage.vietnameseLiteratureBooks[i] = new BookOnHomepage();
+            }
+            homepage.historyBooks = new List<BookOnHomepage>();
+            for (int i = 0; i < 5; i++)
+            {
+                homepage.historyBooks[i] = new BookOnHomepage();
+            }
             return null;
         }
 
+        public ProfileUI GetObject_ProfileUI(string uid)
+        {
+            ProfileUI profile = new ProfileUI();
+            profile.customer = new Customer();
+            profile.order = new List<OrderCart>();
+            return null;
+        }
+
+        public DetailOrderUI GetObject_DetailOrderUI (string uid, string oid)
+        {
+            DetailOrderUI detail = new DetailOrderUI();
+            return null;
+        }
+
+        public CartUI GetObject_CartUI(string cid)
+        {
+            CartUI cart = new CartUI();
+            return null;
+        }
+
+        public OrderConfirmUI GetObject_OrderConfirmUI()
+        {
+            OrderConfirmUI order = new OrderConfirmUI();
+            return null;
+        }
+
+        public RatingUI GetObject_RatingUI()
+        {
+            RatingUI rating = new RatingUI();
+            return null;
+        }
+
+        public List<OrderCart> GetObject_OrderManagingUI(string uid)
+        {
+            List<OrderCart> carts = new List<OrderCart>();
+            return null;
+        }
     }
 }
