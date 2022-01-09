@@ -268,6 +268,24 @@ namespace BookHouse.Controllers
         }
         public ActionResult OrderConfirm()
         {
+            OrderCartDetail yayOrder = 
+            // get the detail of current cart
+            OrderCart currentCart = new OrderCart
+            {
+                Address = "227 Nguyen Van Cu, Phuong 4, Quan 5",
+                Phone = "0912345678",
+                TotalPrice = 100000,
+                NoteForOrder = "",
+                OrderDate = new DateTime(2022, 1, 1),
+                RecipientName = "Vu Ngoc Tuan",
+                DeliveryMethod = "Thanh toán khi nhận hàng",
+                DeliveryCharrge = 20000,
+                OrderCartDetails = new List<OrderCartDetail> 
+                { 
+
+                }
+
+            };
             return View();
         }
         public ActionResult ChangePassword()

@@ -49,7 +49,7 @@ namespace DatabaseProvider.MyDB
         [StringLength(100)]
         public string DeliveryMethod { get; set; }
 
-        public int? DeliveryCharrge { get; set; }
+        public int DeliveryCharrge { get; set; }
 
         public int? GoodsPrice { get; set; }
 
