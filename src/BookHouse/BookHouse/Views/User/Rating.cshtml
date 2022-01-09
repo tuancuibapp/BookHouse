@@ -3,6 +3,106 @@
     ViewBag.Title = "Rating";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/Rating.css" rel="stylesheet" />
 
-<h2>Rating</h2>
+<div id="rating">
+    <div id="ratingLeft">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 5%; margin-top: 5%;">ĐÁNH GIÁ SẢN PHẨM</div>
+        <img src="duck.jpg" height="71%" width="100%" />
+        <div style="height: 15%; justify-content:space-between; display:flex;">
+            <img height=100% width="40" src="duck.jpg" />
+            <img height=100% width="40" src="duck.jpg" />
+            <img height=100% width="40" src="duck.jpg" />
+            <div style="height:50px; width:50px;">Xem thêm 32 hình</div>
+        </div>
+    </div>
+    <div id="ratingRight">
+        <div style="font-weight: bold; color:green; margin-bottom: 2%; margin-top: 2%;">Husky Và Tôn Sư Mèo Trắng Của Hắn</div>
+        <table>
+            <tr>
+                <td>Tác giả: Nhục Bao Bất Cật Nhục</td>
+                <th>
+                    <div style="color: #ffae42;">
+                        <img class="fas fa-star" />
+                        <img class="fas fa-star" />
+                        <img class="fas fa-star" />
+                        <img class="fas fa-star" />
+                        <img class="fas fa-star" />
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <td>Dịch giả: Nguyệt Lạc </td>
+                <th style="font-size: larger;">4.9/5.0</th>
+            </tr>
+            <tr>
+                <td>Nhà xuất bản: Hà Nội</td>
+                <th style="color: grey; font-size: smaller;">Đã bán: 600</th>
+            </tr>
+            <tr>
+                <td>Ngày xuất bản: 15/03/2020</td>
+                <th>Đánh giá của bạn</th>
+            </tr>
+            <tr>
+                <td>Kích thước: 14 x 20.5 cm</td>
+                <th>
+                    <div>
+                        <img id="star1" class="far fa-star" />
+                        <img id="star2" class="far fa-star" />
+                        <img id="star3" class="far fa-star" />
+                        <img id="star4" class="far fa-star" />
+                        <img id="star5" class="far fa-star" />
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <td>Loại bìa: Bìa mềm</td>
+                <th rowspan="3" style="background-color: darkseagreen; color: white; border-radius: 10px;">
+                    Thank you!!! </br>
+                    Đơn hàng đã hoàn thành. Cảm ơn bạn đã sử dụng hệ thống </br>
+                    BookHouse.
+                </th>
+            </tr>
+            <tr style="position: relative;">
+                <td>Số trang</td>
+            </tr>
+            <tr style="position: relative;">
+                <td>Tiểu thuyết Trung Quốc</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div style="font-weight: bold; color: green; margin: 10px 0px;">Để lại bình luận:</div>
+<div id="bookComment" style="margin: 0px 40px;">
+    <div id="comment">
+        <div style="border-radius: 5px; display: flex; justify-content: center;">
+            <div style="width: 15%; padding: 10px 0px; color: white; border-radius: 10px; background-color: green; display: flex; justify-content: center; align-items: center;">
+                <img class="far fa-user fa-6x" width="50%" height="50%" />
+            </div>
+            <div style="width: 85%; border: 2px solid green; border-radius: 10px; position: relative;">
+                <p style="background-color: white; border-radius: 5px;">
 
+                </p>
+                <img id="send" height="50" width="40" class="fas fa-paper-plane fa-2x" style="position: absolute; bottom: 0px; right: 0px;" />
+                <img height="50" width="40" class="far fa-frown fa-2x emotion" style="position: absolute; bottom: 0px; right: 40px;" />
+                <img height="50" width="40" class="far fa-meh fa-2x emotion" style="position: absolute; bottom: 0px; right: 80px;" />
+                <img height="50" width="40" class="far far fa-smile fa-2x emotion" style="position: absolute; bottom: 0px; right: 120px;" />
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(
+        function(){
+            $("#star1").css("color", "yellow");
+        }
+    )
+    // $("#star1").hover(
+    //     function(){
+    //         $(this).css("color", "yellow")
+    //     }
+    // )
+</script>
