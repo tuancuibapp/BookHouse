@@ -35,6 +35,7 @@ namespace DatabaseIO
             bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[1]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
             bookInforUI.category = retVal.Rows[1]["CategoryName"].ToString();
             bookInforUI.rating = float.Parse(retVal.Rows[1]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.images = retVal.Rows[1]["Image"].ToString();
             bookInforUI.comments = mydb.Database.SqlQuery<CommentBook>("SELECT * FROM BookComment(@bid)", new SqlParameter("@bid", bid)).ToList<CommentBook>();
             return bookInforUI;
         }
@@ -52,27 +53,49 @@ namespace DatabaseIO
             DataTable retVal = new DataTable();
             homepage.bestSellingBooks = new List<BookOnHomepage>(5);
             retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 homepage.bestSellingBooks[i] = new BookOnHomepage();
-
+                homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
+                homepage.bestSellingBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
+                homepage.bestSellingBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].images = retVal.Rows[i]["Imgage"].ToString();
             }
             homepage.foreignLiteratureBooks = new List<BookOnHomepage>(5);
-            for (int i = 0; i < 5; i++)
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
+            for (int i = 1; i <= 5; i++)
             {
-                homepage.foreignLiteratureBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
+                homepage.bestSellingBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
+                homepage.bestSellingBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].images = retVal.Rows[i]["Imgage"].ToString();
             }
             homepage.vietnameseLiteratureBooks = new List<BookOnHomepage>(5);
-            for (int i = 0; i < 5; i++)
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
+            for (int i = 1; i <= 5; i++)
             {
-                homepage.vietnameseLiteratureBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
+                homepage.bestSellingBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
+                homepage.bestSellingBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].images = retVal.Rows[i]["Imgage"].ToString();
             }
             homepage.historyBooks = new List<BookOnHomepage>();
-            for (int i = 0; i < 5; i++)
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
+            for (int i = 1; i <= 5; i++)
             {
-                homepage.historyBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
+                homepage.bestSellingBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
+                homepage.bestSellingBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                homepage.bestSellingBooks[i].images = retVal.Rows[i]["Imgage"].ToString();
             }
-            return null;
+            return homepage;
         }
 
         public ProfileUI GetObject_ProfileUI(string uid)
@@ -80,6 +103,9 @@ namespace DatabaseIO
             ProfileUI profile = new ProfileUI();
             profile.customer = new Customer();
             profile.order = new List<OrderCart>();
+            profile.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
+            DataTable retVal = new DataTable();
+            retVal = mydb.Database.SqlQuery<DataTable>("").FirstOrDefault();
             return null;
         }
 
