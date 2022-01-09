@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/SignIn.css" rel="stylesheet" />
+
+<p style="display: block; font-size: 20px;"><b>ĐĂNG NHẬP</b></p>
+<div style="margin-left: 5%; display: flex;">
+    <div id="mainContent" style="width: fit-content;">
+        <label style="display: inline-block; width: 130px;">Số điện thoại: </label>
+        <input id="phoneNumber" type="tel" class="input" style="padding: 10px 20px;" onkeypress="prevent_non_numerical_input(event)"><br />
+
+        <label style="display: inline-block; width: 130px;">Mật khẩu: </label>
+        <input id="password" type="password" class="input" style="padding: 10px 20px; margin:20px 0px;"><br />
+
+        <input type="checkbox">
+        <label>Ghi nhớ</label>
+
+        <div class="btn" style="margin:20px 0px;" onclick="sign_in()">Đăng Nhập</div>
+    </div>
+    <div style="margin-left: 30px;"><img src="../Images/UIDesign/gif00.gif" width="50%" height="70%"></div>
+</div>
+<div style="margin-left: 5%;">
+    <div style="display: flex;align-items: center;">Bạn chưa có tài khoản? Hãy <div class="btn" onclick="sign_up()">Đăng Ký</div></div>
+    <p>Quên mật khẩu</p>
+    <div style="display: flex; justify-content: center;">
+        <div id="box">
+            <div>
+                <label>Email/Số điện thoại: </label>
+                <input id="emailPhoneNumber" type="text" class="input" style="padding: 5px 20px;">
+            </div>
+            <div class="btn" style="margin-top: 20px;" onclick="find_password()">Tìm lại mật khẩu</div>
+        </div>
+    </div>
+</div>
+<div id="ms" style="color:red;">kkk</div>
+<script>
+    var IsRunning = false;
+    function sign_in() {
+        if (!IsRunning) {
+            IsRunning = true;
+            var pN = $("#phoneNumber").val();
+            var p = $("#password").val();
+            if (pN == '' || p == '') {
+                $('#ms').html('Vui lòng nhập đầy đủ thông tin!');
+                IsRunning = false;
+            }
+            else {
+                var form = new FormData();
+                form.append("pN", pN);
+                form.append("p", p);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", domain + '/User/SignInn', true);
+                xhr.timeout = 30000;
+                xhr.ontimeout = function () {
+                    $("#ms").html('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+                    IsRunning = false;
+                }
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var r = xhr.responseText;
+                        var j = JSON.parse(r);
+                        if (j.Data.status == "OK")
+                            window.location = "/user/homepage";
+                        else
+                            $('#ms').html("Sai tài khoản hoặc mật khẩu!");
+                        IsRunning = false;
+                    }
+                }
+                xhr.send(form);
+                console.log("send");
+            }
+        }
+    }
+    function sign_up() {
+        window.location = '/user/signup';
+    }
+    function find_password() {
+        var ePN = $("#emailPhoneNumber").val();
+        window.location.href = '@Url.Action("ForgotPassword", "User")' + '?ePN=' + ePN;
+    }
+</script>

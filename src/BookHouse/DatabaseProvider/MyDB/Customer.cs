@@ -35,6 +35,7 @@ namespace DatabaseProvider.MyDB
         [StringLength(100)]
         public string CustomerEmail { get; set; }
 
+        [Required]
         [StringLength(11)]
         public string CustomerPhone { get; set; }
 

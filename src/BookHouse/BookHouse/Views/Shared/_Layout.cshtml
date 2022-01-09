@@ -7,6 +7,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <script type="text/javascript" src="@Request.Url.Scheme://@Request.Url.Host:44339/Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        var domain = '@Request.Url.Scheme://@Request.Url.Host:44339';
+    </script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <link href="~/Content/Layout.css" rel="stylesheet" />
 </head>
@@ -70,3 +74,16 @@
     </div>
 </body>
 </html>
+<script>
+    function prevent_non_numerical_input(e) {
+        e = e || window.event;
+        var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+        var charStr = String.fromCharCode(charCode);
+        $("#ms").html();
+
+        if (!charStr.match(/^[0-9]+$/)) {
+            e.preventDefault();
+            $("#ms").html('Bạn không thể nhập kí tự!');
+        }
+    }
+</script>

@@ -64,6 +64,7 @@
     <Compile Include="NewClassForUI\BookDetailOrder.cs" />
     <Compile Include="NewClassForUI\BookInforUI.cs" />
     <Compile Include="NewClassForUI\DetailOrderUI.cs" />
+    <Compile Include="NewClassForUI\FAQUI.cs" />
     <Compile Include="NewClassForUI\Filters.cs" />
     <Compile Include="NewClassForUI\SearchingUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,5 +74,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

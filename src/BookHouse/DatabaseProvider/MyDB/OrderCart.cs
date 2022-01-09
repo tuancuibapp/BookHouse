@@ -46,6 +46,13 @@ namespace DatabaseProvider.MyDB
 
         public bool? Order_or_Cart { get; set; }
 
+        [StringLength(100)]
+        public string DeliveryMethod { get; set; }
+
+        public int? DeliveryCharrge { get; set; }
+
+        public int? GoodsPrice { get; set; }
+
         public virtual Customer Customer { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
