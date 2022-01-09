@@ -56,22 +56,24 @@ namespace BookHouse.Controllers
             BookInforUI u = new BookInforUI();
             return View(new BookInforUI());
         }
-        public ActionResult SignIn()
+        public ActionResult SignInn()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult SignIn(FormCollection data)
+        public ActionResult SignInn(FormCollection data)
         {
             string pN = data["pN"];
             string p = data["p"];
             JsonResult jr = new JsonResult();
-            if(pN == "123" && p == "a")
+            Customer u = db.GetObject_User(pN);
+            if (u != null && u.Password.Contains(p))
             {
                 Session["user"] = new Customer();
                 jr.Data = new
                 {
-                    status = "OK"
+                    status = "OK",
+                    tmp = u.CustomerName
                 };
             }
             else
@@ -223,7 +225,7 @@ namespace BookHouse.Controllers
         }
         public ActionResult FAQ()
         {
-            Book book = db.GetObject_Book();
+            Book book = new Book();
 
             return View(book);
         }

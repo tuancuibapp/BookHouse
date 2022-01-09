@@ -3,8 +3,65 @@
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/Cart.css" rel="stylesheet" />
 
-<h2>Cart</h2>
+<p style="display: block; font-size: 20px;"><b>GIỎ HÀNG CỦA TÔI</b></p>
+<table>
+    <tr>
+        <th>STT</th>
+        <th>Tiêu đề</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Tổng cộng</th>
+        <th>Xóa</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td style="width: 500px;">
+            Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)
+            Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)
+        </td>
+        <th style="padding-left: 0px;">
+            <div class="plusMinus">+</div>
+            <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">1</div>
+            <div class="plusMinus">-</div>
+        </th>
+        <th>500.000VNĐ</th>
+        <th>500.000VNĐ</th>
+        <th>
+            <div class="btn" style="margin-top: 20px;">Xóa</div>
+        </th>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)</td>
+        <th style="padding-left: 0px;">
+            <div class="plusMinus">+</div>
+            <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">1</div>
+            <div class="plusMinus">-</div>
+        </th>
+        <th>500.000VNĐ</th>
+        <th>500.000VNĐ</th>
+        <th>
+            <div class="btn" style="margin-top: 20px;">Xóa</div>
+        </th>
+    </tr>
+    <tr class="notEffect" style="background-color: white;">
+        <th></th>
+        <td></td>
+        <th></th>
+        <th>Tổng cộng</th>
+        <th style="color: red;">1.000.000VNĐ</th>
+        <th></th>
+    </tr>
+    <tr class="notEffect" style="background-color: white;">
+        <th></th>
+        <th style="display: flex; justify-content: center; width: 99.3%;"><div class="btn" style="background-color: black;">Tiếp tục mua hàng</div></th>
+        <th></th>
+        <th colspan="2"><div class="btn">Xác nhận đơn hàng</div></th>
+        <th></th>
+    </tr>
+</table>
 
 
 

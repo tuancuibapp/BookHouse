@@ -11,7 +11,7 @@
         <input id="phoneNumber" type="tel" class="input" style="padding: 10px 20px;" onkeypress="prevent_non_numerical_input(event)"><br />
 
         <label style="display: inline-block; width: 130px;">Mật khẩu: </label>
-        <input id="password" type="password" class="input" style="padding: 10px 20px; margin:20px 0px;"><br/>
+        <input id="password" type="password" class="input" style="padding: 10px 20px; margin:20px 0px;"><br />
 
         <input type="checkbox">
         <label>Ghi nhớ</label>
@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-<div id="ms" style="color:red;">kkk</div>
+<div id="ms" style="color:red;"></div>
 <script>
     var IsRunning = false;
     function sign_in() {
@@ -50,7 +50,7 @@
                 form.append("pN", pN);
                 form.append("p", p);
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", domain + '/User/SignIn', true);
+                xhr.open("POST", domain + '/User/SignInn', true);
                 xhr.timeout = 30000;
                 xhr.ontimeout = function () {
                     $("#ms").html('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');

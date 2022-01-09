@@ -1,0 +1,54 @@
+﻿body {
+    font-weight: bold;
+}
+
+table {
+    background-color: rgb(196, 240, 196);
+    border-collapse: collapse;
+}
+
+    table tr:first-child th {
+        border-bottom: 2px solid green;
+    }
+
+    table tr:not(.notEffect) th:not(:last-child) {
+        border-right: 2px solid green;
+    }
+
+    table tr:not(.notEffect) td:not(:last-child) {
+        border-right: 2px solid green;
+    }
+
+.btn {
+    background-color: green;
+    border-radius: 30px;
+    color: white;
+    width: fit-content;
+    padding: 5px 30px;
+}
+
+    .btn:hover {
+        cursor: pointer;
+    }
+
+.input {
+    background-color: darkseagreen;
+    border-radius: 5px;
+    border: 0px;
+    border: 2px solid white;
+}
+
+    .input:hover {
+        border: 2px solid greenyellow;
+    }
+
+.plusMinus {
+    float: left;
+    padding: 7px 10px;
+    border: 0.01px solid grey;
+}
+
+    .plusMinus:hover {
+        cursor: pointer;
+        background-color: blanchedalmond;
+    }
