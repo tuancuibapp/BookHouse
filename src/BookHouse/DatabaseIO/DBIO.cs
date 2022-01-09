@@ -14,11 +14,12 @@ namespace DatabaseIO
     public class DBIO
     {
         MyDB mydb = new MyDB();
-        public Customer GetObject_Customer(string uid)
+
+        public Customer GetObject_User(string uid)
         {
-            return mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
+            return mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerPhone = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
         }
-        
+
         public BookInforUI GetObject_BookInforUI(string bid)
         {
             BookInforUI bookInforUI = new BookInforUI();

@@ -25,6 +25,8 @@ namespace DatabaseProvider.MyDB
 
         public bool Order_or_Cart { get; set; }
 
+        public bool? IsRating { get; set; }
+
         public virtual Book Book { get; set; }
 
         public virtual OrderCart OrderCart { get; set; }

@@ -128,7 +128,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,15 +140,18 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Cart.css" />
     <Content Include="Content\ChangePassword.css" />
     <Content Include="Content\ForgotPassword.css" />
     <Content Include="Content\Layout.css" />
+    <Content Include="Content\Rating.css" />
     <Content Include="Content\SignIn.css" />
     <Content Include="Content\SignUp.css" />
     <Content Include="Content\HomePage.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\SearchPage.css" />
     <Content Include="Content\_Layout.css" />
+    <Content Include="Content\_Profile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -178,7 +180,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\Menu\MainMenu.cshtml" />
     <Content Include="Views\Menu\SubMenu.cshtml" />
     <Content Include="Views\Admin\HomePage.cshtml" />
@@ -199,6 +200,7 @@
     <Content Include="Views\Shared\_PartialHeading.cshtml" />
     <Content Include="Views\Shared\_PartialFilters.cshtml" />
     <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
+    <Content Include="Views\User\SignInn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

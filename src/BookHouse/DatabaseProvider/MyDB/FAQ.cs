@@ -9,6 +9,10 @@ namespace DatabaseProvider.MyDB
     [Table("FAQ")]
     public partial class FAQ
     {
+        [Key]
+        [StringLength(5)]
+        public string QuestionID { get; set; }
+
         [Required]
         [StringLength(2000)]
         public string Question { get; set; }
@@ -16,12 +20,5 @@ namespace DatabaseProvider.MyDB
         [Required]
         [StringLength(2000)]
         public string Answer { get; set; }
-
-        [Key]
-        [StringLength(5)]
-        public string QuestionID { get; set; }
-
-        [StringLength(100)]
-        public string Type { get; set; }
     }
 }
