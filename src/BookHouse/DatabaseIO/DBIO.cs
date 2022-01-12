@@ -64,7 +64,7 @@ namespace DatabaseIO
                 homepage.bestSellingBooks[i - 1].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.foreignLiteratureBooks = new List<BookOnHomepage>(5);
-            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BestSellerCategory(@typename)", new SqlParameter("@typename", "")).FirstOrDefault();
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BestSellerCategory(@typename)", new SqlParameter("@typename", "Truyện ngắn")).FirstOrDefault();
             for (int i = 1; i <= 5; i++)
             {
                 homepage.bestSellingBooks[i - 1] = new BookOnHomepage();
@@ -75,7 +75,7 @@ namespace DatabaseIO
                 homepage.bestSellingBooks[i - 1].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.vietnameseLiteratureBooks = new List<BookOnHomepage>(5);
-            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BestSellerCategory(@typename)", new SqlParameter("@typename", "")).FirstOrDefault();
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BestSellerCategory(@typename)", new SqlParameter("@typename", "Tiểu thuyết")).FirstOrDefault();
             for (int i = 1; i <= 5; i++)
             {
                 homepage.bestSellingBooks[i - 1] = new BookOnHomepage();
@@ -86,7 +86,7 @@ namespace DatabaseIO
                 homepage.bestSellingBooks[i - 1].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.historyBooks = new List<BookOnHomepage>();
-            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BestSellerCategory(@typename)", new SqlParameter("@typename", "")).FirstOrDefault();
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BestSellerCategory(@typename)", new SqlParameter("@typename", "Lịch sử")).FirstOrDefault();
             for (int i = 1; i <= 5; i++)
             {
                 homepage.bestSellingBooks[i - 1] = new BookOnHomepage();
@@ -117,25 +117,52 @@ namespace DatabaseIO
 
         public DetailOrderUI GetObject_DetailOrderUI (string uid, string oid)
         {
+            DataTable retVal = new DataTable();
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM OrderDetail(@oid)", new SqlParameter("@oid", oid)).FirstOrDefault();
             DetailOrderUI detail = new DetailOrderUI();
-            return null;
+            detail.customer = new Customer();
+            detail.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
+            detail.order = new OrderCart();
+            detail.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM Customer WHERE OrderCart = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
+            detail.bookDetailOrder = new List<BookDetailOrder>();
+            for (int i = 1; i <= retVal.Rows.Count; i++)
+            {
+                detail.bookDetailOrder[i - 1].bookID = retVal.Rows[i]["BookID"].ToString();
+                detail.bookDetailOrder[i - 1].bookName = retVal.Rows[i]["BookName"].ToString();
+                detail.bookDetailOrder[i - 1].price = float.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                detail.bookDetailOrder[i - 1].number = int.Parse(retVal.Rows[i]["Number"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            }
+            return detail;
         }
 
-        public CartUI GetObject_CartUI(string cid)
+        public List<BookDetailOrder> GetObject_CartUI(string uid)
         {
-            CartUI cart = new CartUI();
-            return null;
+            List<BookDetailOrder> cart = new List<BookDetailOrder>();
+            DataTable retVal = new DataTable();
+            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM MyCart(@uid)", new SqlParameter("@uid", uid)).FirstOrDefault();
+            for (int i = 1; i <= retVal.Rows.Count; i++)
+            {
+                cart[i - 1].bookID = retVal.Rows[i]["BookID"].ToString();
+                cart[i - 1].bookName = retVal.Rows[i]["BookName"].ToString();
+                cart[i - 1].price = float.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                cart[i - 1].number = int.Parse(retVal.Rows[i]["Number"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            }
+            return cart;
         }
 
-        public OrderConfirmUI GetObject_OrderConfirmUI()
+        public OrderConfirmUI GetObject_OrderConfirmUI(string oid)
         {
             OrderConfirmUI order = new OrderConfirmUI();
+            order.order = new OrderCart();
+            order.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM Customer WHERE OrderCart = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
+            // sorry i don't know
             return null;
         }
 
         public RatingUI GetObject_RatingUI()
         {
             RatingUI rating = new RatingUI();
+
             return null;
         }
 
