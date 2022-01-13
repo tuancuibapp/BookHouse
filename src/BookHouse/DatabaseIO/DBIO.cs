@@ -52,15 +52,15 @@ namespace DatabaseIO
             bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[0]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
             bookInforUI.category = retVal.Rows[0]["CategoryName"].ToString();
             bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            bookInforUI.images = retVal.Rows[0]["Image"].ToString();
-            cmd.CommandText = "SELECT * FROM BookComment(@bid)";
+            bookInforUI.images = retVal.Rows[0]["Images"].ToString();
+            /*cmd.CommandText = "SELECT * FROM BookComment(@bid)";
             retVal.Load(cmd.ExecuteReader());
             bookInforUI.comments = new List<Comment>();
             for (int i = 0; i <= retVal.Rows.Count; i++)
             {
                 bookInforUI.comments[i].customer = retVal.Rows[i]["CustomerName"].ToString();
                 bookInforUI.comments[i].content = retVal.Rows[i]["Content"].ToString();
-            }
+            }*/
             return bookInforUI;
         }
 
@@ -135,7 +135,7 @@ namespace DatabaseIO
         {
             ProfileUI profile = new ProfileUI();
             profile.customer = new Customer();
-            profile.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE CustomerID = @uid and Order_or_Cart = TRUE", new SqlParameter("@uid", uid)).ToList();
+            profile.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE CustomerID = @uid and Order_or_Cart = 'TRUE'", new SqlParameter("@uid", uid)).ToList();
             profile.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
             return profile;
         }

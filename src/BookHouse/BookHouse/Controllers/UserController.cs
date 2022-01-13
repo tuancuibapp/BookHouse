@@ -53,7 +53,6 @@ namespace BookHouse.Controllers
         }
         public ActionResult BookInfor()
         {
-            /*BookInforUI u = db.GetObject_BookInforUI("00000");*/
             BookInforUI u = db.GetObject_BookInforUI("00000");
             return View(u);
         }
@@ -121,7 +120,8 @@ namespace BookHouse.Controllers
         }
         public ActionResult _Profile()
         {
-            return View();
+            ProfileUI u = db.GetObject_ProfileUI("00000");
+            return View(u);
         }
         public ActionResult SearchPage(string Query, int page = 1)
         {

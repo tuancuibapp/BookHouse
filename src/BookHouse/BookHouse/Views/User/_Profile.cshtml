@@ -1,4 +1,5 @@
-﻿
+﻿@model DatabaseProvider.NewClassForUI.ProfileUI
+
 @{
     ViewBag.Title = "_Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,10 +10,10 @@
     <div id="profileLeft">
         <div style="height: 70px;">
             <div style="width: 20%; float: left;">
-                <img src="duck.jpg" width="100%" style="border-radius: 50%;" />
+                <img src="../Images/UIDesign/duck.jpg" width="100%" style="border-radius: 50%;" />
             </div>
             <div style="float: left; height: 50%; width: 80%; font-size: 20px;">Tài khoản của</div>
-            <div style="float: left; height: 50%; width: 80%; font-size: 20px;"><b>Phạm Thị Ngọc Hà</b></div>
+            <div style="float: left; height: 50%; width: 80%; font-size: 20px;"><b>@Model.customer.CustomerName</b></div>
         </div>
         <div>
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
@@ -60,21 +61,21 @@
             </tr>
             <tr>
                 <td>Họ và tên:</td>
-                <th>Phạm Thị Ngọc Hà</th>
+                <th>@Model.customer.CustomerName</th>
                 <td><img class="fas fa-phone fa-1x" /> Số điện thoại:</td>
-                <th>0343623811</th>
+                <th>@Model.customer.CustomerPhone</th>
             </tr>
             <tr>
                 <td>Nickname:</td>
-                <th>Chúa tể tấu hài</th>
+                <th>@Model.customer.UserName</th>
                 <td><img class="fas fa-envelope fa-1x" /> Email:</td>
-                <th>ptnha19@apcs.fitus.edu.vn</th>
+                <th>@Model.customer.CustomerEmail</th>
             </tr>
             <tr>
                 <td>Ngày sinh: </td>
-                <th>28/10/2001</th>
+                <th>15/03/2021</th>
                 <td><img class="fas fa-home fa-1x" /> Địa chỉ:</td>
-                <th>ABC, XYZ, phường 8, quận 2, TP HCM</th>
+                <th>@Model.customer.Address</th>
             </tr>
             <tr>
                 <td>Giới tính:</td>
@@ -91,57 +92,33 @@
 </div>
 <p style="background-color: antiquewhite; margin: 0px; width: fit-content; background-color:darkseagreen; border-radius:5px; padding: 5px 50px; color:white; font-weight: bold;">LỊCH SỬ MUA HÀNG</p>
 <table id="cartHistory">
-    <tr>
-        <th style="width: 40%; height: 20%; padding: 30px;" rowspan="5"><img class="fas fa-list-alt fa-5x" width="30" height="30" /></th>
-        <td style="width: 30%;">Mã đơn hàng:</td>
-        <th>ID19125089</th>
-    </tr>
-    <tr>
-        <td>Người nhận:</td>
-        <th>PHẠM THỊ NGỌC HÀ</th>
-    </tr>
-    <tr>
-        <td>Địa chỉ giao hàng:</td>
-        <th>Trường ĐH Khoa Học Tự Nhiên TPHCM</th>
-    </tr>
-    <tr>
-        <td>Ngày nhân:</td>
-        <th>15:30, 26/06/2021</th>
-    </tr>
-    <tr>
-        <td>Hóa đơn:</td>
-        <th>125.000VNĐ</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <th style="padding-bottom: 30px;"><a href="#">Chi tiết đơn hàng</a></th>
-    </tr>
-
-    <tr>
-        <th style="width: 40%; height: 20%; padding: 30px;" rowspan="5"><img class="fas fa-list-alt fa-5x" width="30" height="30" /></th>
-        <td>Mã đơn hàng:</td>
-        <th>ID19125089</th>
-    </tr>
-    <tr>
-        <td>Người nhận:</td>
-        <th>PHẠM THỊ NGỌC HÀ</th>
-    </tr>
-    <tr>
-        <td>Địa chỉ giao hàng:</td>
-        <th>Trường ĐH Khoa Học Tự Nhiên TPHCM</th>
-    </tr>
-    <tr>
-        <td>Ngày nhân:</td>
-        <th>15:30, 26/06/2021</th>
-    </tr>
-    <tr>
-        <td>Hóa đơn:</td>
-        <th>125.000VNĐ</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <th><a href="#">Chi tiết đơn hàng</a></th>
-    </tr>
+    @foreach (var order in Model.order)
+    {
+        <tr>
+            <th style="width: 40%; height: 20%; padding: 30px;" rowspan="5"><img class="fas fa-list-alt fa-5x" width="30" height="30" /></th>
+            <td>Mã đơn hàng:</td>
+            <th>@order.OrderCartID</th>
+        </tr>
+        <tr>
+            <td>Người nhận:</td>
+            <th>@order.RecipientName</th>
+        </tr>
+        <tr>
+            <td>Địa chỉ giao hàng:</td>
+            <th>@order.Address</th>
+        </tr>
+        <tr>
+            <td>Ngày nhân:</td>
+            <th>@order.ReceivedDate</th>
+        </tr>
+        <tr>
+            <td>Hóa đơn:</td>
+            <th>@order.TotalPrice</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <th><a href="#" style="color:green; text-decoration: underline;">Chi tiết đơn hàng</a></th>
+        </tr>
+    }
 </table>
