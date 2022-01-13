@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using DatabaseProvider.MyDB;
 namespace DatabaseProvider.NewClassForUI
 {
-    public class BookDetailOrder
+    public class Comment
     {
-        public BookInforUI book { get; set; }
-        public int number { get; set; }
-        public float price { get; set; }
-        public bool rating { get; set; }
+        public string content { get; set; }
+        public string customer { get; set; }
     }
 }

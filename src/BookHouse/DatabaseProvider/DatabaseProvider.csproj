@@ -66,6 +66,7 @@
     <Compile Include="NewClassForUI\BookDetailOrder.cs" />
     <Compile Include="NewClassForUI\BookInforUI.cs" />
     <Compile Include="NewClassForUI\BookOnHomepage.cs" />
+    <Compile Include="NewClassForUI\Comment.cs" />
     <Compile Include="NewClassForUI\DetailOrderUI.cs" />
     <Compile Include="NewClassForUI\FAQUI.cs" />
     <Compile Include="NewClassForUI\Filters.cs" />
