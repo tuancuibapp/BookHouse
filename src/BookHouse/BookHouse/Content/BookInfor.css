@@ -39,6 +39,11 @@ td {
         background-color: red;
     }
 
+#viewMoreImage:hover{
+    cursor: pointer;
+    color: green;
+}
+
 #bookDescriptionTop {
     width: 100%;
     text-align: center;

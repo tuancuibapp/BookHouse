@@ -26,7 +26,7 @@ namespace BookHouse.Controllers
                 },
                 
                 rating = 4,
-                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+                images = "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg"
             };
 
             ViewData["bestSellers"] = new List<BookInforUI>
@@ -53,8 +53,9 @@ namespace BookHouse.Controllers
         }
         public ActionResult BookInfor()
         {
-            BookInforUI u = new BookInforUI();
-            return View(new BookInforUI());
+            /*BookInforUI u = db.GetObject_BookInforUI("00000");*/
+            BookInforUI u = db.GetObject_BookInforUI("00000");
+            return View(u);
         }
         public ActionResult SignInn()
         {
@@ -152,7 +153,7 @@ namespace BookHouse.Controllers
                 },
 
                 rating = 4,
-                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+                images = "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg"
             };
 
             List<BookInforUI> queryResult = new List<BookInforUI>
@@ -201,7 +202,7 @@ namespace BookHouse.Controllers
                 },
 
                 rating = 4,
-                images = new List<string> { "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg" }
+                images = "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg"
             };
 
             List<BookInforUI> queryResult = new List<BookInforUI>
@@ -343,5 +344,5 @@ namespace BookHouse.Controllers
             }
             return Json(jr, JsonRequestBehavior.AllowGet);
         }
-    }
+    } 
 }
