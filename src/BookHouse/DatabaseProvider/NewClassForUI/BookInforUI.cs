@@ -15,7 +15,7 @@ namespace DatabaseProvider.NewClassForUI
         public Book book { get; set; }
         public string category { get; set; }
         public float rating { get; set; }
-        /*public List<Comment> comments { get; set; }*/
+        public List<Comment> comments { get; set; }
         public string images { get; set; }
         public int sold { get; set; }
     }
