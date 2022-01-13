@@ -226,9 +226,17 @@ namespace BookHouse.Controllers
         }
         public ActionResult FAQ()
         {
-            Book book = new Book();
+            DBIO db = new DBIO();
+            //FAQUI FAQdata = db.GetObject_FAQUI();
 
-            return View(book);
+            FAQUI FAQdata = new FAQUI
+            {
+                faqs = new List<FAQ> 
+                {
+                    new FAQ { Answer = "No...", Question = "U good?", QuestionID = "1"}
+                }
+            };
+            return View(FAQdata);
         }
         public ActionResult Cart()
         {
@@ -260,13 +268,42 @@ namespace BookHouse.Controllers
         {
             return View();
         }
+        public ActionResult DetailOrder()
+        {
+
+            return View();
+        }
         public ActionResult Rating()
         {
             return View();
         }
         public ActionResult OrderConfirm()
         {
-            return View();
+            DetailOrderUI yayOrder = new DetailOrderUI
+            {
+                order = new OrderCart
+                {
+                    OrderCartID = "00011000",
+                    OrderDate = new DateTime(2022, 10, 2),
+                    Address = "227 Nguyen Van Cu, Phuong 4, Quan 5, TP HCM",
+                    Phone = "0123456789",
+                    TotalPrice = 220000,
+                    NoteForOrder = "",
+                    RecipientName = "Vu Ngoc Tuan",
+                    DeliveryMethod = "Thanh toán khi nhận hàng.",
+                    DeliveryCharrge = 40000,
+                },
+            };
+            return View(yayOrder);
+        }
+
+        [HttpPost]
+        public ActionResult OrderConfirm(DetailOrderUI details)
+        {
+            // call function to update database
+
+            // notify the user
+            return RedirectToAction("HomePage");
         }
         public ActionResult ChangePassword()
         {

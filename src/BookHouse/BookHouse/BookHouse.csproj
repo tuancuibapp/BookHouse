@@ -144,6 +144,7 @@
     <Content Include="Content\ChangePassword.css" />
     <Content Include="Content\ForgotPassword.css" />
     <Content Include="Content\Layout.css" />
+    <Content Include="Content\OrderConfirm.css" />
     <Content Include="Content\Rating.css" />
     <Content Include="Content\SignIn.css" />
     <Content Include="Content\SignUp.css" />
@@ -200,6 +201,7 @@
     <Content Include="Views\Shared\_PartialHeading.cshtml" />
     <Content Include="Views\Shared\_PartialFilters.cshtml" />
     <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
+    <Content Include="Views\User\DetailOrder.cshtml" />
     <Content Include="Views\User\SignInn.cshtml" />
   </ItemGroup>
   <ItemGroup>
