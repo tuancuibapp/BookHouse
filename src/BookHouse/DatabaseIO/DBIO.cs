@@ -100,7 +100,7 @@ namespace DatabaseIO
                 homepage.foreignLiteratureBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.foreignLiteratureBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.foreignLiteratureBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-                homepage.foreignLiteratureBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                /*homepage.foreignLiteratureBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);*/
                 homepage.foreignLiteratureBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.vietnameseLiteratureBooks = new List<BookOnHomepage>(5);
@@ -115,7 +115,7 @@ namespace DatabaseIO
                 homepage.vietnameseLiteratureBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.vietnameseLiteratureBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.vietnameseLiteratureBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-                homepage.vietnameseLiteratureBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                /*homepage.vietnameseLiteratureBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);*/
                 homepage.vietnameseLiteratureBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.historyBooks = new List<BookOnHomepage>();
@@ -129,7 +129,7 @@ namespace DatabaseIO
                 homepage.historyBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.historyBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.historyBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-                homepage.historyBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                /*homepage.historyBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);*/
                 homepage.historyBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             return homepage;
@@ -177,7 +177,7 @@ namespace DatabaseIO
             List<BookDetailOrder> cart = new List<BookDetailOrder>();
             DataTable retVal = new DataTable();
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM MyCart(@oid)";
+            cmd.CommandText = "SELECT * FROM MyCart(@uid)";
             cmd.Parameters.Add(new SqlParameter("@uid", uid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
@@ -204,17 +204,29 @@ namespace DatabaseIO
             return null;
         }
 
-        public RatingUI GetObject_RatingUI()
+        public RatingUI GetObject_RatingUI(string bid)
         {
             RatingUI rating = new RatingUI();
-
+            rating.book = mydb.Database.SqlQuery<Book>("SELECT * FROM Book WHERE BookID = @bid", new SqlParameter("@bid", bid)).FirstOrDefault();
+            DataTable retVal = new DataTable();
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM RatingInfor(@bid)";
+            cmd.Parameters.Add(new SqlParameter("@bid", bid));
+            cmd.Connection.Open();
+            retVal.Load(cmd.ExecuteReader());
+            rating.rating = int.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            rating.image = retVal.Rows[0]["Image"].ToString();
+            rating.sold = int.Parse(retVal.Rows[0]["Sold"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             return null;
+            /*chú ý là hàm RatingInfor chưa viết*/
         }
 
         public List<OrderCart> GetObject_OrderManagingUI(string uid)
         {
             List<OrderCart> carts = new List<OrderCart>();
-            return null;
+            carts = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).ToList<OrderCart>();
+            return carts;
         }
+
     }
 }
