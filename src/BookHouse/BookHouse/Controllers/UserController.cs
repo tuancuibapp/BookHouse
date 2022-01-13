@@ -17,7 +17,8 @@ namespace BookHouse.Controllers
         public ActionResult HomePage()
         {
             //query for the books -_-
-            BookInforUI yay = new BookInforUI
+
+            /*BookInforUI yay = new BookInforUI
             {
                 book = new Book {
                     BookName = "My life is not a joke, jokes have meaning.",
@@ -48,6 +49,18 @@ namespace BookHouse.Controllers
             {
                 yay, yay, yay, yay, yay
             };
+*/
+            DBIO db = new DBIO();
+
+            HomepageUI homePagedata = db.GetObject_HomePageUI();
+
+            ViewData["bestSellers"] = homePagedata.bestSellingBooks;
+
+            ViewData["foreignLiteratureBooks"] = homePagedata.foreignLiteratureBooks;
+
+            ViewData["vietnameseLiteratureBooks"] = homePagedata.vietnameseLiteratureBooks;
+
+            ViewData["historyBooks"] = homePagedata.historyBooks;
 
             return View();
         }
