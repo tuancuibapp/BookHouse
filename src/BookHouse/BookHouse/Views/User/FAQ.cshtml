@@ -1,8 +1,24 @@
-﻿@model DatabaseProvider.MyDB.Book
+﻿@model DatabaseProvider.NewClassForUI.FAQUI
+@using DatabaseProvider.MyDB
 @{
     ViewBag.Title = "FAQ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.AuthorName</h2>
+<div class = "container">
+    @for (int i = 0; i < Model.faqs.Count; ++i)
+    {
+        <div class="question">
+            <p class="question">
+                @Model.faqs[i].Question
+            </p>
+        </div>
 
+        <div class="answer">
+            <p class="answer">
+                @Model.faqs[i].Answer
+            </p>
+        </div>
+    }
+
+</div>

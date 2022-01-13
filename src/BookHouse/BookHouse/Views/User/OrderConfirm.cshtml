@@ -1,8 +1,104 @@
-﻿
+﻿@model DatabaseProvider.NewClassForUI.DetailOrderUI
+@using System.Globalization
 @{
     ViewBag.Title = "OrderConfirm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OrderConfirm</h2>
+<link href="~/Content/OrderConfirm.css" rel="stylesheet">
 
+<div class="container">
+<h2>XÁC NHẬN ĐƠN HÀNG</h2>
+@{CultureInfo CI = new CultureInfo("vi-VN"); }
+    <table>
+        <tr>
+            <th></th>
+            <th>Đơn hàng</th>
+            <th>Tổng tiền</th>
+            <th>Tiền ship</th>
+            <th>Phương thức thanh toán</th>
+        </tr>
+
+        <tr>
+            <th><img class="order-detail" src="../Images/UIDesign/order.png"></th>
+            <th>
+                <p class="order-detail">Mã đơn hàng: @Model.order.OrderCartID</p>
+                <br />
+                <a href="" class ="cart-link">Chi tiết giỏ hàng</a>
+            </th>
+            <th>
+                @{string price_string = Model.order.TotalPrice.ToString("C0", CI);}
+                <p class="order-detail">@price_string</p>
+                
+            </th>
+            <th>
+                @{ price_string = Model.order.DeliveryCharrge.ToString("C0", CI);}
+                <p class="order-detail">@price_string</p>
+            </th>
+            <th>
+                <p class="order-detail">@Model.order.DeliveryMethod</p>
+            </th>
+        </tr>
+    </table>
+
+    <form action="/User/OrderConfirm" method="post">
+        <table>
+            <tr>
+                <th>
+                    <p class="order-detail">Người nhận: </p>
+                </th>
+                <th>
+                    @Html.TextBoxFor(m => m.order.RecipientName, new { @class = "order-input", @readonly = "readonly" })
+                </th>
+
+            </tr>
+
+            <tr>
+                <th>
+                    <p class="order-detail">Số điện thoại: </p>
+                </th>
+                <th>
+                    @Html.TextBoxFor(m => m.order.Phone, new { @class = "order-input", @readonly = "readonly" })
+                </th>
+
+            </tr>
+
+
+            <tr>
+                <th>
+                    <p class="order-detail">Ngày đặt hàng: </p>
+                </th>
+                <th>
+                    @Html.TextBoxFor(m => m.order.OrderDate, new { @class = "order-input", @readonly = "readonly" })
+                </th>
+
+            </tr>
+
+            <tr>
+                <th>
+                    <p class="order-detail">Địa chỉ giao hàng: </p>
+                </th>
+                <th>
+                    @Html.TextBoxFor(m => m.order.Address, new { @class = "order-input" })
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                    <p class="order-detail">Ghi chú: </p>
+                </th>
+                <th>
+                    @Html.TextBoxFor(m => m.order.NoteForOrder, new { @class = "order-input" })
+                </th>
+            </tr>
+
+            <tr>
+                <th>
+                </th>
+                <th>
+                    <input type="submit" value="Xác nhận đơn hàng" class="submit-button">
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-﻿@model List<DatabaseProvider.NewClassForUI.BookInforUI>
+﻿@model List<DatabaseProvider.NewClassForUI.BookOnHomepage>
 @using System.Globalization
 
 <div style="display: flex; justify-content: center;">
@@ -8,10 +8,10 @@
         <div class="partialIn4">
 
             <div class="partialIn4Pic">
-                <img class="partialIn4Pic" src="@Model[i].images[0]">
+                <img class="partialIn4Pic" src="@Model[i].images">
             </div>
 
-            <p class="partialIn4">@Model[i].book.BookName</p>
+            <p class="partialIn4">@Model[i].BookName</p>
 
             @for (float j = 0; j < 5; ++j){
                 if (j + 0.5 > Model[i].rating){
@@ -23,7 +23,7 @@
             }
 
             @{CultureInfo CI = new CultureInfo("vi-VN");
-                string price_string = Model[i].book.Price.ToString("C0", CI);}
+                string price_string = Model[i].Price.ToString("C0", CI);}
             <p class="price-tag"> @price_string </p>
 
         </div>
