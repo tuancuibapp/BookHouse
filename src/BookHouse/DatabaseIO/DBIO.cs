@@ -76,13 +76,13 @@ namespace DatabaseIO
             HomepageUI homepage = new HomepageUI();
             DataTable retVal = new DataTable();
             var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM BestSellerGenneral()";
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
             homepage.bestSellingBooks = new List<BookOnHomepage>(5);
-            cmd.CommandText = "SELECT * FROM BestSellerGenneral";
-            for (int i = 0; i <= 4; i++)
+            for (int i = 0; i < 5; i++)
             {
-                homepage.bestSellingBooks[i] = new BookOnHomepage();
+                homepage.bestSellingBooks.Add(new BookOnHomepage());
                 homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.bestSellingBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.bestSellingBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
@@ -90,12 +90,12 @@ namespace DatabaseIO
                 homepage.bestSellingBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.foreignLiteratureBooks = new List<BookOnHomepage>(5);
-            cmd.CommandText = "SELECT * FROM BestSellerCategory(@typename)";
-            cmd.Parameters.Add(new SqlParameter("@typename", "Thơ"));
+            cmd.CommandText = "SELECT * FROM BestSellerCategory(N'Thơ')";
+            cmd.Parameters.Add(new SqlParameter("@typename", "N'Thơ'"));
             retVal.Load(cmd.ExecuteReader());
             for (int i = 0; i <= 4; i++)
             {
-                homepage.foreignLiteratureBooks[i] = new BookOnHomepage();
+                homepage.foreignLiteratureBooks.Add(new BookOnHomepage());
                 homepage.foreignLiteratureBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.foreignLiteratureBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.foreignLiteratureBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
@@ -103,12 +103,13 @@ namespace DatabaseIO
                 homepage.foreignLiteratureBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
             }
             homepage.vietnameseLiteratureBooks = new List<BookOnHomepage>(5);
+
             cmd.Parameters.Clear();
-            cmd.Parameters.Add(new SqlParameter("@typename", "Truyện ngắn"));
+            cmd.Parameters.Add(new SqlParameter("@typename", "N'Truyện ngắn'"));
             retVal.Load(cmd.ExecuteReader());
             for (int i = 0; i <= 4; i++)
             {
-                homepage.vietnameseLiteratureBooks[i] = new BookOnHomepage();
+                homepage.vietnameseLiteratureBooks.Add(new BookOnHomepage());
                 homepage.vietnameseLiteratureBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.vietnameseLiteratureBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.vietnameseLiteratureBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
@@ -117,11 +118,11 @@ namespace DatabaseIO
             }
             homepage.historyBooks = new List<BookOnHomepage>();
             cmd.Parameters.Clear();
-            cmd.Parameters.Add(new SqlParameter("@typename", "Lịch sử"));
+            cmd.Parameters.Add(new SqlParameter("@typename", "N'Lịch sử'"));
             retVal.Load(cmd.ExecuteReader());
             for (int i = 0; i <= 4; i++)
             {
-                homepage.historyBooks[i] = new BookOnHomepage();
+                homepage.historyBooks.Add(new BookOnHomepage());
                 homepage.historyBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
                 homepage.historyBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.historyBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
