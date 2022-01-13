@@ -3,7 +3,113 @@
 @{
     ViewBag.Title = "BookInfor";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.FirstImage = "../Images/Book/" + Model.images;
+    ViewBag.Image = "../Images/Book/" + Model.images;
 }
 <link href="~/Content/BookInfor.css" rel="stylesheet" />
-<dib>@Model.book.BookName</dib>
+<div id="bookInfor">
+    <div id="bookInforLeft"><img src=@ViewBag.Image height="350" width="300" /></div>
+    <div id="bookInforRight">
+        <p>@Model.book.BookName</p>
+        <div>
+            <div>
+                <img class="fas fa-star" />
+                <img class="fas fa-star" />
+                <img class="fas fa-star" />
+                <img class="fas fa-star" />
+                <img class="fas fa-star" />
+                | Đã bán: @Model.sold
+            </div>
+        </div>
+        <table>
+            <tr>
+                <td>Mã sản phẩm:</td>
+                <th style="color: green;">@Model.book.BookID</th>
+            </tr>
+            <tr>
+                <td>Tác giả: </td>
+                <th style="color: green;">@Model.book.AuthorName</th>
+            </tr>
+            <tr>
+                <td>Dịch giả: </td>
+                <th style="color: green;">@Model.book.PublishingCom</th>
+                <th style="background-color: darkgray; border-radius: 5px;">Giá bìa: @Model.book.Price VNĐ</th>
+            </tr>
+            <tr>
+                <td>Nhà xuất bản: </td>
+                <th style="color: green;">Hội nhà văn</th>
+                <td rowspan="2" style="color: white; background-color:forestgreen; border-radius:5px;">Giá BookHouse:<br />@Model.book.Price VNĐ(Đã có VAT)</td>
+            </tr>
+            <tr>
+                <td>Ngày xuất bản: </td>
+                <th style="color: green;">@Model.book.ReleaseDate</th>
+            </tr>
+            <tr style="position:relative;">
+                <td>Số trang</td>
+                <th style="color: green;">@Model.book.NumOfPage</th>
+                <td style="position: absolute; bottom:0px; font-size:17px; padding:0px 0px;">Số lượng:</td>
+            </tr>
+            <tr style="position: relative;">
+                <td>Kích thước: </td>
+                <th style="color: green;">14 x 20,5 cm</th>
+                <td rowspan="2" style="padding-left:0px;">
+                    <div class="plusMinus">+</div>
+                    <div style="background-color: darkgrey; border: 0.01px solid grey; float: left; padding: 5px 15px;">1</div>
+                    <div class="plusMinus">-</div>
+                    <a href="#" style="color: white; background-color: green; border-radius: 10px; float: left; padding: 5px 10px; text-decoration:none;">Thêm vào giỏ hàng</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Thể loại: </td>
+                <th style="color: green;">Văn học nước ngoài, tiểu thuyết</th>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<div id="bookDescription" style="border-bottom: 1px solid darkseagreen;">
+    <div id="bookDescriptionTop" style="display: flex; justify-content:space-between;">
+        <div id="bookImage" style="justify-content:space-between; display:flex;">
+            @{
+                for (int i = 0; i < 3; i++)
+                {
+                    <img height=50 width=40 src=@ViewBag.Image />
+                }
+            }
+            <div id="viewMoreImage" style="height:50px; width:50px;">Xem thêm hình</div>
+        </div>
+        <div>
+            <p style="background-color:darkseagreen; padding:10px; border-radius:5px;">GIỚI THIỆU SÁCH</p>
+        </div>
+    </div>
+    <div>
+        <p>
+            @Model.book.Description
+        </p>
+    </div>
+</div>
+<div id="bookComment">
+    <p style="width:150px; text-align: center; padding: 3px 10px; background-color: darkseagreen; border-radius:5px; color:white;">BÌNH LUẬN</p>
+    @{
+                for (int i = 0; i < 3; i++) 
+        {
+            <div id="comment">
+                <div style="background-color: darkgray; border-radius: 5px; display: flex; justify-content: center;">
+                    <div style="width: 15%; padding-left: 20px;">
+                        <img class="fas fa-user fa-5x" width="100" height="100" />
+                        <p>Phạm Thị Ngọc Hà<br />15/02/2021</p>
+                    </div>
+                    <div style="width: 85%;     ">
+                        <p style="background-color: white; border-radius: 5px;">
+                            Quyển sách này rất tốt!
+                        </p>
+                        @for (int j = 0; j < 3; j++)
+                        {
+                            <img height="50" width="40" src=@ViewBag.Image />
+                        }
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+</div>

@@ -37,7 +37,8 @@ namespace DatabaseIO
             BookInforUI bookInforUI = new BookInforUI();
             DataTable retVal = new DataTable();
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM BookInfor('00000')";
+            cmd.CommandText = "SELECT * FROM BookInfor(@bid)";
+            cmd.Parameters.Add(new SqlParameter("@bid", bid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
             bookInforUI.book.BookID = bid;
@@ -51,8 +52,8 @@ namespace DatabaseIO
             bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[0]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
             bookInforUI.category = retVal.Rows[0]["CategoryName"].ToString();
             bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            /*bookInforUI.images = retVal.Rows[0]["Image"].ToString();*/
-            bookInforUI.comments = mydb.Database.SqlQuery<CommentBook>("SELECT * FROM BookComment(@bid)", new SqlParameter("@bid", bid)).ToList<CommentBook>();
+            bookInforUI.images = retVal.Rows[0]["Images"].ToString();
+            /*bookInforUI.comments = mydb.Database.SqlQuery<CommentBook>("SELECT * FROM BookComment(@bid)", new SqlParameter("@bid", bid)).ToList<CommentBook>();*/
             return bookInforUI;
         }
 
