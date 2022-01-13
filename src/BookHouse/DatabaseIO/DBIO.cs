@@ -20,23 +20,38 @@ namespace DatabaseIO
             return mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerPhone = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
         }
 
+        public BookInforUI GetObject_Book(string bid)
+        {
+            BookInforUI u = new BookInforUI();
+            DataTable retVal = new DataTable();
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "select BookName, BookID from Book";
+            cmd.Connection.Open();
+            retVal.Load(cmd.ExecuteReader());
+            u.book.BookName = retVal.Rows[0]["BookName"].ToString();
+            return u;
+        }
+
         public BookInforUI GetObject_BookInforUI(string bid)
         {
             BookInforUI bookInforUI = new BookInforUI();
             DataTable retVal = new DataTable();
-            retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM BookInfor(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM BookInfor('00000')";
+            cmd.Connection.Open();
+            retVal.Load(cmd.ExecuteReader());
             bookInforUI.book.BookID = bid;
-            bookInforUI.book.BookName = retVal.Rows[1]["BookName"].ToString();
-            bookInforUI.book.AuthorName = retVal.Rows[1]["AuthorName"].ToString();
-            bookInforUI.book.Description = retVal.Rows[1]["Description"].ToString();
-            bookInforUI.book.Price = int.Parse(retVal.Rows[1]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            bookInforUI.book.Stock = short.Parse(retVal.Rows[1]["Stock"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            bookInforUI.book.NumOfPage = short.Parse(retVal.Rows[1]["NumOfPage"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            bookInforUI.book.PublishingCom = retVal.Rows[1]["PublishingCom"].ToString();
-            bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[1]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
-            bookInforUI.category = retVal.Rows[1]["CategoryName"].ToString();
-            bookInforUI.rating = float.Parse(retVal.Rows[1]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            bookInforUI.images = retVal.Rows[1]["Image"].ToString();
+            bookInforUI.book.BookName = retVal.Rows[0]["BookName"].ToString();
+            bookInforUI.book.AuthorName = retVal.Rows[0]["AuthorName"].ToString();
+            bookInforUI.book.Description = retVal.Rows[0]["Description"].ToString();
+            bookInforUI.book.Price = int.Parse(retVal.Rows[0]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.book.Stock = short.Parse(retVal.Rows[0]["Stock"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.book.NumOfPage = short.Parse(retVal.Rows[0]["NumOfPage"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            bookInforUI.book.PublishingCom = retVal.Rows[0]["PublishingCom"].ToString();
+            bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[0]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
+            bookInforUI.category = retVal.Rows[0]["CategoryName"].ToString();
+            bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            /*bookInforUI.images = retVal.Rows[0]["Image"].ToString();*/
             bookInforUI.comments = mydb.Database.SqlQuery<CommentBook>("SELECT * FROM BookComment(@bid)", new SqlParameter("@bid", bid)).ToList<CommentBook>();
             return bookInforUI;
         }
@@ -54,7 +69,7 @@ namespace DatabaseIO
             DataTable retVal = new DataTable();
             homepage.bestSellingBooks = new List<BookOnHomepage>(5);
             retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
-            for (int i = 1; i <= 5; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 homepage.bestSellingBooks[i] = new BookOnHomepage();
                 homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
@@ -65,7 +80,7 @@ namespace DatabaseIO
             }
             homepage.foreignLiteratureBooks = new List<BookOnHomepage>(5);
             retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
-            for (int i = 1; i <= 5; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 homepage.bestSellingBooks[i] = new BookOnHomepage();
                 homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
@@ -76,7 +91,7 @@ namespace DatabaseIO
             }
             homepage.vietnameseLiteratureBooks = new List<BookOnHomepage>(5);
             retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
-            for (int i = 1; i <= 5; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 homepage.bestSellingBooks[i] = new BookOnHomepage();
                 homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();
@@ -87,7 +102,7 @@ namespace DatabaseIO
             }
             homepage.historyBooks = new List<BookOnHomepage>();
             retVal = mydb.Database.SqlQuery<DataTable>("SELECT * FROM HomePageUI(@bid)", new SqlParameter("@bid", bid)).FirstOrDefault();
-            for (int i = 1; i <= 5; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 homepage.bestSellingBooks[i] = new BookOnHomepage();
                 homepage.bestSellingBooks[i].BookID = retVal.Rows[i]["BookID"].ToString();

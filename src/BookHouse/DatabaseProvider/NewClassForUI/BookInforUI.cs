@@ -8,6 +8,10 @@ namespace DatabaseProvider.NewClassForUI
 {
     public class BookInforUI
     {
+        public BookInforUI()
+        {
+            book = new Book();
+        }
         public Book book { get; set; }
         public string category { get; set; }
         public float rating { get; set; }
