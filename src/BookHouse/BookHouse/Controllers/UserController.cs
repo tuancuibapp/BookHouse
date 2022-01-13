@@ -225,9 +225,17 @@ namespace BookHouse.Controllers
         }
         public ActionResult FAQ()
         {
-            Book book = new Book();
+            DBIO db = new DBIO();
+            //FAQUI FAQdata = db.GetObject_FAQUI();
 
-            return View(book);
+            FAQUI FAQdata = new FAQUI
+            {
+                faqs = new List<FAQ> 
+                {
+                    new FAQ { Answer = "No...", Question = "U good?", QuestionID = "1"}
+                }
+            };
+            return View(FAQdata);
         }
         public ActionResult Cart()
         {
@@ -270,25 +278,31 @@ namespace BookHouse.Controllers
         }
         public ActionResult OrderConfirm()
         {
-            OrderCartDetail yayOrder = 
-            // get the detail of current cart
-            OrderCart currentCart = new OrderCart
+            DetailOrderUI yayOrder = new DetailOrderUI
             {
-                Address = "227 Nguyen Van Cu, Phuong 4, Quan 5",
-                Phone = "0912345678",
-                TotalPrice = 100000,
-                NoteForOrder = "",
-                OrderDate = new DateTime(2022, 1, 1),
-                RecipientName = "Vu Ngoc Tuan",
-                DeliveryMethod = "Thanh toán khi nhận hàng",
-                DeliveryCharrge = 20000,
-                OrderCartDetails = new List<OrderCartDetail> 
-                { 
-
-                }
-
+                order = new OrderCart
+                {
+                    OrderCartID = "00011000",
+                    OrderDate = new DateTime(2022, 10, 2),
+                    Address = "227 Nguyen Van Cu, Phuong 4, Quan 5, TP HCM",
+                    Phone = "0123456789",
+                    TotalPrice = 220000,
+                    NoteForOrder = "",
+                    RecipientName = "Vu Ngoc Tuan",
+                    DeliveryMethod = "Thanh toán khi nhận hàng.",
+                    DeliveryCharrge = 40000,
+                },
             };
-            return View();
+            return View(yayOrder);
+        }
+
+        [HttpPost]
+        public ActionResult OrderConfirm(DetailOrderUI details)
+        {
+            // call function to update database
+
+            // notify the user
+            return RedirectToAction("HomePage");
         }
         public ActionResult ChangePassword()
         {
