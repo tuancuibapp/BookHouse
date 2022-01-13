@@ -135,16 +135,9 @@ namespace DatabaseIO
         {
             ProfileUI profile = new ProfileUI();
             profile.customer = new Customer();
-            profile.order = new List<OrderCart>();
+            profile.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE CustomerID = @uid and Order_or_Cart = TRUE", new SqlParameter("@uid", uid)).ToList();
             profile.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
-            DataTable retVal = new DataTable();
-            retVal = mydb.Database.SqlQuery<DataTable>("").FirstOrDefault();
-            for (int i = 1; i < 5; i++)
-            {
-                profile.order[i - 1] = new OrderCart();
-
-            }
-            return null;
+            return profile;
         }
 
         public DetailOrderUI GetObject_DetailOrderUI (string uid, string oid)
