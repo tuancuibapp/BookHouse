@@ -34,4 +34,10 @@
     color: white;
     width: fit-content;
     padding: 5px 30px;
+    border: 2px solid white;
 }
+
+    .btn:hover {
+        border: 2px solid greenyellow;
+        cursor: pointer;
+    }

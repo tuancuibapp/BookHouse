@@ -15,37 +15,26 @@
         <th>Tổng cộng</th>
         <th>Xóa</th>
     </tr>
-    <tr>
-        <th>1</th>
-        <td style="width: 500px;">
-            Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)
-            Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)
-        </td>
-        <th style="padding-left: 0px;">
-            <div class="plusMinus">+</div>
-            <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">1</div>
-            <div class="plusMinus">-</div>
-        </th>
-        <th>500.000VNĐ</th>
-        <th>500.000VNĐ</th>
-        <th>
-            <div class="btn" style="margin-top: 20px;">Xóa</div>
-        </th>
-    </tr>
-    <tr>
-        <th>2</th>
-        <td>Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)</td>
-        <th style="padding-left: 0px;">
-            <div class="plusMinus">+</div>
-            <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">1</div>
-            <div class="plusMinus">-</div>
-        </th>
-        <th>500.000VNĐ</th>
-        <th>500.000VNĐ</th>
-        <th>
-            <div class="btn" style="margin-top: 20px;">Xóa</div>
-        </th>
-    </tr>
+    @for (int i = 1; i < 4; i++)
+    {
+        <tr id="@i">
+            <th>@i</th>
+            <td style="width: 500px;">
+                Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)
+                Giáo dục việt nam thời kỳ thuộc địa qua các tài liệu và lưu trữ (1858-1945)
+            </td>
+            <th style="padding-left: 0px;">
+                <div class="plusMinus">+</div>
+                <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">1</div>
+                <div class="plusMinus">-</div>
+            </th>
+            <th>500.000VNĐ</th>
+            <th>500.000VNĐ</th>
+            <th>
+                <div class="btn" style="margin-top: 20px;" onclick="delete_product(@i)">Xóa</div>
+            </th>
+        </tr>
+    }
     <tr class="notEffect" style="background-color: white;">
         <th></th>
         <td></td>
@@ -58,10 +47,48 @@
         <th></th>
         <th style="display: flex; justify-content: center; width: 99.3%;"><div class="btn" style="background-color: black;">Tiếp tục mua hàng</div></th>
         <th></th>
-        <th colspan="2"><div class="btn">Xác nhận đơn hàng</div></th>
+        <th colspan="2"><div class="btn" onclick="detail_order(@ViewBag.OrderID)">Xác nhận đơn hàng</div></th>
         <th></th>
     </tr>
 </table>
+<div id="ms" style="color:red;"></div>
+<div id="mss" style="color:green;"></div>
+<script>
+    var IsRunning = false;
+    function delete_product(i) {
+        if (!IsRunning) {
+            IsRunning = true;
+            var form = new FormData();
+            dOID = "00000"; @*chưa map dữ liệu*@
+            form.append("dOID", dOID);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", domain + '/User/Cart', true);
+            xhr.timeout = 30000;
+            xhr.ontimeout = function () {
+                $("#ms").html('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+                IsRunning = false;
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var r = xhr.responseText;
+                    var j = JSON.parse(r);
+                    if (j.Data.status == "OK") {
+                        $("#" + i).remove();
+                        $('#mss').html("Sản phẩm đã được xóa khỏi giỏ hàng!");
+                    }
+                    else
+                        $('#ms').html("Không thể xóa dữ liệu trong cơ sở dữ liệu!");
+                    IsRunning = false;
+                }
+            }
+            xhr.send(form);
+            console.log("send");
+        }
+    }
+    function detail_order(oid) {
+        window.location = "/user/detailorder";
+    }
+</script>
 
 
 

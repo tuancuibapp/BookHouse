@@ -8,9 +8,9 @@ namespace DatabaseProvider.NewClassForUI
 {
     public class BookDetailOrder
     {
-        public string bookID { get; set; }
-        public string bookName { get; set; }
+        public BookInforUI book { get; set; }
         public int number { get; set; }
         public float price { get; set; }
+        public bool rating { get; set; }
     }
 }

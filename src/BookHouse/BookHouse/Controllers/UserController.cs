@@ -250,26 +250,32 @@ namespace BookHouse.Controllers
         }
         public ActionResult Cart()
         {
+            /*List<BookDetailOrder> u = db.GetObject_CartUI()*/
             return View();
         }
-        /*
-        public ActionResult BookInfor()
+        [HttpPost]
+        public ActionResult Cart(FormCollection data)
         {
-            BookInforUI u = new BookInforUI();
-            u.book = db.GetObject_Book();
-            u.comments = db.GetObject_CommentBook(u.book.BookID);
-            u.rating = 2;
-            u.sold = 35;
-            u.images = db.GetObject_Image(u.book.BookID);
-            if (u.book == null || u.images == null)
-                Response.Redirect("https://localhost:44339/User/Homepage");
-            foreach(Img tmp in u.images)
+            string dOID = data["dOID"];
+            JsonResult jr = new JsonResult();
+            /*if(db.DeleteObject_OrderDetail(dOID))*/
+            if (true)
             {
-                tmp.ImagePath = "../Images/Book/"+tmp.ImagePath;
+                Session["user"] = new Customer();
+                jr.Data = new
+                {
+                    status = "OK"
+                };
             }
-            return View(u);
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
         }
-        */
         public ActionResult OrderManaging()
         {
 
@@ -315,7 +321,8 @@ namespace BookHouse.Controllers
         }
         public ActionResult Rating()
         {
-            return View();
+            RatingUI u = db.GetObject_RatingUI("00000");
+            return View(u);
         }
         public ActionResult OrderConfirm()
         {
