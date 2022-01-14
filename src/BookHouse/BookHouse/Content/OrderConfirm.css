@@ -28,11 +28,11 @@ table {
 }
 
 .order-input {
-    width:400px;
-    height:30px;
-    background-color: forestgreen;
+    width: 400px;
+    height: 30px;
+    background-color: #a8d3a1;
     font-family: Arial;
-    color:black;
+    color: black;
     font-size: 14px;
     font-weight: bold;
 }

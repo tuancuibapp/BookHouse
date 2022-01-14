@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class = "container">
+
+<link href="~/Content/FAQ.css" rel="stylesheet">
+<div class="container">
     @for (int i = 0; i < Model.faqs.Count; ++i)
     {
         <div class="question">

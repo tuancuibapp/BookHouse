@@ -1,8 +1,62 @@
-﻿
+﻿@model List<DatabaseProvider.NewClassForUI.DetailOrderUI>
+@using System.Globalization
 @{
     ViewBag.Title = "OrderManaging";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OrderManaging</h2>
+<div class="container">
+    <h2>QUẢN LÝ ĐƠN HÀNG</h2>
+    @{CultureInfo CI = new CultureInfo("vi-VN"); }
+    <table>
+        <tr>
+            <th>
 
+            </th>
+
+            <th>
+                <p>Đơn hàng</p>
+            </th>
+
+            <th>
+                <p>Tổng tiền</p>
+            </th>
+
+            <th>
+                <p>Trạng thái</p>
+            </th>
+
+            <th>
+                <p>Phương thức thanh toán</p>
+            </th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count; ++i)
+        {
+            <tr>
+                <th>
+                    <img class="order-detail" src="../Images/UIDesign/order.png">
+                </th>
+
+                <th>
+                    <p class="order-detail">Mã đơn hàng: @Model[i].order.OrderCartID</p>
+                    <a href="" class="cart-link">Chi tiết giỏ hàng</a>
+                </th>
+                <th>
+                    @{string price_string = Model[i].order.TotalPrice.ToString("C0", CI);}
+                    <p class="order-detail">@price_string</p>
+
+                </th>
+                <th>
+                    @{ price_string = Model[i].order.DeliveryCharrge.ToString("C0", CI);}
+                    <p class="order-detail">@price_string</p>
+                </th>
+                <th>
+                    <p class="order-detail">@Model[i].order.DeliveryMethod</p>
+                </th>
+
+            </tr>
+        }
+
+    </table>
+</div>
