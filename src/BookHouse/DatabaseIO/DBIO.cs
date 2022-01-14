@@ -54,10 +54,12 @@ namespace DatabaseIO
             bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             bookInforUI.images = retVal.Rows[0]["Images"].ToString();
             cmd.CommandText = "SELECT * FROM BookComment(@bid)";
+            retVal.Clear();
             retVal.Load(cmd.ExecuteReader());
             bookInforUI.comments = new List<Comment>();
-            for (int i = 0; i <= retVal.Rows.Count; i++)
+            for (int i = 0; i < retVal.Rows.Count; i++)
             {
+                bookInforUI.comments.Add(new Comment());
                 bookInforUI.comments[i].customer = retVal.Rows[i]["CustomerName"].ToString();
                 bookInforUI.comments[i].content = retVal.Rows[i]["Content"].ToString();
             }
@@ -211,7 +213,99 @@ namespace DatabaseIO
             return rating;
         }
 
+        public List<BookOnHomepage> GetObject_Searching(Filters filters)
+        {
+            DataTable retVal = new DataTable();
+            List<BookOnHomepage> books = new List<BookOnHomepage>();
+            int idx = -1;
+            bool price;
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.Connection.Open();
 
+            if (filters.priceRange[0] >= 0 && filters.priceRange[1] > 0)
+                price = true;
+            else
+                price = false;
 
+            bool loop = true;
+            while (true)
+            {
+                idx = -1;
+
+                for (int i = 0; i < filters.values.Count(); i++)
+                {
+                    if (filters.values[i] == true)
+                    {
+                        idx = i;
+                        filters.values[i] = false;
+                        break;
+                    }
+                    loop = false;
+                }
+
+                if (filters.query != null && idx != -1 && price != false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerNamePriceCategory(@name, @lowerBound, @uperBound, @bookcategoryName)";
+                    cmd.Parameters.Add(new SqlParameter("@name", filters.query));
+                    cmd.Parameters.Add(new SqlParameter("@lowerBound", filters.priceRange[0]));
+                    cmd.Parameters.Add(new SqlParameter("@uperBound", filters.priceRange[1]));
+                    cmd.Parameters.Add(new SqlParameter("@bookcategoryName", filters.categories[idx]));
+                }
+                else if (filters.query != null & idx != -1 && price == false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerNameCategory(@name @bookcategoryName)";
+                    cmd.Parameters.Add(new SqlParameter("@name", filters.query));
+                    cmd.Parameters.Add(new SqlParameter("@bookcategoryName", filters.categories[idx]));
+                }
+                else if (filters.query != null && idx == -1 && price != false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerNamePrice(@name, @lowerBound, @uperBound)";
+                    cmd.Parameters.Add(new SqlParameter("@name", filters.query));
+                    cmd.Parameters.Add(new SqlParameter("@lowerBound", filters.priceRange[0]));
+                    cmd.Parameters.Add(new SqlParameter("@uperBound", filters.priceRange[1]));
+                }
+                else if (filters.query == null && idx != -1 && price != false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerPriceCategory(@lowerBound, @uperBound, @bookcategoryName)";
+                    cmd.Parameters.Add(new SqlParameter("@lowerBound", filters.priceRange[0]));
+                    cmd.Parameters.Add(new SqlParameter("@uperBound", filters.priceRange[1]));
+                    cmd.Parameters.Add(new SqlParameter("@bookcategoryName", filters.categories[idx]));
+                }
+                else if (filters.query == null && idx != -1 && price == false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerCategory(@bookcategoryName)";
+                    cmd.Parameters.Add(new SqlParameter("@bookcategoryName", filters.categories[idx]));
+                }
+                else if (filters.query == null && idx == -1 && price != false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerPrice(@lowerBound, @uperBound)";
+                    cmd.Parameters.Add(new SqlParameter("@lowerBound", filters.priceRange[0]));
+                    cmd.Parameters.Add(new SqlParameter("@uperBound", filters.priceRange[1]));
+                }
+                else if (filters.query != null && idx == -1 && price == false)
+                {
+                    cmd.CommandText = "SELECT * FROM BestSellerName(@name)";
+                    cmd.Parameters.Add(new SqlParameter("@name", filters.query));
+                }
+
+                retVal.Load(cmd.ExecuteReader());
+                for (int i = 0; i < retVal.Rows.Count; i++)
+                {
+                    books.Add(new BookOnHomepage());
+                    books[i].BookID = retVal.Rows[i]["BookID"].ToString();
+                    books[i].BookName = retVal.Rows[i]["BookName"].ToString();
+                    books[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    books[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    books[i].images = retVal.Rows[i]["ImagePath"].ToString();
+                }
+            }
+            return books;
+        }
+
+        public bool SaveObject_AddToCart(BookDetailOrder cart, string uid)
+        {
+            
+            return true;
+        }
     }
 }
