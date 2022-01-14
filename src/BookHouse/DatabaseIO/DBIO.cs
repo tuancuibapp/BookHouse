@@ -200,8 +200,7 @@ namespace DatabaseIO
             OrderConfirmUI order = new OrderConfirmUI();
             order.order = new OrderCart();
             order.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM Customer WHERE OrderCart = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
-            // sorry i don't know
-            return null;
+            return order;
         }
 
         public RatingUI GetObject_RatingUI(string bid)
@@ -210,15 +209,14 @@ namespace DatabaseIO
             rating.book = mydb.Database.SqlQuery<Book>("SELECT * FROM Book WHERE BookID = @bid", new SqlParameter("@bid", bid)).FirstOrDefault();
             DataTable retVal = new DataTable();
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM RatingInfor(@bid)";
+            cmd.CommandText = "SELECT * FROM BookInforSmall(@bid)";
             cmd.Parameters.Add(new SqlParameter("@bid", bid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
             rating.rating = int.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            rating.image = retVal.Rows[0]["Image"].ToString();
+            rating.image = retVal.Rows[0]["ImagePath"].ToString();
             rating.sold = int.Parse(retVal.Rows[0]["Sold"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            return null;
-            /*chú ý là hàm RatingInfor chưa viết*/
+            return rating;
         }
 
         public List<OrderCart> GetObject_OrderManagingUI(string uid)

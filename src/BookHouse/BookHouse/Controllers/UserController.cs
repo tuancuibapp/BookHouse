@@ -294,7 +294,8 @@ namespace BookHouse.Controllers
         }
         public ActionResult Rating()
         {
-            return View();
+            RatingUI u = db.GetObject_RatingUI("00000");
+            return View(u);
         }
         public ActionResult OrderConfirm()
         {
