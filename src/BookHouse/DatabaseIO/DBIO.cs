@@ -195,14 +195,6 @@ namespace DatabaseIO
             return cart;
         }
 
-        public OrderConfirmUI GetObject_OrderConfirmUI(string oid)
-        {
-            OrderConfirmUI order = new OrderConfirmUI();
-            order.order = new OrderCart();
-            order.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM Customer WHERE OrderCart = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
-            return order;
-        }
-
         public RatingUI GetObject_RatingUI(string bid)
         {
             RatingUI rating = new RatingUI();
@@ -219,12 +211,7 @@ namespace DatabaseIO
             return rating;
         }
 
-        public List<OrderCart> GetObject_OrderManagingUI(string uid)
-        {
-            List<OrderCart> carts = new List<OrderCart>();
-            carts = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).ToList<OrderCart>();
-            return carts;
-        }
+
 
     }
 }
