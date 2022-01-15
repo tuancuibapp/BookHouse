@@ -394,7 +394,7 @@ namespace DatabaseIO
         public bool SaveObject_AddOrderDetail(List<BookDetailOrder> bookDetails, string oid)
         {
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "exec sp_addOrderDetail @orderid, @bookid, @quantity, @price, @result";
+            cmd.CommandText = "exec sp_addOrderDetail @orderid, @bookid, @quantity, @result";
 
             for (int i = 0; i < bookDetails.Count; i++)
             {
