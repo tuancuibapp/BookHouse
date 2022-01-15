@@ -228,7 +228,7 @@ namespace DatabaseIO
                 price = false;
 
             bool loop = true;
-            while (true)
+            while (loop)
             {
                 idx = -1;
 
@@ -238,6 +238,7 @@ namespace DatabaseIO
                     {
                         idx = i;
                         filters.values[i] = false;
+                        loop = true;
                         break;
                     }
                     loop = false;
