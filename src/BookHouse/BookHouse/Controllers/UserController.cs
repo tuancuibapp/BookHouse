@@ -322,13 +322,12 @@ namespace BookHouse.Controllers
         [HttpPost]
         public ActionResult Rating(FormCollection data)
         {
-            string pN = data["cT"];
-            string p = data["r"];
+            string cT = data["cT"];
+            string r = data["r"];
             string bid = data["bid"];
             JsonResult jr = new JsonResult();
-            bool u = true;
-            /*bool u = db.SaveObject_RatingAndComment(bid);*/
-            if (!u)
+            bool u = db.SaveObject_AddComment(bid, "00000", cT, int.Parse(r));
+            if (db.SaveObject_AddComment(bid, "00000", cT, int.Parse(r)) && db.SaveObject_AddRating(bid, "00000", cT, int.Parse(r)))
             {
                 Session["user"] = new Customer();
                 jr.Data = new

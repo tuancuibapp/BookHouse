@@ -52,7 +52,7 @@ namespace DatabaseIO
             bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[0]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
             bookInforUI.category = retVal.Rows[0]["CategoryName"].ToString();
             bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-            bookInforUI.images = retVal.Rows[0]["Images"].ToString();
+            bookInforUI.images = retVal.Rows[0]["ImagePath"].ToString();
             cmd.CommandText = "SELECT * FROM BookComment(@bid)";
             retVal.Clear();
             retVal.Columns.Clear();
@@ -221,7 +221,7 @@ namespace DatabaseIO
             cmd.Parameters.Add(new SqlParameter("@bid", bid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
-            rating.rating = int.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            rating.rating = (int)float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             rating.image = retVal.Rows[0]["ImagePath"].ToString();
             rating.sold = int.Parse(retVal.Rows[0]["Sold"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             return rating;
@@ -337,23 +337,31 @@ namespace DatabaseIO
                 return true;
         }
 
-        public bool SaveObject_AddCommentAndRating(string bookid, string customerid, string content, int star)
+        public bool SaveObject_AddComment(string bookid, string customerid, string content, int star)
         {
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "exec sp_addComment @bookid, @customerid, @content, @result";
+            cmd.CommandText = "exec sp_addComment @bookid, @customerid, @content, @result out";
             cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
             cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
             cmd.Parameters.Add(new SqlParameter("@content", content));
-            cmd.Parameters.Add(new SqlParameter("@result", 0));
+            cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+            cmd.Connection.Close();
+            cmd.Connection.Open();
             cmd.ExecuteReader();
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
-            cmd.Parameters.Clear();
-            cmd.CommandText = "exec sp_addrating @bookid, @customerid, @star, @result";
+            return true;
+        }
+        public bool SaveObject_AddRating(string bookid, string customerid, string content, int star)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_addrating @bookid, @customerid, @star, @result out";
             cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
             cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
             cmd.Parameters.Add(new SqlParameter("@star", star));
-            cmd.Parameters.Add(new SqlParameter("@result", 0));
+            cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+            cmd.Connection.Close();
+            cmd.Connection.Open();
             cmd.ExecuteReader();
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
