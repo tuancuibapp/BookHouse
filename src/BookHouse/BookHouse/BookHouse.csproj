@@ -143,7 +143,6 @@
     <Content Include="Content\Cart.css" />
     <Content Include="Content\ChangePassword.css" />
     <Content Include="Content\ForgotPassword.css" />
-    <Content Include="Content\Layout.css" />
     <Content Include="Content\OrderConfirm.css" />
     <Content Include="Content\Rating.css" />
     <Content Include="Content\SignIn.css" />

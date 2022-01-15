@@ -30,7 +30,7 @@ namespace DatabaseProvider.MyDB
         [StringLength(50)]
         public string OrderState { get; set; }
 
-        public int TotalPrice { get; set; }
+        public int? TotalPrice { get; set; }
 
         [StringLength(200)]
         public string NoteForOrder { get; set; }
@@ -49,7 +49,7 @@ namespace DatabaseProvider.MyDB
         [StringLength(100)]
         public string DeliveryMethod { get; set; }
 
-        public int DeliveryCharrge { get; set; }
+        public int? DeliveryCharrge { get; set; }
 
         public int? GoodsPrice { get; set; }
 

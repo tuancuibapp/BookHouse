@@ -16,7 +16,7 @@
         <input type="checkbox">
         <label>Ghi nhớ</label>
 
-        <div class="btn" style="margin:20px 0px;" onclick="sign_in()">Đăng Nhập</div>
+        <div class="btn" style="margin:20px 0px;" onclick="sign_inn()">Đăng Nhập</div>
     </div>
     <div style="margin-left: 30px;"><img src="../Images/UIDesign/gif00.gif" width="50%" height="70%"></div>
 </div>
@@ -33,16 +33,30 @@
         </div>
     </div>
 </div>
-<div id="ms" style="color:red;"></div>
+<div id="msSign_In" style="color:red;"></div>
 <script>
+    function prevent_non_numerical_input(e) {
+        e = e || window.event;
+        var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+        var charStr = String.fromCharCode(charCode);
+        $("#msSign_In").html();
+
+        if (!charStr.match(/^[0-9]+$/)) {
+            e.preventDefault();
+            $("#msSign_In").html('Bạn không thể nhập kí tự!');
+        }
+    }
+    function body_click() {
+        $("#msSign_In").html('');
+    }
     var IsRunning = false;
-    function sign_in() {
+    function sign_inn() {
         if (!IsRunning) {
             IsRunning = true;
             var pN = $("#phoneNumber").val();
             var p = $("#password").val();
             if (pN == '' || p == '') {
-                $('#ms').html('Vui lòng nhập đầy đủ thông tin!');
+                alert('Vui lòng nhập đầy đủ thông tin!');
                 IsRunning = false;
             }
             else {
@@ -53,7 +67,7 @@
                 xhr.open("POST", domain + '/User/SignInn', true);
                 xhr.timeout = 30000;
                 xhr.ontimeout = function () {
-                    $("#ms").html('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+                    alert('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
                     IsRunning = false;
                 }
                 xhr.onreadystatechange = function () {
@@ -63,7 +77,7 @@
                         if (j.Data.status == "OK")
                             window.location = "/user/homepage";
                         else
-                            $('#ms').html("Sai tài khoản hoặc mật khẩu!");
+                            alert("Sai tài khoản hoặc mật khẩu!");
                         IsRunning = false;
                     }
                 }

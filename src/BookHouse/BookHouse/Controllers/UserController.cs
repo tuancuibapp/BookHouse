@@ -82,11 +82,31 @@ namespace BookHouse.Controllers
             Customer u = db.GetObject_User(pN);
             if (u != null && u.Password.Contains(p))
             {
-                Session["user"] = new Customer();
+                Session["user"] = u;
                 jr.Data = new
                 {
                     status = "OK",
-                    tmp = u.CustomerName
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult Signout()
+        {
+            JsonResult jr = new JsonResult();
+            Session["user"] = null;
+            if (Session["user"] == null)
+            {
+                jr.Data = new
+                {
+                    status = "OK",
                 };
             }
             else
@@ -253,8 +273,10 @@ namespace BookHouse.Controllers
         }
         public ActionResult Cart()
         {
-            /*List<BookDetailOrder> u = db.GetObject_CartUI()*/
-            return View();
+            if (Session["user"] == null)
+                Response.Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+            List<BookDetailOrder> u = db.GetObject_CartUI("00000");
+            return View(u);
         }
         [HttpPost]
         public ActionResult Cart(FormCollection data)
@@ -297,9 +319,36 @@ namespace BookHouse.Controllers
             RatingUI u = db.GetObject_RatingUI("00000");
             return View(u);
         }
+        [HttpPost]
+        public ActionResult Rating(FormCollection data)
+        {
+            string pN = data["cT"];
+            string p = data["r"];
+            string bid = data["bid"];
+            JsonResult jr = new JsonResult();
+            bool u = true;
+            /*bool u = db.SaveObject_RatingAndComment(bid);*/
+            if (!u)
+            {
+                Session["user"] = new Customer();
+                jr.Data = new
+                {
+                    status = "OK",
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult OrderConfirm()
         {
-            DetailOrderUI yayOrder = new DetailOrderUI
+            DetailOrderUI u = db.GetObject_DetailOrderUI("","00000");
+            /*DetailOrderUI yayOrder = new DetailOrderUI
             {
                 order = new OrderCart
                 {
@@ -313,8 +362,8 @@ namespace BookHouse.Controllers
                     DeliveryMethod = "Thanh toán khi nhận hàng.",
                     DeliveryCharrge = 40000,
                 },
-            };
-            return View(yayOrder);
+            };*/
+            return View(u);
         }
 
         [HttpPost]

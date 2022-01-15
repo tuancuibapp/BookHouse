@@ -35,3 +35,17 @@ td {
 .emotion:hover {
     cursor: pointer;
 }
+
+#commentText {
+    height: calc(100% - 40px);
+    border: none;
+    width: calc(100% - 10px);
+    resize: none;
+    margin-left: 3px;
+    margin-right: 5px;
+    border-radius: 10px;
+}
+
+    #commentText:focus {
+        outline: none;
+    }

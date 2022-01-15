@@ -18,13 +18,14 @@
     <div id="top">
         <div id="topLeft">
             <div><a href="#" style="text-decoration:none;">About</a></div>
-            <div><a href="#" style="text-decoration:none;">FAQ</a></div>
+            <div><a href="#" style="text-decoration:none;" onclick="faq()">FAQ</a></div>
         </div>
         <div id="topMiddle">BOOK HOUSE</div>
         <div id="topRight">
-            <div id="Notification"><img class="far fa-bell" height="40" width="40" onclick="hello()" /></div>
-            <div id="Cart"><img class="fas fa-shopping-cart" height="40" width="40" onclick="hello()" /></div>
-            <div id="SignIn"><img src="../Images/UIDesign/duck.jpg" height="40" width="40" onclick="hello()" /></div>
+            <div id="notification"><img class="far fa-bell" height="40" width="40" onclick="hello()" /></div>
+            <div id="cart"><img class="fas fa-shopping-cart" height="40" width="40" onclick="cart()" /></div>
+            <div id="signIn"><img src="../Images/UIDesign/duck.jpg" height="40" width="40" onclick="sign_in()" /></div>
+            <div id="signOut"><img class="fas fa-sign-out-alt fa-2x" height="40" width="40" onclick="sign_out()" /></div>
         </div>
     </div>
     <div id="menu">
@@ -75,7 +76,7 @@
 </body>
 </html>
 <script>
-    function prevent_non_numerical_input(e) {
+    @*function prevent_non_numerical_input(e) {
         e = e || window.event;
         var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
         var charStr = String.fromCharCode(charCode);
@@ -85,8 +86,64 @@
             e.preventDefault();
             $("#ms").html('Bạn không thể nhập kí tự!');
         }
-    }
-    function body_click() {
+    }*@
+    @*function body_click() {
         $("#ms").html('');
+    }*@
+    function sign_in() {
+        window.location = '/user/signinn';
     }
+    function cart() {
+        window.location = '/user/cart';
+    }
+    function faq() {
+        window.location = '/user/faq';
+    }
+    var IsRunning = false;
+    function sign_out() {
+        if (!IsRunning) {
+            IsRunning = true;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", domain + '/User/SignOut', true);
+            xhr.timeout = 30000;
+            xhr.ontimeout = function () {
+                alert('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+                IsRunning = false;
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var r = xhr.responseText;
+                    var j = JSON.parse(r);
+                    if (j.Data.status == "OK")
+                        alert("Bạn đã đăng xuất thành công!")
+                    else
+                        alert("Vì một vấn đề đặc biệt nào đó mà bạn chưa thể đăng xuất!");
+                    IsRunning = false;
+                }
+            }
+            xhr.send();
+        }
+    }
+    $(document).ready(function () {
+        $("#notification").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            }
+        );
+        $("#cart").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            }
+        );
+        $("#signIn").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            }
+        );
+        $("#signOut").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            }
+        );
+    });
 </script>

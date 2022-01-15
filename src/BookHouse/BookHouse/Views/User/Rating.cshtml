@@ -35,7 +35,7 @@
                 </th>
             </tr>
             <tr>
-                <td>Dịch giả: Dương Văn Khoa :< </td>
+                <td>Dịch giả: Dương Văn Khoa </td>
                 <th style="font-size: larger;">@Model.rating/5.0</th>
             </tr>
             <tr>
@@ -47,19 +47,19 @@
                 <th>Đánh giá của bạn</th>
             </tr>
             <tr>
-                <td>Kích thước: 14 x 20.5 cm :<</td>
+                <td>Kích thước: 14 x 20.5 cm </td>
                 <th>
-                    <div>
-                        <img id="star1" class="far fa-star" />
-                        <img id="star2" class="far fa-star" />
-                        <img id="star3" class="far fa-star" />
-                        <img id="star4" class="far fa-star" />
-                        <img id="star5" class="far fa-star" />
+                    <div style="display:flex; justify-content:center;">
+                        <div id="star1" class="star" style="width: fit-content; float: left;"><img class="far fa-star" /></div>
+                        <div id="star2" class="star" style="width: fit-content; float: left;"><img class="far fa-star" /></div>
+                        <div id="star3" class="star" style="width: fit-content; float: left;"><img class="far fa-star" /></div>
+                        <div id="star4" class="star" style="width: fit-content; float: left;"><img class="far fa-star" /></div>
+                        <div id="star5" class="star" style="width: fit-content; float: left;"><img class="far fa-star" /></div>
                     </div>
                 </th>
             </tr>
             <tr>
-                <td>Loại bìa: Bìa mềm :<</td>
+                <td>Loại bìa: Bìa mềm </td>
                 <th rowspan="3" style="background-color: darkseagreen; color: white; border-radius: 10px;">
                     Thank you!!! </br>
                     Đơn hàng đã hoàn thành. Cảm ơn bạn đã sử dụng hệ thống </br>
@@ -70,12 +70,12 @@
                 <td>Số trang: @Model.book.NumOfPage</td>
             </tr>
             <tr style="position: relative;">
-                <td>Tiểu thuyết Trung Quốc :<</td>
+                <td>Tiểu thuyết Trung Quốc</td>
             </tr>
         </table>
     </div>
 </div>
-<div style="font-weight: bold; color: green; margin: 10px 0px;">Để lại bình luận:</div>
+<div style="font-weight: bold; color: green; margin: 10px 0px;">Để lại bình luận</div>
 <div id="bookComment" style="margin: 0px 40px;">
     <div id="comment">
         <div style="border-radius: 5px; display: flex; justify-content: center;">
@@ -83,29 +83,116 @@
                 <img class="far fa-user fa-6x" width="50%" height="50%" />
             </div>
             <div style="width: 85%; border: 2px solid green; border-radius: 10px; position: relative;">
-                <p style="background-color: white; border-radius: 5px;">
-
-                </p>
-                <img id="send" height="50" width="40" class="fas fa-paper-plane fa-2x" style="position: absolute; bottom: 0px; right: 0px;" />
-                <img height="50" width="40" class="far fa-frown fa-2x emotion" style="position: absolute; bottom: 0px; right: 40px;" />
-                <img height="50" width="40" class="far fa-meh fa-2x emotion" style="position: absolute; bottom: 0px; right: 80px;" />
-                <img height="50" width="40" class="far far fa-smile fa-2x emotion" style="position: absolute; bottom: 0px; right: 120px;" />
+                <textarea id="commentText" placeholder="Chia sẻ thêm thông tin sản phẩm"></textarea>
+                <img id="send" height="50" width="40" class="fas fa-paper-plane fa-2x" style="position: absolute; bottom: 0px; right: 0px;" onclick="send_rating_comment()" />
+                <img height="50" width="40" class="far fa-frown fa-2x emotion" style="position: absolute; bottom: 0px; right: 40px;" onclick="sad_emotion()" />
+                <img height="50" width="40" class="far fa-meh fa-2x emotion" style="position: absolute; bottom: 0px; right: 80px;" onclick="neural_emotion()" />
+                <img height="50" width="40" class="far far fa-smile fa-2x emotion" style="position: absolute; bottom: 0px; right: 120px;" onclick="smile_emotion()" />
             </div>
-
         </div>
     </div>
 </div>
 </body>
 </html>
 <script>
-    $(document).ready(
-        function(){
+    function sad_emotion() {
+        $("#commentText").val($("#commentText").val() + "😒")
+    }
+    function neural_emotion() {
+        $("#commentText").val($("#commentText").val() + "😐")
+    }
+    function smile_emotion() {
+        $("#commentText").val($("#commentText").val() + "😂")
+    }
+    $(document).ready(function () {
+        $(".star").hover(
+            function () {
+                if ($("#star1").css("color") != "rgb(255, 255, 0)") {
+                    $(this).css("color", "rgb(255, 255, 1)");
+                }
+                $(this).css("cursor", "pointer");
+            });
+        $(".star").mouseleave(
+            function () {
+                if ($("#star1").css("color") != "rgb(255, 255, 0)") {
+                    $(this).css("color", "black");
+                }
+            }
+        );
+        $("#star1").click(function () {
+            $(".star").css("color", "black");
             $("#star1").css("color", "yellow");
+        });
+        $("#star2").click(function () {
+            $(".star").css("color", "black");
+            $("#star1,#star2").css("color", "yellow");
+        });
+        $("#star3").click(function () {
+            $(".star").css("color", "black");
+            $("#star1,#star2,#star3").css("color", "yellow");
+        });
+        $("#star4").click(function () {
+            $(".star").css("color", "black");
+            $("#star1,#star2,#star3,#star4").css("color", "yellow");
+        });
+        $("#star5").click(function () {
+            $(".star").css("color", "black");
+            $("#star1,#star2,#star3,#star4,#star5").css("color", "yellow");
+        });
+    });
+    var IsRunning = false;
+    function send_rating_comment() {
+        if (!IsRunning) {
+            IsRunning = true;
+            var bid = @Html.Raw(Json.Encode(Model.book.BookID));
+            var cT = $("#commentText").val();
+            var r = 0;
+            if ($("#star5").css("color") == "rgb(255, 255, 0)") {
+                r = 5;
+            } else if ($("#star4").css("color") == "rgb(255, 255, 0)") {
+                r = 4;
+            } else if ($("#star3").css("color") == "rgb(255, 255, 0)") {
+                r = 3;
+            } else if ($("#star2").css("color") == "rgb(255, 255, 0)") {
+                r = 2;
+            } else if ($("#star1").css("color") == "rgb(255, 255, 0)") {
+                r = 1;
+            }
+            if (cT == '') {
+                alert('Bạn chưa nhập comment nào!');
+                $('#commentText').val("Xin mời nhập ở đây!");
+                IsRunning = false;
+            } else if (r == 0) {
+                alert('Bạn chưa đánh giá!');
+                $('.star').css("color", "red");
+                IsRunning = false;
+            }
+            else {
+                var form = new FormData();
+                form.append("cT", cT);
+                form.append("r", r);
+                form.append("bid", bid);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", domain + '/User/Rating', true);
+                xhr.timeout = 30000;
+                xhr.ontimeout = function () {
+                    alert('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+                    IsRunning = false;
+                }
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var r = xhr.responseText;
+                        var j = JSON.parse(r);
+                        if (j.Data.status == "OK")
+                            window.location = "/user/homepage";
+                        else
+                            alert("Thông tin không thể lưu xuống Database!");
+                        IsRunning = false;
+                    }
+                }
+                xhr.send(form);
+                console.log("send");
+            }
         }
-    )
-    // $("#star1").hover(
-    //     function(){
-    //         $(this).css("color", "yellow")
-    //     }
-    // )
+    }
 </script>
