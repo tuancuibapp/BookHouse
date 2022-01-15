@@ -303,10 +303,110 @@ namespace DatabaseIO
             return books;
         }
 
+        public bool SaveObject_CreateAccountCustomer(Customer customer)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_createAccountCustomer @name, @username, @password, @email, @phone, @address, @result";
+            cmd.Parameters.Add(new SqlParameter("@name", customer.CustomerName));
+            cmd.Parameters.Add(new SqlParameter("@username", customer.UserName));
+            cmd.Parameters.Add(new SqlParameter("@password", customer.Password));
+            cmd.Parameters.Add(new SqlParameter("@email", customer.CustomerEmail));
+            cmd.Parameters.Add(new SqlParameter("@phone", customer.CustomerPhone));
+            cmd.Parameters.Add(new SqlParameter("@phone", customer.CustomerPhone));
+            cmd.Parameters.Add(new SqlParameter("@address", customer.Address));
+            cmd.Parameters.Add(new SqlParameter("@result", 1));
+            cmd.Connection.Open();
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+                return true;
+        }
+
+        public bool SaveObject_AddCommentAndRating(string bookid, string customerid, string content, int star)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_addComment @bookid, @customerid, @content, @result";
+            cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
+            cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
+            cmd.Parameters.Add(new SqlParameter("@content", content));
+            cmd.Parameters.Add(new SqlParameter("@result", 0));
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            cmd.Parameters.Clear();
+            cmd.CommandText = "exec sp_addrating @bookid, @customerid, @star, @result";
+            cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
+            cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
+            cmd.Parameters.Add(new SqlParameter("@star", star));
+            cmd.Parameters.Add(new SqlParameter("@result", 0));
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+                return true;
+        }
+
         public bool SaveObject_AddToCart(BookDetailOrder cart, string uid)
         {
-            
-            return true;
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_acctocart @uid, @bookid, @quantity, @result";
+            cmd.Parameters.Add(new SqlParameter("@uid", uid));
+            cmd.Parameters.Add(new SqlParameter("@bookid", cart.book.book.BookID));
+            cmd.Parameters.Add(new SqlParameter("quantity", cart.number));
+            cmd.Parameters.Add(new SqlParameter("@result", 0));
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+                return true;
+        }
+
+        public bool SaveObject_CreateNewOrder(DetailOrderUI detailOrder)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_createnewOrder @customerid, @address, @phone, @TotalPrice, @NoteForOrder, " +
+                "@OrderDate, @RecipientName, @DeliveryMethod, @DeliveryCharge, @GoodsPrice, @result, @orderid";
+            cmd.Parameters.Add(new SqlParameter("@customerid", detailOrder.order.CustomerID));
+            cmd.Parameters.Add(new SqlParameter("@address", detailOrder.order.Address));
+            cmd.Parameters.Add(new SqlParameter("@phone", detailOrder.order.Phone));
+            cmd.Parameters.Add(new SqlParameter("@TotalPrice", detailOrder.order.TotalPrice));
+            cmd.Parameters.Add(new SqlParameter("@NoteForOrder", detailOrder.order.NoteForOrder));
+            cmd.Parameters.Add(new SqlParameter("@OrderDate", detailOrder.order.OrderDate));
+            cmd.Parameters.Add(new SqlParameter("@RecipientName", detailOrder.order.RecipientName));
+            cmd.Parameters.Add(new SqlParameter("@DeliveryMethod", detailOrder.order.DeliveryMethod));
+            cmd.Parameters.Add(new SqlParameter("@DeliveryCharge", detailOrder.order.DeliveryCharrge));
+            cmd.Parameters.Add(new SqlParameter("@GoodsPrice", detailOrder.order.GoodsPrice));
+            cmd.Parameters.Add(new SqlParameter("@result", 0));
+            cmd.Parameters.Add(new SqlParameter("orderid", 0));
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+            {
+                if (SaveObject_AddOrderDetail(detailOrder.bookDetailOrder, cmd.Parameters["@orderid"].ToString()) == true)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public bool SaveObject_AddOrderDetail(List<BookDetailOrder> bookDetails, string oid)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_addOrderDetail @orderid, @bookid, @quantity, @price, @result";
+
+            for (int i = 0; i < bookDetails.Count; i++)
+            {
+                cmd.Parameters.Add(new SqlParameter("@orderid", oid));
+                cmd.Parameters.Add(new SqlParameter("@bookid", bookDetails[i].book.book.BookID));
+                cmd.Parameters.Add(new SqlParameter("@quantity", bookDetails[i].number));
+                cmd.Parameters.Add(new SqlParameter("@result", 0));
+            }
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+                return true;
         }
     }
 }
