@@ -278,8 +278,47 @@ namespace BookHouse.Controllers
         }
         public ActionResult OrderManaging()
         {
+            BookDetailOrder bookDetail = new BookDetailOrder
+            {
+                book = new BookInforUI
+                {
+                    images = "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg",
+                    book = new Book
+                    {
+                        BookName = "People say nothing is impossible, but I do nothing everyday.",
+                        BookID = "1",
+                    }
+                },
+                number = 10,
+                price = 100000
+            };
+            DetailOrderUI detail = new DetailOrderUI
+            {
+                order = new OrderCart
+                {
+                    OrderCartID = "00011000",
+                    OrderDate = new DateTime(2022, 10, 2),
+                    Address = "227 Nguyen Van Cu, Phuong 4, Quan 5, TP HCM",
+                    Phone = "0123456789",
+                    TotalPrice = 220000,
+                    NoteForOrder = "",
+                    RecipientName = "Vu Ngoc Tuan",
+                    DeliveryMethod = "Thanh toán khi nhận hàng.",
+                    DeliveryCharrge = 40000,
+                },
+                bookDetailOrder = new List<BookDetailOrder>
+                {
+                    bookDetail,
+                    bookDetail,
+                    bookDetail
+                }
+            };
 
-            return View();
+            List<DetailOrderUI> listDetail = new List<DetailOrderUI>
+            {
+                detail, detail, detail, detail, detail
+            };
+            return View(listDetail);
         }
         public ActionResult DeliveryTracking()
         {
@@ -291,8 +330,15 @@ namespace BookHouse.Controllers
 
             BookDetailOrder bookDetail = new BookDetailOrder
             {
-                bookID = "1",
-                bookName = "",
+                book = new BookInforUI 
+                {
+                    images = "https://toplist.vn/images/800px/dac-nhan-tam-116541.jpg",
+                    book = new Book 
+                    {
+                        BookName = "People say nothing is impossible, but I do nothing everyday.",
+                        BookID = "1",
+                    }
+                },
                 number = 10,
                 price = 100000
             };
@@ -316,6 +362,11 @@ namespace BookHouse.Controllers
                     bookDetail,
                     bookDetail
                 }
+            };
+
+            List<DetailOrderUI> listDetail = new List<DetailOrderUI>
+            {
+                detail, detail, detail, detail, detail
             };
             return View(detail);
         }
