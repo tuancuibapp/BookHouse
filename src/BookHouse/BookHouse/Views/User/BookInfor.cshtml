@@ -52,10 +52,10 @@
                 <td>Kích thước: </td>
                 <th style="color: green;">14 x 20,5 cm</th>
                 <td rowspan="2" style="padding-left:0px;">
-                    <div class="plusMinus">+</div>
-                    <div style="background-color: darkgrey; border: 0.01px solid grey; float: left; padding: 5px 15px;">1</div>
-                    <div class="plusMinus">-</div>
-                    <a href="#" style="color: white; background-color: green; border-radius: 10px; float: left; padding: 5px 10px; text-decoration:none;">Thêm vào giỏ hàng</a>
+                    <div class="plusMinus" onclick="change_product_quantity(1)">+</div>
+                    <div id="quantity" style="background-color: darkgrey; border: 0.01px solid grey; float: left; padding: 5px 15px;" >1</div>
+                    <div class="plusMinus" onclick="change_product_quantity(-1)">-</div>
+                    <a href="#" id="insertToCart" style="color: white; background-color: green; border-radius: 10px; float: left; padding: 5px 10px; text-decoration:none;" onclick="insert_to_cart()">Thêm vào giỏ hàng</a>
                 </td>
             </tr>
             <tr>
@@ -90,7 +90,7 @@
 <div id="bookComment">
     <p style="width:150px; text-align: center; padding: 3px 10px; background-color: darkseagreen; border-radius:5px; color:white;">BÌNH LUẬN</p>
     @{
-                for (int i = 0; i < Model.comments.Count; i++) 
+        for (int i = 0; i < Model.comments.Count; i++)
         {
             <div id="comment">
                 <div style="background-color: darkgray; border-radius: 5px; display: flex; justify-content: center;">
@@ -113,3 +113,63 @@
         }
     }
 </div>
+<script>
+    function change_product_quantity(i) {
+        var quantity = parseInt($("#quantity").html());
+        quantity = quantity + i;
+        if (quantity == 0) {
+            $("#insertToCart").css("background-color", "yellowgreen");
+            $("#quantity").html(quantity);
+        } else if (quantity > 0){
+            $("#insertToCart").css("background-color", "green");
+            $("#quantity").html(quantity);
+        }
+    }
+    $(document).ready(function () {
+        $("#insertToCart").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            });
+    });
+    var IsRunning = false;
+    function insert_to_cart() {
+        if (!IsRunning) {
+            IsRunning = true;
+            var bid = @Html.Raw(Json.Encode(Model.book.BookID));
+            var number = $("#quantity").html();
+            if (number == '0') {
+                alert('Không có số lượng!');
+                $("#insertToCart").css("background-color", "green");
+                $("#quantity").html('1');
+                IsRunning = false;
+            }
+            else { 
+                var form = new FormData();
+                form.append("bid", bid);
+                form.append("number", number);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", domain + '/User/BookInfor', true);
+                xhr.timeout = 30000;
+                xhr.ontimeout = function () {
+                    alert('Thời gian phản hồi quá lâu, vui lòng F5 và thử lại!');
+                    IsRunning = false;
+                }
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var r = xhr.responseText;
+                        var j = JSON.parse(r);
+                        if (j.Data.status == "OK") {
+                            alert("Bạn đã thêm vào giỏ hàng thành công!");
+                            window.location = "/user/homepage";
+                        }
+                        else
+                            alert("Sai tài khoản hoặc mật khẩu!");
+                        IsRunning = false;
+                    }
+                }
+                xhr.send(form);
+                console.log("send");
+            }
+        }
+    }
+</script>

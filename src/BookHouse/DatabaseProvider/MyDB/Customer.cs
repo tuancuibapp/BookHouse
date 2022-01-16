@@ -12,8 +12,9 @@ namespace DatabaseProvider.MyDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
+            CartDetails = new HashSet<CartDetail>();
             CommentBooks = new HashSet<CommentBook>();
-            OrderCarts = new HashSet<OrderCart>();
+            Orders = new HashSet<Order>();
             Ratings = new HashSet<Rating>();
         }
 
@@ -45,10 +46,13 @@ namespace DatabaseProvider.MyDB
         public bool? InBlankList { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartDetail> CartDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommentBook> CommentBooks { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderCart> OrderCarts { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }

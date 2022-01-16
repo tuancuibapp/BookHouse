@@ -69,6 +69,28 @@ namespace BookHouse.Controllers
             BookInforUI u = db.GetObject_BookInforUI("00000");
             return View(u);
         }
+        [HttpPost]
+        public ActionResult BookInfor(FormCollection data)
+        {
+            string bid = data["bid"];
+            string number = data["number"];
+            JsonResult jr = new JsonResult();
+            if (db.SaveObject_AddToCart(bid, int.Parse(number), "00000"))
+            {
+                jr.Data = new
+                {
+                    status = "OK",
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult SignInn()
         {
             return View();
@@ -283,10 +305,8 @@ namespace BookHouse.Controllers
         {
             string dOID = data["dOID"];
             JsonResult jr = new JsonResult();
-            /*if(db.DeleteObject_OrderDetail(dOID))*/
-            if (true)
+            if (db.DeleteObject_CartDetail("00000", "00015"))
             {
-                Session["user"] = new Customer();
                 jr.Data = new
                 {
                     status = "OK"
@@ -326,10 +346,8 @@ namespace BookHouse.Controllers
             string r = data["r"];
             string bid = data["bid"];
             JsonResult jr = new JsonResult();
-            bool u = db.SaveObject_AddComment(bid, "00000", cT, int.Parse(r));
             if (db.SaveObject_AddComment(bid, "00000", cT, int.Parse(r)) && db.SaveObject_AddRating(bid, "00000", cT, int.Parse(r)))
             {
-                Session["user"] = new Customer();
                 jr.Data = new
                 {
                     status = "OK",

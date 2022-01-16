@@ -20,7 +20,7 @@
             <div><a href="#" style="text-decoration:none;">About</a></div>
             <div><a href="#" style="text-decoration:none;" onclick="faq()">FAQ</a></div>
         </div>
-        <div id="topMiddle">BOOK HOUSE</div>
+        <div id="topMiddle" onclick="homepage()">BOOK HOUSE</div>
         <div id="topRight">
             <div id="notification"><img class="far fa-bell" height="40" width="40" onclick="hello()" /></div>
             <div id="cart"><img class="fas fa-shopping-cart" height="40" width="40" onclick="cart()" /></div>
@@ -99,6 +99,9 @@
     function faq() {
         window.location = '/user/faq';
     }
+    function homepage() {
+        window.location = '/user/homepage';
+    }
     var IsRunning = false;
     function sign_out() {
         if (!IsRunning) {
@@ -125,6 +128,11 @@
         }
     }
     $(document).ready(function () {
+        $("#topMiddle").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            }
+        );
         $("#notification").hover(
             function () {
                 $(this).css("cursor", "pointer");

@@ -12,9 +12,10 @@ namespace DatabaseProvider.MyDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
+            CartDetails = new HashSet<CartDetail>();
             CommentBooks = new HashSet<CommentBook>();
             Imgs = new HashSet<Img>();
-            OrderCartDetails = new HashSet<OrderCartDetail>();
+            OrderDetails = new HashSet<OrderDetail>();
             Ratings = new HashSet<Rating>();
             Categories = new HashSet<Category>();
         }
@@ -45,13 +46,16 @@ namespace DatabaseProvider.MyDB
         public DateTime? ReleaseDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartDetail> CartDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommentBook> CommentBooks { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Img> Imgs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderCartDetail> OrderCartDetails { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }

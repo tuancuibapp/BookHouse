@@ -39,6 +39,7 @@ namespace DatabaseIO
             var cmd = mydb.Database.Connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM BookInfor(@bid)";
             cmd.Parameters.Add(new SqlParameter("@bid", bid));
+            cmd.Connection.Close();
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
             bookInforUI.book.BookID = bid;
@@ -155,7 +156,7 @@ namespace DatabaseIO
         {
             ProfileUI profile = new ProfileUI();
             profile.customer = new Customer();
-            profile.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE CustomerID = @uid and Order_or_Cart = 'TRUE'", new SqlParameter("@uid", uid)).ToList();
+            profile.order = mydb.Database.SqlQuery<Order>("SELECT * FROM Order WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).ToList();
             profile.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
             return profile;
         }
@@ -165,8 +166,8 @@ namespace DatabaseIO
             DetailOrderUI detail = new DetailOrderUI();
             detail.customer = new Customer();
             detail.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
-            detail.order = new OrderCart();
-            detail.order = mydb.Database.SqlQuery<OrderCart>("SELECT * FROM OrderCart WHERE OrderCartID = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
+            detail.order = new Order();
+            detail.order = mydb.Database.SqlQuery<Order>("SELECT * FROM [Order] WHERE OrderID = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
             DataTable retVal = new DataTable();
             var cmd = mydb.Database.Connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM OrderDetail(@oid)";
@@ -197,16 +198,13 @@ namespace DatabaseIO
             cmd.Parameters.Add(new SqlParameter("@uid", uid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
-            for (int i = 1; i <= retVal.Rows.Count; i++)
+            for (int i = 0; i < retVal.Rows.Count; i++)
             {
                 cart.Add(new BookDetailOrder());
                 cart[i].book = GetObject_BookInforUI(retVal.Rows[i]["BookID"].ToString());
                 cart[i].number = int.Parse(retVal.Rows[i]["Quatity"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-                cart[i].price = int.Parse(retVal.Rows[i]["PriceForDetail"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-                if (retVal.Rows[i]["isRating"].ToString() == "1")
-                    cart[i].rating = true;
-                else
-                    cart[i].rating = false;
+                cart[i].price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                cart[i].rating = false;
             }
             return cart;
         }
@@ -369,15 +367,22 @@ namespace DatabaseIO
                 return true;
         }
 
-        public bool SaveObject_AddToCart(BookDetailOrder cart, string uid)
+        public bool SaveObject_AddToCart(string bookid, int number, string uid)
         {
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "exec sp_acctocart @uid, @bookid, @quantity, @result";
+            cmd.CommandText = "exec sp_addtocart @uid, @bookid, @quantity, @result";
             cmd.Parameters.Add(new SqlParameter("@uid", uid));
-            cmd.Parameters.Add(new SqlParameter("@bookid", cart.book.book.BookID));
-            cmd.Parameters.Add(new SqlParameter("quantity", cart.number));
-            cmd.Parameters.Add(new SqlParameter("@result", 0));
-            cmd.ExecuteReader();
+            cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
+            cmd.Parameters.Add(new SqlParameter("quantity", number));
+            cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+            cmd.Connection.Close();
+            cmd.Connection.Open();
+            SqlDataReader rs = null;
+            try { rs = (SqlDataReader)cmd.ExecuteReader(); }
+            catch (SqlException) { return false; }
+            catch (Exception) { return false; }
+            if (rs == null)
+                return false;
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
             else
@@ -397,7 +402,7 @@ namespace DatabaseIO
             cmd.Parameters.Add(new SqlParameter("@OrderDate", detailOrder.order.OrderDate));
             cmd.Parameters.Add(new SqlParameter("@RecipientName", detailOrder.order.RecipientName));
             cmd.Parameters.Add(new SqlParameter("@DeliveryMethod", detailOrder.order.DeliveryMethod));
-            cmd.Parameters.Add(new SqlParameter("@DeliveryCharge", detailOrder.order.DeliveryCharrge));
+            cmd.Parameters.Add(new SqlParameter("@DeliveryCharge", detailOrder.order.DeliveryCharge));
             cmd.Parameters.Add(new SqlParameter("@GoodsPrice", detailOrder.order.GoodsPrice));
             cmd.Parameters.Add(new SqlParameter("@result", 0));
             cmd.Parameters.Add(new SqlParameter("orderid", 0));
@@ -425,6 +430,22 @@ namespace DatabaseIO
                 cmd.Parameters.Add(new SqlParameter("@quantity", bookDetails[i].number));
                 cmd.Parameters.Add(new SqlParameter("@result", 0));
             }
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+                return true;
+        }
+
+        public bool DeleteObject_CartDetail(string customerid, string bookid)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_deletecartdetail @customerid, @bookid, @result out";
+            cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
+            cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
+            cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+            cmd.Connection.Close();
+            cmd.Connection.Open();
+            cmd.ExecuteReader();
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
             else

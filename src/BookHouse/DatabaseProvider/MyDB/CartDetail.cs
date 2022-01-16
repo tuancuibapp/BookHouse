@@ -6,29 +6,24 @@ namespace DatabaseProvider.MyDB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("OrderCartDetail")]
-    public partial class OrderCartDetail
+    [Table("CartDetail")]
+    public partial class CartDetail
     {
-        [Key]
         [StringLength(5)]
-        public string DetailID { get; set; }
+        public string CartDetailID { get; set; }
 
         [StringLength(5)]
-        public string OrderCartID { get; set; }
+        public string CustomerID { get; set; }
 
         [StringLength(5)]
         public string BookID { get; set; }
 
         public short Quatity { get; set; }
 
-        public int? PriceForDetail { get; set; }
-
-        public bool Order_or_Cart { get; set; }
-
-        public bool? IsRating { get; set; }
+        public int Price { get; set; }
 
         public virtual Book Book { get; set; }
 
-        public virtual OrderCart OrderCart { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

@@ -6,7 +6,7 @@
 <link href="~/Content/Cart.css" rel="stylesheet" />
 
 <p style="display: block; font-size: 20px;"><b>GIỎ HÀNG CỦA TÔI</b></p>
-<table>
+<table onclick="body_click()">
     <tr>
         <th>STT</th>
         <th>Tiêu đề</th>
@@ -15,20 +15,23 @@
         <th>Tổng cộng</th>
         <th>Xóa</th>
     </tr>
+    @{ var totalPriceCart = 0;}
     @for (int i = 1; i <= Model.Count(); i++)
     {
         <tr id="@i">
             <th>@i</th>
             <td style="width: 500px;">
-                @Model[i-1].book.book.BookName @*Dư thừa*@
+                @Model[i-1].book.book.BookName
             </td>
             <th style="padding-left: 0px;">
                 <div class="plusMinus">+</div>
-                <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">1</div>
+                <div style="border: 0.01px solid grey; float: left; padding: 7px 15px;">@Model[i-1].number</div>
                 <div class="plusMinus">-</div>
             </th>
-            <th>500.000VNĐ</th>
-            <th>500.000VNĐ</th>
+            <th>@Model[i-1].price VNĐ</th>
+            @{var totalPrice = Model[i - 1].price * Model[i - 1].number;
+                totalPriceCart = (int)totalPriceCart + (int)totalPrice;}
+            <th>@totalPrice VNĐ</th>
             <th>
                 <div class="btn" style="margin-top: 20px;" onclick="delete_product(@i)">Xóa</div>
             </th>
@@ -39,7 +42,7 @@
         <td></td>
         <th></th>
         <th>Tổng cộng</th>
-        <th style="color: red;">1.000.000VNĐ</th>
+        <th style="color: red;">@totalPriceCart VNĐ</th>
         <th></th>
     </tr>
     <tr class="notEffect" style="background-color: white;">
@@ -53,6 +56,9 @@
 <div id="ms" style="color:red;"></div>
 <div id="mss" style="color:green;"></div>
 <script>
+    function body_click() {
+        $("#mss").html('');
+    }
     var IsRunning = false;
     function delete_product(i) {
         if (!IsRunning) {

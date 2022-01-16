@@ -8,19 +8,20 @@ namespace DatabaseProvider.MyDB
     public partial class MyDB : DbContext
     {
         public MyDB()
-            : base("name=MyDB")
+            : base("name=MyDB1")
         {
         }
 
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<CartDetail> CartDetails { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CommentBook> CommentBooks { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FAQ> FAQs { get; set; }
         public virtual DbSet<Img> Imgs { get; set; }
-        public virtual DbSet<OrderCart> OrderCarts { get; set; }
-        public virtual DbSet<OrderCartDetail> OrderCartDetails { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -62,6 +63,21 @@ namespace DatabaseProvider.MyDB
                 .HasMany(e => e.Categories)
                 .WithMany(e => e.Books)
                 .Map(m => m.ToTable("BookCategory").MapLeftKey("BookID").MapRightKey("CategoryID"));
+
+            modelBuilder.Entity<CartDetail>()
+                .Property(e => e.CartDetailID)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CartDetail>()
+                .Property(e => e.CustomerID)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CartDetail>()
+                .Property(e => e.BookID)
+                .IsFixedLength()
+                .IsUnicode(false);
 
             modelBuilder.Entity<Category>()
                 .Property(e => e.CategoryID)
@@ -128,31 +144,31 @@ namespace DatabaseProvider.MyDB
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<OrderCart>()
-                .Property(e => e.OrderCartID)
+            modelBuilder.Entity<Order>()
+                .Property(e => e.OrderID)
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<OrderCart>()
+            modelBuilder.Entity<Order>()
                 .Property(e => e.CustomerID)
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<OrderCart>()
+            modelBuilder.Entity<Order>()
                 .Property(e => e.Phone)
                 .IsFixedLength();
 
-            modelBuilder.Entity<OrderCartDetail>()
+            modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.DetailID)
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<OrderCartDetail>()
-                .Property(e => e.OrderCartID)
+            modelBuilder.Entity<OrderDetail>()
+                .Property(e => e.OrderID)
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<OrderCartDetail>()
+            modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.BookID)
                 .IsFixedLength()
                 .IsUnicode(false);

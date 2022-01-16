@@ -54,14 +54,15 @@
   <ItemGroup>
     <Compile Include="MyDB\Admin.cs" />
     <Compile Include="MyDB\Book.cs" />
+    <Compile Include="MyDB\CartDetail.cs" />
     <Compile Include="MyDB\Category.cs" />
     <Compile Include="MyDB\CommentBook.cs" />
     <Compile Include="MyDB\Customer.cs" />
     <Compile Include="MyDB\FAQ.cs" />
     <Compile Include="MyDB\Img.cs" />
     <Compile Include="MyDB\MyDB.cs" />
-    <Compile Include="MyDB\OrderCart.cs" />
-    <Compile Include="MyDB\OrderCartDetail.cs" />
+    <Compile Include="MyDB\Order.cs" />
+    <Compile Include="MyDB\OrderDetail.cs" />
     <Compile Include="MyDB\Rating.cs" />
     <Compile Include="NewClassForUI\BookDetailOrder.cs" />
     <Compile Include="NewClassForUI\BookInforUI.cs" />
