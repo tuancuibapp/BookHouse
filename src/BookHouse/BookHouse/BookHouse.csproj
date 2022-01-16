@@ -150,6 +150,7 @@
     <Content Include="Content\HomePage.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\SearchPage.css" />
+    <Content Include="Content\FAQ.css" />
     <Content Include="Content\_Layout.css" />
     <Content Include="Content\_Profile.css" />
     <Content Include="favicon.ico" />
