@@ -4,7 +4,7 @@
 <div style="display: flex; justify-content: center;">
 @for (int i = 0; i < 5; ++i)
 {
-    <a class="partialIn4" href="">
+    <a class="partialIn4" href="https://localhost:44339/user/bookinfor?bid=@Model[i].BookID" onclick="book_infor(@Model[i].BookID)">
         <div class="partialIn4">
 
             <div class="partialIn4Pic">
@@ -29,5 +29,9 @@
         </div>
     </a>
 }
-
 </div>
+<script>
+    function book_infor(bid) {
+        window.location.href = '@Url.Action("BookInfor", "User")' + '?bid=' + bid;
+    }
+</script>

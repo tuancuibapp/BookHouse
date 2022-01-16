@@ -64,9 +64,11 @@ namespace BookHouse.Controllers
 
             return View();
         }
-        public ActionResult BookInfor()
+        public ActionResult BookInfor(string bid = "00000")
         {
-            BookInforUI u = db.GetObject_BookInforUI("00000");
+            BookInforUI u = db.GetObject_BookInforUI(bid);
+            if(u == null)
+                return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
             return View(u);
         }
         [HttpPost]

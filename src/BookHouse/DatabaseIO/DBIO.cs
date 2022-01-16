@@ -42,6 +42,10 @@ namespace DatabaseIO
             cmd.Connection.Close();
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
+            if(retVal.Rows.Count == 0)
+            {
+                return null;
+            }
             bookInforUI.book.BookID = bid;
             bookInforUI.book.BookName = retVal.Rows[0]["BookName"].ToString();
             bookInforUI.book.AuthorName = retVal.Rows[0]["AuthorName"].ToString();
@@ -52,7 +56,10 @@ namespace DatabaseIO
             bookInforUI.book.PublishingCom = retVal.Rows[0]["PublishingCom"].ToString();
             bookInforUI.book.ReleaseDate = DateTime.Parse(retVal.Rows[0]["ReleaseDate"].ToString(), CultureInfo.InvariantCulture);
             bookInforUI.category = retVal.Rows[0]["CategoryName"].ToString();
-            bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            if (retVal.Rows[0]["Rating"].ToString() == "")
+                bookInforUI.rating = 5;
+            else
+                bookInforUI.rating = float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             bookInforUI.images = retVal.Rows[0]["ImagePath"].ToString();
             cmd.CommandText = "SELECT * FROM BookComment(@bid)";
             retVal.Clear();
@@ -92,7 +99,7 @@ namespace DatabaseIO
                 homepage.bestSellingBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.bestSellingBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 if (retVal.Rows[i]["Rating"].ToString() == "NULL")
-                    homepage.bestSellingBooks[i].rating = 1;
+                    homepage.bestSellingBooks[i].rating = 5;
                 else
                     homepage.bestSellingBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 homepage.bestSellingBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
@@ -109,7 +116,7 @@ namespace DatabaseIO
                 homepage.foreignLiteratureBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.foreignLiteratureBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 if (retVal.Rows[i]["Rating"].ToString() == "")
-                    homepage.foreignLiteratureBooks[i].rating = 1;
+                    homepage.foreignLiteratureBooks[i].rating = 5;
                 else
                     homepage.foreignLiteratureBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 homepage.foreignLiteratureBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
@@ -127,7 +134,7 @@ namespace DatabaseIO
                 homepage.vietnameseLiteratureBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.vietnameseLiteratureBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 if (retVal.Rows[i]["Rating"].ToString() == "")
-                    homepage.vietnameseLiteratureBooks[i].rating = 1;
+                    homepage.vietnameseLiteratureBooks[i].rating = 5;
                 else
                     homepage.vietnameseLiteratureBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 homepage.vietnameseLiteratureBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
@@ -144,7 +151,7 @@ namespace DatabaseIO
                 homepage.historyBooks[i].BookName = retVal.Rows[i]["BookName"].ToString();
                 homepage.historyBooks[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 if (retVal.Rows[i]["Rating"].ToString() == "")
-                    homepage.historyBooks[i].rating = 1;
+                    homepage.historyBooks[i].rating = 5;
                 else
                     homepage.historyBooks[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                 homepage.historyBooks[i].images = retVal.Rows[i]["ImagePath"].ToString();
