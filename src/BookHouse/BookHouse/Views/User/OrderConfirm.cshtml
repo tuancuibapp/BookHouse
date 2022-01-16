@@ -1,5 +1,6 @@
 ﻿@model DatabaseProvider.NewClassForUI.DetailOrderUI
 @using System.Globalization
+@using DatabaseProvider.NewClassForUI
 @{
     ViewBag.Title = "OrderConfirm";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +9,7 @@
 <link href="~/Content/OrderConfirm.css" rel="stylesheet">
 
 <div class="container">
-<h2>XÁC NHẬN ĐƠN HÀNG</h2>
+<h2>XÁC NHẬN ĐƠN HÀNG</h2> 
 @{CultureInfo CI = new CultureInfo("vi-VN"); }
     <table>
         <tr>
@@ -22,20 +23,19 @@
         <tr>
             <th><img class="order-detail" src="../Images/UIDesign/order.png"></th>
             <th>
-                <p class="order-detail">Mã đơn hàng: @Model.order.OrderCartID</p>
                 <a href="" class ="cart-link">Chi tiết giỏ hàng</a>
             </th>
             <th>
-                @*@{string price_string = Model.order.TotalPrice.ToString("C0", CI);}*@
-                <p class="order-detail">@*@price_string*@500.000 :></p>
-                
+                <p class="order-detail"> 
+                    @{ var totalPrice = int.Parse(ViewBag.TotalPrice) + 20000; }
+                    @totalPrice VNĐ
+                </p>
             </th>
             <th>
-                @*@{ price_string = Model.order.DeliveryCharrge.ToString("C0", CI);}*@
-                <p class="order-detail">@*@price_string*@500.000 :></p>
+                <p class="order-detail" style="color: red;"> 20000 VNĐ</p>
             </th>
             <th>
-                <p class="order-detail">@Model.order.DeliveryMethod</p>
+                <p class="order-detail" style="color: purple;">Thanh toán khi nhận hàng</p>
             </th>
         </tr>
     </table>
@@ -47,7 +47,7 @@
                     <p class="order-detail">Người nhận: </p>
                 </th>
                 <th>
-                    @Html.TextBoxFor(m => m.order.RecipientName, new { @class = "order-input", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.order.RecipientName, new { @Value = "", @class = "order-input" })
                 </th>
 
             </tr>
@@ -58,7 +58,7 @@
                 </th>
                 <th>
 
-                    @Html.TextBoxFor(m => m.order.Phone, new { @class = "order-input", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.order.Phone, new { @Value = "", @class = "order-input"})
                 </th>
 
             </tr>
@@ -96,11 +96,17 @@
 
             <tr>
                 <th>
+                    <div class="submit-button" style="background-color: red; text-align: center; color: white; align-items: center; display: flex; justify-content: center;" onclick="home_page()">Hủy</div>
                 </th>
                 <th>
-                    <input type="submit" value="Xác nhận đơn hàng" class="submit-button">
+                    <input type="submit" value="Xác nhận đơn hàng" class="submit-button" >
                 </th>
             </tr>
         </table>
     </form>
 </div>
+<script>
+    function home_page() {
+        window.location = '/user/homepage';
+    }
+</script>

@@ -1,11 +1,9 @@
-﻿p.question 
-{
+﻿p.question {
     font-size: 22px;
     font-weight: bold;
 }
 
-p.answer 
-{
+p.answer {
     font-size: 17px;
     font-weight: bold;
 }
@@ -25,4 +23,33 @@ p.answer {
 div.container {
     padding: 15%;
     padding-top: 5px;
+}
+
+img.admin {
+    width: 100px;
+    height: 100px;
+}
+
+div.heading-container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 0.5px;
+    text-align: center;
+    border-radius: 20px 20px;
+    background-color: darkseagreen;
+}
+
+h3 {
+}
+
+table {
+    margin: 0 auto;
+}
+
+th {
+    text-align: left;
+}
+
+td {
+    text-align: left;
 }

@@ -23,16 +23,16 @@
         <tr>
             <th><img class="order-detail" src="../Images/UIDesign/order.png"></th>
             <th>
-                <p class="order-detail">Mã đơn hàng: @Model.order.OrderCartID</p>
+                <p class="order-detail">Mã đơn hàng: @Model.order.OrderID</p>
             </th>
             <th>
-                @{string price_string = Model.order.TotalPrice.ToString("C0", CI);}
-                <p class="order-detail">@price_string</p>
+                @*@{string price_string = Model.order.TotalPrice.ToString("C0", CI);}*@
+                <p class="order-detail">@Model.order.TotalPrice VNĐ</p>
 
             </th>
             <th>
-                @{ price_string = Model.order.DeliveryCharrge.ToString("C0", CI);}
-                <p class="order-detail">@price_string</p>
+                @*@{ price_string = Model.order.DeliveryCharrge.ToString("C0", CI);}*@
+                <p class="order-detail">@Model.order.DeliveryCharge VNĐ</p>
             </th>
             <th>
                 <p class="order-detail">@Model.order.DeliveryMethod</p>

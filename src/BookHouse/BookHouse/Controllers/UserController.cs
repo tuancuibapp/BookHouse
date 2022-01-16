@@ -18,7 +18,7 @@ namespace BookHouse.Controllers
         {
             //query for the books -_-
 
-            BookOnHomepage yay = new BookOnHomepage
+            /*BookOnHomepage yay = new BookOnHomepage
             {
                BookName = "My life is not a joke, jokes have meaning.",
                BookID = "1",
@@ -45,9 +45,9 @@ namespace BookHouse.Controllers
             ViewData["historyBooks"] = new List<BookOnHomepage>
             {
                 yay, yay, yay, yay, yay
-            };
+            };*/
 
-/*            DBIO db = new DBIO();
+            DBIO db = new DBIO();
 
             HomepageUI homePagedata = db.GetObject_HomePageUI();
 
@@ -57,7 +57,7 @@ namespace BookHouse.Controllers
 
             ViewData["vietnameseLiteratureBooks"] = homePagedata.vietnameseLiteratureBooks;
 
-            ViewData["historyBooks"] = homePagedata.historyBooks;*/
+            ViewData["historyBooks"] = homePagedata.historyBooks;
 
             return View();
         }
@@ -280,35 +280,63 @@ namespace BookHouse.Controllers
         }
         public ActionResult FAQ()
         {
-            DBIO db = new DBIO();
-            //FAQUI FAQdata = db.GetObject_FAQUI();
+            FAQUI FAQdata = db.GetObject_FAQUI();
 
-            FAQUI FAQdata = new FAQUI
+            /*FAQUI FAQdata = new FAQUI
             {
                 faqs = new List<FAQ> 
                 {
                     new FAQ { Answer = "No...", Question = "U good?", QuestionID = "1"}
                 }
-            };
+            };*/
             return View(FAQdata);
         }
         public ActionResult Cart()
         {
             if (Session["user"] == null)
                 Response.Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
-            List<BookDetailOrder> u = db.GetObject_CartUI("00000");
+            Customer tmp = (Customer)Session["user"];
+            List<BookDetailOrder> u = db.GetObject_CartUI(tmp.CustomerID);
             return View(u);
         }
         [HttpPost]
-        public ActionResult Cart(FormCollection data)
+        public ActionResult CartDeleteProduct(FormCollection data)
         {
-            string dOID = data["dOID"];
+            Customer u = (Customer)Session["user"];
+            if (Session["user"] == null)
+                Response.Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+            string bid = data["bid"];
             JsonResult jr = new JsonResult();
-            if (db.DeleteObject_CartDetail("00000", "00015"))
+            if (db.DeleteObject_CartDetail(u.CustomerID, bid))
             {
                 jr.Data = new
                 {
-                    status = "OK"
+                    status = "OK",
+                };
+            }
+            else
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+            }
+            return Json(jr, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult CartUpdateProduct(FormCollection data)
+        {
+            if (Session["user"] == null)
+                Response.Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+            string bid = data["bid"];
+            string number = data["number"];
+            Customer u = (Customer)Session["user"];
+            JsonResult jr = new JsonResult();
+            if (db.SaveObject_AddToCart("00009", int.Parse(number), "00001"))/*bid, int.Parse(number), u.CustomerID*/
+            {
+                jr.Data = new
+                {
+                    status = "OK",
                 };
             }
             else
@@ -338,9 +366,9 @@ namespace BookHouse.Controllers
             };
             DetailOrderUI detail = new DetailOrderUI
             {
-                order = new OrderCart
+                order = new Order
                 {
-                    OrderCartID = "00011000",
+                    OrderID = "00011000",
                     OrderDate = new DateTime(2022, 10, 2),
                     Address = "227 Nguyen Van Cu, Phuong 4, Quan 5, TP HCM",
                     Phone = "0123456789",
@@ -348,7 +376,7 @@ namespace BookHouse.Controllers
                     NoteForOrder = "",
                     RecipientName = "Vu Ngoc Tuan",
                     DeliveryMethod = "Thanh toán khi nhận hàng.",
-                    DeliveryCharrge = 40000,
+                    DeliveryCharge = 40000,
                 },
                 bookDetailOrder = new List<BookDetailOrder>
                 {
@@ -388,9 +416,9 @@ namespace BookHouse.Controllers
             };
             DetailOrderUI detail = new DetailOrderUI
             {
-                order = new OrderCart 
+                order = new Order
                 {
-                    OrderCartID = "00011000",
+                    OrderID = "00011000",
                     OrderDate = new DateTime(2022, 10, 2),
                     Address = "227 Nguyen Van Cu, Phuong 4, Quan 5, TP HCM",
                     Phone = "0123456789",
@@ -398,7 +426,7 @@ namespace BookHouse.Controllers
                     NoteForOrder = "",
                     RecipientName = "Vu Ngoc Tuan",
                     DeliveryMethod = "Thanh toán khi nhận hàng.",
-                    DeliveryCharrge = 40000,
+                    DeliveryCharge = 40000,
                 },
                 bookDetailOrder = new List<BookDetailOrder>
                 {
@@ -442,34 +470,24 @@ namespace BookHouse.Controllers
             }
             return Json(jr, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult OrderConfirm()
+        public ActionResult OrderConfirm(string totalPrice = "0")
         {
-            DetailOrderUI u = db.GetObject_DetailOrderUI("","00000");
-            /*DetailOrderUI yayOrder = new DetailOrderUI
-            {
-                order = new OrderCart
-                {
-                    OrderCartID = "00011000",
-                    OrderDate = new DateTime(2022, 10, 2),
-                    Address = "227 Nguyen Van Cu, Phuong 4, Quan 5, TP HCM",
-                    Phone = "0123456789",
-                    TotalPrice = 220000,
-                    NoteForOrder = "",
-                    RecipientName = "Vu Ngoc Tuan",
-                    DeliveryMethod = "Thanh toán khi nhận hàng.",
-                    DeliveryCharrge = 40000,
-                },
-            };*/
-            return View(u);
+            Customer tmp = (Customer)Session["user"];
+            ViewBag.TotalPrice = totalPrice;
+            return View();
         }
 
         [HttpPost]
         public ActionResult OrderConfirm(DetailOrderUI details)
         {
-            // call function to update database
-
-            // notify the user
-            return RedirectToAction("HomePage");
+            if (Session["user"] == null)
+                Response.Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+            Customer tmp = (Customer)Session["user"];
+            details.order.CustomerID = tmp.CustomerID;
+            details.order.TotalPrice = 500000;
+            details.order.GoodsPrice = 480000;
+            db.SaveObject_CreateNewOrder(details);
+            return RedirectToAction("DetailOrder");
         }
         public ActionResult ChangePassword()
         {

@@ -177,7 +177,7 @@ namespace DatabaseIO
             detail.order = mydb.Database.SqlQuery<Order>("SELECT * FROM [Order] WHERE OrderID = @oid", new SqlParameter("@oid", oid)).FirstOrDefault();
             DataTable retVal = new DataTable();
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM OrderDetail(@oid)";
+            cmd.CommandText = "SELECT * FROM ViewOrderDetail(@oid)";
             cmd.Parameters.Add(new SqlParameter("@oid", oid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
@@ -203,6 +203,7 @@ namespace DatabaseIO
             var cmd = mydb.Database.Connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM MyCart(@uid)";
             cmd.Parameters.Add(new SqlParameter("@uid", uid));
+            cmd.Connection.Close();
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
             for (int i = 0; i < retVal.Rows.Count; i++)
@@ -400,20 +401,23 @@ namespace DatabaseIO
         {
             var cmd = mydb.Database.Connection.CreateCommand();
             cmd.CommandText = "exec sp_createnewOrder @customerid, @address, @phone, @TotalPrice, @NoteForOrder, " +
-                "@OrderDate, @RecipientName, @DeliveryMethod, @DeliveryCharge, @GoodsPrice, @result, @orderid";
+                "@OrderDate, @RecipientName, @DeliveryMethod, @DeliveryCharge, @GoodsPrice, @result out, @orderid out";
             cmd.Parameters.Add(new SqlParameter("@customerid", detailOrder.order.CustomerID));
-            cmd.Parameters.Add(new SqlParameter("@address", detailOrder.order.Address));
+            cmd.Parameters.Add(new SqlParameter("@address", "sdlfj"));
             cmd.Parameters.Add(new SqlParameter("@phone", detailOrder.order.Phone));
             cmd.Parameters.Add(new SqlParameter("@TotalPrice", detailOrder.order.TotalPrice));
             cmd.Parameters.Add(new SqlParameter("@NoteForOrder", detailOrder.order.NoteForOrder));
-            cmd.Parameters.Add(new SqlParameter("@OrderDate", detailOrder.order.OrderDate));
+            cmd.Parameters.Add(new SqlParameter("@OrderDate", DateTime.Now));
             cmd.Parameters.Add(new SqlParameter("@RecipientName", detailOrder.order.RecipientName));
-            cmd.Parameters.Add(new SqlParameter("@DeliveryMethod", detailOrder.order.DeliveryMethod));
-            cmd.Parameters.Add(new SqlParameter("@DeliveryCharge", detailOrder.order.DeliveryCharge));
+            cmd.Parameters.Add(new SqlParameter("@DeliveryMethod", "COD"));
+            cmd.Parameters.Add(new SqlParameter("@DeliveryCharge", 20000));
             cmd.Parameters.Add(new SqlParameter("@GoodsPrice", detailOrder.order.GoodsPrice));
-            cmd.Parameters.Add(new SqlParameter("@result", 0));
-            cmd.Parameters.Add(new SqlParameter("orderid", 0));
+            cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+            cmd.Parameters.Add(new SqlParameter("@orderid", DBNull.Value));
+            cmd.Connection.Close();
+            cmd.Connection.Open();
             cmd.ExecuteReader();
+            detailOrder.bookDetailOrder = GetObject_CartUI(detailOrder.order.CustomerID);
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
             else

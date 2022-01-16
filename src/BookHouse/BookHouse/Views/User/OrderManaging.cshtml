@@ -39,24 +39,22 @@
                 </th>
 
                 <th>
-                    <p class="order-detail">Mã đơn hàng: @Model[i].order.OrderCartID</p>
+                    <p class="order-detail">Mã đơn hàng: @Model[i].order.OrderID</p>
                     <a href="" class="cart-link">Chi tiết giỏ hàng</a>
                 </th>
                 <th>
-                    @{string price_string = Model[i].order.TotalPrice.ToString("C0", CI);}
-                    <p class="order-detail">@price_string</p>
+                    @*@{string price_string = Model[i].order.TotalPrice.ToString("C0", CI);}*@
+                    <p class="order-detail">@Model[i].order.TotalPrice</p>
 
                 </th>
                 <th>
-                    @{ price_string = Model[i].order.DeliveryCharrge.ToString("C0", CI);}
-                    <p class="order-detail">@price_string</p>
+                    @*@{ price_string = Model[i].order.DeliveryCharrge.ToString("C0", CI);}*@
+                    <p class="order-detail">@Model[i].order.DeliveryCharge</p>
                 </th>
                 <th>
                     <p class="order-detail">@Model[i].order.DeliveryMethod</p>
                 </th>
-
             </tr>
         }
-
     </table>
 </div>
