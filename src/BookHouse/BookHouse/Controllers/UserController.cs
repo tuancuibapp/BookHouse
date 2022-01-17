@@ -384,19 +384,28 @@ namespace BookHouse.Controllers
             DetailOrderUI u = db.GetObject_DetailOrderUI(tmp.CustomerID, oid);
             return View(u);
         }
-        public ActionResult Rating()
+        public ActionResult Rating(string bid = "00000")
         {
-            RatingUI u = db.GetObject_RatingUI("00000");
+            RatingUI u = db.GetObject_RatingUI(bid);
             return View(u);
         }
         [HttpPost]
         public ActionResult Rating(FormCollection data)
         {
+            JsonResult jr = new JsonResult();
+            if (Session["user"] == null)
+            {
+                jr.Data = new
+                {
+                    status = "F"
+                };
+                return Json(jr, JsonRequestBehavior.AllowGet);
+            }
+            Customer tmp = (Customer)Session["user"];
             string cT = data["cT"];
             string r = data["r"];
             string bid = data["bid"];
-            JsonResult jr = new JsonResult();
-            if (db.SaveObject_AddComment(bid, "00000", cT, int.Parse(r)) && db.SaveObject_AddRating(bid, "00000", cT, int.Parse(r)))
+            if (db.SaveObject_AddComment(bid, tmp.CustomerID, cT) && db.SaveObject_AddRating(bid, tmp.CustomerID, int.Parse(r)))
             {
                 jr.Data = new
                 {

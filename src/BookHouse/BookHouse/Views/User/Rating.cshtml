@@ -146,6 +146,7 @@
             IsRunning = true;
             var bid = @Html.Raw(Json.Encode(Model.book.BookID));
             var cT = $("#commentText").val();
+            alert("Comment:" + cT);
             var r = 0;
             if ($("#star5").css("color") == "rgb(255, 255, 0)") {
                 r = 5;
@@ -183,8 +184,10 @@
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         var r = xhr.responseText;
                         var j = JSON.parse(r);
-                        if (j.Data.status == "OK")
+                        if (j.Data.status == "OK") {
+                            alert("Đánh giá của bạn đã được lưu xuống Database!");
                             window.location = "/user/homepage";
+                        }
                         else
                             alert("Thông tin không thể lưu xuống Database!");
                         IsRunning = false;

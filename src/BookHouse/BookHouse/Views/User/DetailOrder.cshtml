@@ -122,7 +122,16 @@
             <td>14 x 20.5 cm</td>
             <td></td>
             <td></td>
-            <th class="rating" style="background-color: orange; border-radius: 30px;">Đã đánh giá</th>
+            @{ var tmpBID = int.Parse(book.book.book.BookID);}
+            @{ if (book.rating)
+                {
+                    <th id="@tmpBID" class="rating" onclick="ratingUI(this)" style="background-color: orange; border-radius: 30px;">Đã đánh giá</th>
+                }
+                else
+                {
+                    <th id="@tmpBID" class="rating" onclick="ratingUI(this)" style="background-color: darkseagreen; border-radius: 30px;">Chưa đánh giá</th>
+                }
+            }
         </tr>
         <tr>
             <td>Tiểu thuyết trung quốc</td>
@@ -130,4 +139,13 @@
     </table>
 }
 <script>
+    function ratingUI(ele) {
+        var i = $(ele).attr("id");
+        var tmp = "0" + i;
+        var tmpLength = tmp.length;
+        for (let j = 0; j < 5 - tmpLength; j++) {
+            tmp = "0" + tmp;
+        }
+        window.location.href = '@Url.Action("Rating", "User")' + '?bid=' + tmp;
+    }
 </script>

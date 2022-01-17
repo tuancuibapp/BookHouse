@@ -348,7 +348,7 @@ namespace DatabaseIO
                 return true;
         }
 
-        public bool SaveObject_AddComment(string bookid, string customerid, string content, int star)
+        public bool SaveObject_AddComment(string bookid, string customerid, string content)
         {
             var cmd = mydb.Database.Connection.CreateCommand();
             cmd.CommandText = "exec sp_addComment @bookid, @customerid, @content, @result out";
@@ -363,7 +363,7 @@ namespace DatabaseIO
                 return false;
             return true;
         }
-        public bool SaveObject_AddRating(string bookid, string customerid, string content, int star)
+        public bool SaveObject_AddRating(string bookid, string customerid, int star)
         {
             var cmd = mydb.Database.Connection.CreateCommand();
             cmd.CommandText = "exec sp_addrating @bookid, @customerid, @star, @result out";
@@ -418,17 +418,24 @@ namespace DatabaseIO
             cmd.Parameters.Add(new SqlParameter("@DeliveryCharge", 20000));
             cmd.Parameters.Add(new SqlParameter("@GoodsPrice", detailOrder.order.GoodsPrice));
             cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
-            cmd.Parameters.Add(new SqlParameter("@orderid", DBNull.Value));
+            cmd.Parameters.Add(new SqlParameter("@orderid", DbType.Int32));
             cmd.Connection.Close();
             cmd.Connection.Open();
             cmd.ExecuteReader();
             detailOrder.bookDetailOrder = GetObject_CartUI(detailOrder.order.CustomerID);
             DeleteObject_AllCartDetail(detailOrder.order.CustomerID);
+            var tmp = int.Parse(GetCurrentOID()).ToString();
+            tmp = "0" + tmp;
+            var oidLength = 5 - tmp.Length;
+            for (int i = 0; i < oidLength; i++)
+            {
+                tmp = "0" + tmp;
+            }
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
             else
             {
-                if (SaveObject_AddOrderDetail(detailOrder.bookDetailOrder, cmd.Parameters["@orderid"].ToString()) == true)
+                if (SaveObject_AddOrderDetail(detailOrder.bookDetailOrder, tmp) == true)
                     return true;
                 else
                     return false;
@@ -454,11 +461,12 @@ namespace DatabaseIO
                 cmd.Parameters.Add(new SqlParameter("@bookid", bookDetails[i].book.book.BookID));
                 cmd.Parameters.Add(new SqlParameter("@quantity", bookDetails[i].number));
                 cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+                cmd.Connection.Close();
+                cmd.Connection.Open();
+                cmd.ExecuteReader();
+                cmd.Parameters.Clear();
             }
-            if (cmd.Parameters["@result"].ToString() == "0")
-                return false;
-            else
-                return true;
+            return true;
         }
 
         public bool DeleteObject_CartDetail(string customerid, string bookid)
