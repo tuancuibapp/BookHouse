@@ -24,19 +24,21 @@
                 @Model[i - 1].book.book.BookName
             </td>
             <th style="padding-left: 0px;">
-                <div class="plusMinus" onclick="change_product_quantity(@Model[i-1].book.book.BookID, 1)">+</div>
-                <div id="quantity" style="border: 0.01px solid grey; float: left; padding: 7px 15px;">@Model[i - 1].number</div>
-                <div class="plusMinus" onclick="change_product_quantity(@Model[i-1].book.book.BookID, -1)">-</div> 
+                @{var tmpBookID = int.Parse(Model[i - 1].book.book.BookID);}
+                <div class="plusMinus" onclick="change_product_quantity(@tmpBookID, 1)">+</div>
+                @{var tmpID = "quantity" + Model[i - 1].book.book.BookID;}
+                <div id="@tmpID" style="border: 0.01px solid grey; float: left; padding: 7px 15px;">@Model[i - 1].number</div>
+                <div class="plusMinus" onclick="change_product_quantity(@tmpBookID, -1)">-</div>
             </th>
             <th>@Model[i - 1].price VNĐ</th>
             @{var totalPrice = Model[i - 1].price * Model[i - 1].number;
                 totalPriceCart = (int)totalPriceCart + (int)totalPrice;}
             <th>@totalPrice VNĐ</th>
             <th>
-                <div class="btn" style="margin-top: 20px;" onclick="delete_product(@Model[i-1].book.book.BookID)">Xóa</div>
+                <div class="btn" style="margin-top: 20px;" onclick="delete_product(@tmpBookID)">Xóa</div>
             </th>
         </tr>
-                }
+    }
     <tr class="notEffect" style="background-color: white;">
         <th></th>
         <td></td>
@@ -67,6 +69,7 @@
             tmp = "0" + tmp;
         }
         i = tmp;
+        alert(i);
         if (!IsRunning) {
             IsRunning = true;
             var form = new FormData();
@@ -102,25 +105,31 @@
         window.location = '/user/homepage';
     }
     function change_product_quantity(bid, i) {
-        var quantity = parseInt($("#quantity").html());
+        var tmp = "0";
+        tmp = tmp + bid;
+        var tmpLength = tmp.length;
+        for (let j = 0; j < 5 - tmpLength; j++) {
+            tmp = "0" + tmp;
+        }
+        tmp = "#quantity" + tmp;
+        var quantity = parseInt($(tmp).html());
         quantity = quantity + i;
         if (quantity == 0) {
-            $("#insertToCart").css("background-color", "yellowgreen");
-            $("#quantity").html(quantity);
+            $(tmp).html(quantity);
             delete_product(bid);
         } else if (quantity > 0) {
-            $("#insertToCart").css("background-color", "green");
-            $("#quantity").html(quantity);
+            $(tmp).html(quantity);
             save_product_quantity(bid, quantity);
         }
     }
     function save_product_quantity(bid, number) {
-        var tmp = "" + bid;
+        var tmp = "0" + bid;
         var tmpLength = tmp.length;
         for (let j = 0; j < 5 - tmpLength; j++) {
             tmp = "0" + tmp;
         }
         bid = tmp;
+        alert("bidnene:" + bid);
         if (!IsRunning) {
             IsRunning = true;
             var form = new FormData();

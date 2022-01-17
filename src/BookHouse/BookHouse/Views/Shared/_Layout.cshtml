@@ -22,9 +22,10 @@
         </div>
         <div id="topMiddle" onclick="homepage()">BOOK HOUSE</div>
         <div id="topRight">
+            <div id="profile"><img src="../Images/UIDesign/duck.jpg" height="40" width="40" onclick="profile()" /></div>
             <div id="notification"><img class="far fa-bell" height="40" width="40" onclick="hello()" /></div>
             <div id="cart"><img class="fas fa-shopping-cart" height="40" width="40" onclick="cart()" /></div>
-            <div id="signIn"><img src="../Images/UIDesign/duck.jpg" height="40" width="40" onclick="sign_in()" /></div>
+            <div id="signIn"><img class="fas fa-sign-in-alt fa-2x" height="40" width="40" onclick="sign_in()" /></div>
             <div id="signOut"><img class="fas fa-sign-out-alt fa-2x" height="40" width="40" onclick="sign_out()" /></div>
         </div>
     </div>
@@ -90,6 +91,9 @@
     @*function body_click() {
         $("#ms").html('');
     }*@
+    function profile() {
+        window.location = '/user/_profile';
+    }
     function sign_in() {
         window.location = '/user/signinn';
     }
@@ -129,6 +133,11 @@
     }
     $(document).ready(function () {
         $("#topMiddle").hover(
+            function () {
+                $(this).css("cursor", "pointer");
+            }
+        );
+        $("#profile").hover(
             function () {
                 $(this).css("cursor", "pointer");
             }

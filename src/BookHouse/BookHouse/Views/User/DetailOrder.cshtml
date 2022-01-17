@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/OrderDetail.css" rel="stylesheet">
-<h2>CHI TIẾT ĐƠN HÀNG</h2>
+<link href="~/Content/DetailOrder.css" rel="stylesheet" />
 
+<h2>CHI TIẾT ĐƠN HÀNG</h2>
 <div class="container">
     <h2>CHI TIẾT ĐƠN HÀNG</h2>
     @{CultureInfo CI = new CultureInfo("vi-VN"); }
@@ -39,54 +39,95 @@
             </th>
         </tr>
     </table>
-        <table>
-            <tr>
-                <th>
-                    <p class="order-detail">Người nhận: </p>
-                </th>
-                <th>
-                    @Html.TextBoxFor(m => m.order.RecipientName, new { @class = "order-input", @readonly = "readonly" })
-                </th>
+    <table>
+        <tr>
+            <th>
+                <p class="order-detail">Người nhận: </p>
+            </th>
+            <th>
+                @Html.TextBoxFor(m => m.order.RecipientName, new { @class = "order-input", @readonly = "readonly" })
+            </th>
 
-            </tr>
+        </tr>
 
-            <tr>
-                <th>
-                    <p class="order-detail">Số điện thoại: </p>
-                </th>
-                <th>
-                    @Html.TextBoxFor(m => m.order.Phone, new { @class = "order-input", @readonly = "readonly" })
-                </th>
+        <tr>
+            <th>
+                <p class="order-detail">Số điện thoại: </p>
+            </th>
+            <th>
+                @Html.TextBoxFor(m => m.order.Phone, new { @class = "order-input", @readonly = "readonly" })
+            </th>
 
-            </tr>
+        </tr>
 
 
-            <tr>
-                <th>
-                    <p class="order-detail">Ngày đặt hàng: </p>
-                </th>
-                <th>
-                    @Html.TextBoxFor(m => m.order.OrderDate, new { @class = "order-input", @readonly = "readonly" })
-                </th>
+        <tr>
+            <th>
+                <p class="order-detail">Ngày đặt hàng: </p>
+            </th>
+            <th>
+                @Html.TextBoxFor(m => m.order.OrderDate, new { @class = "order-input", @readonly = "readonly" })
+            </th>
 
-            </tr>
+        </tr>
 
-            <tr>
-                <th>
-                    <p class="order-detail">Địa chỉ giao hàng: </p>
-                </th>
-                <th>
-                    @Html.TextBoxFor(m => m.order.Address, new { @class = "order-input", @readonly = "readonly" })
-                </th>
-            </tr>
+        <tr>
+            <th>
+                <p class="order-detail">Địa chỉ giao hàng: </p>
+            </th>
+            <th>
+                @Html.TextBoxFor(m => m.order.Address, new { @class = "order-input", @readonly = "readonly" })
+            </th>
+        </tr>
 
-            <tr>
-                <th>
-                    <p class="order-detail">Ghi chú: </p>
-                </th>
-                <th>
-                    @Html.TextBoxFor(m => m.order.NoteForOrder, new { @class = "order-input", @readonly = "readonly" })
-                </th>
-            </tr>
-        </table>
+        <tr>
+            <th>
+                <p class="order-detail">Ghi chú: </p>
+            </th>
+            <th>
+                @Html.TextBoxFor(m => m.order.NoteForOrder, new { @class = "order-input", @readonly = "readonly" })
+            </th>
+        </tr>
+    </table>
 </div>
+@foreach (var book in Model.bookDetailOrder)
+{
+    <table style="border-top: 2px solid green; margin-top: 20px;">
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Chi tiết</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+        </tr>
+        <tr>
+            <td rowspan="6" style="width: 15%">
+                <img src="../Images/Book/@book.book.images" height="100%" width="100%" style="margin-left: 10%; margin-top: 20%" />
+            </td>
+        </tr>
+        <tr>
+            <td>@book.book.book.BookName</td>
+        </tr>
+        <tr>
+            <td>@book.book.book.AuthorName</td>
+        </tr>
+        <tr>
+            <td>Bìa cứng</td>
+            <th>@book.number</th>
+            <th>@book.price VNĐ</th>
+            @{var tmp = book.number * book.price + 20000;}
+            <th>@tmp VNĐ</th>
+        </tr>
+        <tr>
+            <td>14 x 20.5 cm</td>
+            <td></td>
+            <td></td>
+            <th class="rating" style="background-color: orange; border-radius: 30px;">Đã đánh giá</th>
+        </tr>
+        <tr>
+            <td>Tiểu thuyết trung quốc</td>
+        </tr>
+    </table>
+}
+<script>
+</script>

@@ -1,10 +1,11 @@
-﻿@model List<DatabaseProvider.NewClassForUI.DetailOrderUI>
+﻿@model List<DatabaseProvider.MyDB.Order>
 @using System.Globalization
 @{
     ViewBag.Title = "OrderManaging";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/OrderManaging.css" rel="stylesheet" />
 <div class="container">
     <h2>QUẢN LÝ ĐƠN HÀNG</h2>
     @{CultureInfo CI = new CultureInfo("vi-VN"); }
@@ -39,20 +40,18 @@
                 </th>
 
                 <th>
-                    <p class="order-detail">Mã đơn hàng: @Model[i].order.OrderID</p>
+                    <p class="order-detail">Mã đơn hàng: @Model[i].OrderID</p>
                     <a href="" class="cart-link">Chi tiết giỏ hàng</a>
                 </th>
                 <th>
-                    @*@{string price_string = Model[i].order.TotalPrice.ToString("C0", CI);}*@
-                    <p class="order-detail">@Model[i].order.TotalPrice</p>
+                    <p class="order-detail">@Model[i].TotalPrice</p>
 
                 </th>
                 <th>
-                    @*@{ price_string = Model[i].order.DeliveryCharrge.ToString("C0", CI);}*@
-                    <p class="order-detail">@Model[i].order.DeliveryCharge</p>
+                    <p class="order-detail">@Model[i].OrderState</p>
                 </th>
                 <th>
-                    <p class="order-detail">@Model[i].order.DeliveryMethod</p>
+                    <p class="order-detail">@Model[i].DeliveryMethod</p>
                 </th>
             </tr>
         }

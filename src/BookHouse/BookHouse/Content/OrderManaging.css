@@ -1,0 +1,27 @@
+﻿p.order-detail {
+    color: green;
+}
+
+img.order-detail {
+    width: 100px;
+}
+
+a.cart-link {
+    text-decoration: underline;
+    font-weight: normal;
+    color: lightgreen;
+}
+
+th, td {
+    padding: 10px;
+}
+
+
+div.container {
+    padding-left: 200px;
+}
+
+table {
+    border-bottom: solid, 2px;
+    border-bottom-color: green;
+}

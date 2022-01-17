@@ -19,37 +19,37 @@
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
                 <img class="far fa-user-circle fa-2x" width="30" height="30" />
             </div>
-            <div style="height: 35px; display: flex; align-items: center;">Thông tin tài khoản</div>
+            <div class="onHover" style="height: 35px; display: flex; align-items: center;" onclick="my_notification()">Thông tin tài khoản</div>
         </div>
         <div>
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
                 <img class="fas fa-bell fa-2x" width="30" height="30" />
             </div>
-            <div style="height: 35px; display: flex; align-items: center;">Thông báo của tôi</div>
+            <div class="onHover" style="height: 35px; display: flex; align-items: center;" onclick="profile()">Thông báo của tôi</div>
         </div>
         <div>
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
                 <img class="fas fa-tasks fa-2x" width="30" height="30" />
             </div>
-            <div style="height: 35px; display: flex; align-items: center;">Quản lí đơn hàng</div>
+            <div class="onHover" style="height: 35px; display: flex; align-items: center;" onclick="order_managing()">Quản lí đơn hàng</div>
         </div>
         <div>
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
                 <img class="fas fa-shopping-cart fa-2x" width="30" height="30" />
             </div>
-            <div style="height: 35px; display: flex; align-items: center;">Giỏ hàng của tôi</div>
+            <div class="onHover" style="height: 35px; display: flex; align-items: center;" onclick="my_cart()">Giỏ hàng của tôi</div>
         </div>
         <div>
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
                 <img class="fas fa-adjust fa-2x" width="30" height="30" />
             </div>
-            <div style="height: 35px; display: flex; align-items: center;">Sản phẩm yêu thích</div>
+            <div class="onHover" style="height: 35px; display: flex; align-items: center;" onclick="favorite_product()">Sản phẩm yêu thích</div>
         </div>
         <div>
             <div style="width: 20%; height: 35px; display: flex; justify-content: center; float: left;">
                 <img class="fas fa-star fa-2x" width="30" height="30" />
             </div>
-            <div style="height: 35px; display: flex; align-items: center;">Đánh giá của tôi</div>
+            <div class="onHover" style="height: 35px; display: flex; align-items: center;" onclick="my_rating()">Đánh giá của tôi</div>
         </div>
     </div>
     <div id="profileRight">
@@ -81,11 +81,11 @@
                 <td>Giới tính:</td>
                 <th>Nữ</th>
                 <td><img class="fas fa-lock fa-1x" /> Bảo mật:</td>
-                <th style="display: flex; justify-content: center;"><div class="btn">Đổi mật khẩu</div></th>
+                <th style="display: flex; justify-content: center;"><div class="btn" onclick="change_password()">Đổi mật khẩu</div></th>
             </tr>
             <tr>
                 <td></td>
-                <th style="display: flex; justify-content: center;"><div class="btn">Lưu thay đổi</div></th>
+                <th style="display: flex; justify-content: center;"><div class="btn" onclick="save_change()">Lưu thay đổi</div></th>
             </tr>
         </table>
     </div>
@@ -108,8 +108,8 @@
             <th>@order.Address</th>
         </tr>
         <tr>
-            <td>Ngày nhân:</td>
-            <th>@order.ReceivedDate</th>
+            <td>Ngày đặt:</td>
+            <th>@order.OrderDate</th>
         </tr>
         <tr>
             <td>Hóa đơn:</td>
@@ -118,7 +118,43 @@
         <tr>
             <td></td>
             <td></td>
-            <th><a href="#" style="color:green; text-decoration: underline;">Chi tiết đơn hàng</a></th>
+            @{var tmpOrderID = int.Parse(@order.OrderID);}
+            <th><a href="#" style="color:green; text-decoration: underline; padding-bottom: 30px;" onclick="detail_order(@tmpOrderID)">Chi tiết đơn hàng</a></th>
         </tr>
-    }
+                }
 </table>
+<script>
+    function profile() {
+        alert("Bạn đang ở chính trang thông tin tài khoản!");
+    }
+    function my_notification() {
+        alert("Chúng tôi sẽ update sau!");
+    }
+    function order_managing() {
+        window.location = '/user/ordermanaging';
+    }
+    function my_cart() {
+        window.location = '/user/cart';
+    }
+    function favorite_product() {
+        alert("Chúng tôi sẽ update sau!");
+    }
+    function my_rating() {
+        alert("Chúng tôi sẽ update sau!");
+    }
+    function change_password() {
+        window.location = '/user/changepassword';
+    }
+    function save_change() {
+        alert("Chúng tôi sẽ update sau!");
+    }
+    function detail_order(oid) {
+        var tmp = "" + oid;
+        var tmpLength = tmp.length;
+        for (let j = 0; j < 5 - tmpLength; j++) {
+            tmp = "0" + tmp;
+        }
+        oid = tmp;
+        window.location.href = '@Url.Action("DetailOrder", "User")' + '?oid=' + oid;
+    }
+</script>

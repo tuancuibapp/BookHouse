@@ -32,6 +32,11 @@ namespace DatabaseIO
             return u;
         }
 
+        public List<Order> GetObject_ListOrder(string uid)
+        {
+            return mydb.Database.SqlQuery<Order>("SELECT * FROM [Order] WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).ToList<Order>();
+        }
+
         public BookInforUI GetObject_BookInforUI(string bid)
         {
             BookInforUI bookInforUI = new BookInforUI();
@@ -163,7 +168,7 @@ namespace DatabaseIO
         {
             ProfileUI profile = new ProfileUI();
             profile.customer = new Customer();
-            profile.order = mydb.Database.SqlQuery<Order>("SELECT * FROM Order WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).ToList();
+            profile.order = mydb.Database.SqlQuery<Order>("SELECT * FROM [Order] WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).ToList();
             profile.customer = mydb.Database.SqlQuery<Customer>("SELECT * FROM Customer WHERE CustomerID = @uid", new SqlParameter("@uid", uid)).FirstOrDefault();
             return profile;
         }
@@ -233,10 +238,10 @@ namespace DatabaseIO
             return rating;
         }
 
-        public List<BookOnHomepage> GetObject_Searching(Filters filters)
+        public List<BookInforUI> GetObject_Searching(Filters filters)
         {
             DataTable retVal = new DataTable();
-            List<BookOnHomepage> books = new List<BookOnHomepage>();
+            List<BookInforUI> books = new List<BookInforUI>();
             int idx = -1;
             bool price;
             var cmd = mydb.Database.Connection.CreateCommand();
@@ -312,10 +317,10 @@ namespace DatabaseIO
                 retVal.Load(cmd.ExecuteReader());
                 for (int i = 0; i < retVal.Rows.Count; i++)
                 {
-                    books.Add(new BookOnHomepage());
-                    books[i].BookID = retVal.Rows[i]["BookID"].ToString();
-                    books[i].BookName = retVal.Rows[i]["BookName"].ToString();
-                    books[i].Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    books.Add(new BookInforUI());
+                    books[i].book.BookID = retVal.Rows[i]["BookID"].ToString();
+                    books[i].book.BookName = retVal.Rows[i]["BookName"].ToString();
+                    books[i].book.Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                     books[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                     books[i].images = retVal.Rows[i]["ImagePath"].ToString();
                 }
@@ -403,7 +408,7 @@ namespace DatabaseIO
             cmd.CommandText = "exec sp_createnewOrder @customerid, @address, @phone, @TotalPrice, @NoteForOrder, " +
                 "@OrderDate, @RecipientName, @DeliveryMethod, @DeliveryCharge, @GoodsPrice, @result out, @orderid out";
             cmd.Parameters.Add(new SqlParameter("@customerid", detailOrder.order.CustomerID));
-            cmd.Parameters.Add(new SqlParameter("@address", "sdlfj"));
+            cmd.Parameters.Add(new SqlParameter("@address", detailOrder.order.Address));
             cmd.Parameters.Add(new SqlParameter("@phone", detailOrder.order.Phone));
             cmd.Parameters.Add(new SqlParameter("@TotalPrice", detailOrder.order.TotalPrice));
             cmd.Parameters.Add(new SqlParameter("@NoteForOrder", detailOrder.order.NoteForOrder));
@@ -418,6 +423,7 @@ namespace DatabaseIO
             cmd.Connection.Open();
             cmd.ExecuteReader();
             detailOrder.bookDetailOrder = GetObject_CartUI(detailOrder.order.CustomerID);
+            DeleteObject_AllCartDetail(detailOrder.order.CustomerID);
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
             else
@@ -429,17 +435,25 @@ namespace DatabaseIO
             }
         }
 
+        public string GetCurrentOID()
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "select dbo.fn_getcurrentOid()";
+            cmd.Connection.Close();
+            cmd.Connection.Open();
+            return (string)cmd.ExecuteScalar();
+        }
         public bool SaveObject_AddOrderDetail(List<BookDetailOrder> bookDetails, string oid)
         {
             var cmd = mydb.Database.Connection.CreateCommand();
-            cmd.CommandText = "exec sp_addOrderDetail @orderid, @bookid, @quantity, @result";
+            cmd.CommandText = "exec sp_addOrderDetail @orderid, @bookid, @quantity, @result out";
 
             for (int i = 0; i < bookDetails.Count; i++)
             {
                 cmd.Parameters.Add(new SqlParameter("@orderid", oid));
                 cmd.Parameters.Add(new SqlParameter("@bookid", bookDetails[i].book.book.BookID));
                 cmd.Parameters.Add(new SqlParameter("@quantity", bookDetails[i].number));
-                cmd.Parameters.Add(new SqlParameter("@result", 0));
+                cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
             }
             if (cmd.Parameters["@result"].ToString() == "0")
                 return false;
@@ -453,6 +467,20 @@ namespace DatabaseIO
             cmd.CommandText = "exec sp_deletecartdetail @customerid, @bookid, @result out";
             cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
             cmd.Parameters.Add(new SqlParameter("@bookid", bookid));
+            cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
+            cmd.Connection.Close();
+            cmd.Connection.Open();
+            cmd.ExecuteReader();
+            if (cmd.Parameters["@result"].ToString() == "0")
+                return false;
+            else
+                return true;
+        }
+        public bool DeleteObject_AllCartDetail(string customerid)
+        {
+            var cmd = mydb.Database.Connection.CreateCommand();
+            cmd.CommandText = "exec sp_deleteallcartdetaill @customerid, @result out";
+            cmd.Parameters.Add(new SqlParameter("@customerid", customerid));
             cmd.Parameters.Add(new SqlParameter("@result", DBNull.Value));
             cmd.Connection.Close();
             cmd.Connection.Open();
