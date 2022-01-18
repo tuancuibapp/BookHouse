@@ -154,6 +154,7 @@
     <Content Include="Content\SearchPage.css" />
     <Content Include="Content\FAQ.css" />
     <Content Include="Content\_Layout.css" />
+    <Content Include="Content\_OrderConfirm.css" />
     <Content Include="Content\_Profile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

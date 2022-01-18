@@ -36,7 +36,7 @@ namespace DatabaseProvider.MyDB
         public string NoteForOrder { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Column(TypeName = "date")]
         public DateTime? ReceivedDate { get; set; }

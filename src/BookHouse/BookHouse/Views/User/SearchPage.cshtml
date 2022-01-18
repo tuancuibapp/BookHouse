@@ -14,14 +14,14 @@
 
     <div class="search-results-container">
         <h2>Kết quả tìm kiếm theo từ khóa:   @ViewData["Query"]</h2>
-
         @for (int i = 0; i < Model.Count; ++i)
         {
-            <a class="partialIn4" href="">
+            var tmpBID = int.Parse(Model[i].book.BookID);
+            <a class="partialIn4" onclick="book_infor(@tmpBID)">
                 <div class="partialIn4">
 
                     <div class="partialIn4Pic">
-                        <img class="partialIn4Pic" src="@Model[i].images">
+                        <img class="partialIn4Pic" src="../Images/Book/@Model[i].images">
                     </div>
 
                     <p class="partialIn4">@Model[i].book.BookName</p>
@@ -46,9 +46,9 @@
             </a>
         }
 
-        <br/>
-        <br/>
-        
+        <br />
+        <br />
+
         <div class="paging-container">
 
             @if (ViewBag.currentPage <= 3)
@@ -88,6 +88,14 @@
         </div>
 
     </div>
-
-
 </body>
+<script>
+    function book_infor(bid) {
+        var tmp = "0" + bid;
+        var tmpLength = tmp.length;
+        for (let j = 0; j < 5 - tmpLength; j++) {
+            tmp = "0" + tmp;
+        }
+        window.location.href = '@Url.Action("BookInfor", "User")' + '?bid=' + tmp;
+    }
+</script>

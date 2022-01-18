@@ -189,7 +189,7 @@ namespace BookHouse.Controllers
             ProfileUI u = db.GetObject_ProfileUI(tmp.CustomerID);
             return View(u);
         }
-        public ActionResult SearchPage(string Query, int page = 1)
+        public ActionResult SearchPage(string Query = "", int page = 1)
         {
             //create filters
             Filters filters = new Filters
@@ -253,13 +253,13 @@ namespace BookHouse.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchPage(string Query, Filters filters, int page = 1)
+        public ActionResult SearchPage(Filters filters, string Query = "", int page = 1)
         {
             //here is for query the books from database using filters
-            /*filters.categories = new List<string> {
+            filters.categories = new List<string> {
                     "Tiểu thuyết", "Truyện ngắn", "Thơ", "Trinh thám", "Truyện tranh", "Lịch sử", "Triết học",
                     "Kinh tế", "Tâm lý học", "Tham khảo", "Viễn tưởng" };
-
+            /*
             BookInforUI yay = new BookInforUI
             {
                 book = new Book
@@ -291,7 +291,7 @@ namespace BookHouse.Controllers
             ViewData["NumPage"] = NumPage;
             ViewData["Query"] = Query;
 
-            List<BookInforUI> searchData = queryResult.GetRange(pageSize * page, Math.Min(pageSize, queryResult.Count - pageSize * page));
+            List<BookInforUI> searchData = queryResult.GetRange(pageSize * (page-1), Math.Min(pageSize, queryResult.Count - pageSize * (page-1)));
             return View(searchData);
         }
         public ActionResult FAQ()
@@ -423,7 +423,8 @@ namespace BookHouse.Controllers
         }
         public ActionResult OrderConfirm(string totalPrice = "0")
         {
-            Customer tmp = (Customer)Session["user"];
+            if (Session["user"] == null)
+                return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
             ViewBag.TotalPrice = totalPrice;
             return View();
         }
@@ -435,8 +436,6 @@ namespace BookHouse.Controllers
                 return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
             Customer tmp = (Customer)Session["user"];
             details.order.CustomerID = tmp.CustomerID;
-            details.order.TotalPrice = 500000;
-            details.order.GoodsPrice = 480000;
             if (!db.SaveObject_CreateNewOrder(details))
                 RedirectToAction("HomePage");
             var oid = int.Parse(db.GetCurrentOID()).ToString();

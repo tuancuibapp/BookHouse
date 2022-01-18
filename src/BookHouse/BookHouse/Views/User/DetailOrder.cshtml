@@ -66,10 +66,13 @@
                 <p class="order-detail">Ngày đặt hàng: </p>
             </th>
             <th>
-                @Html.TextBoxFor(m => m.order.OrderDate, new { @class = "order-input", @readonly = "readonly" })
+                @{
+                    string dateString = Model.order.OrderDate.ToString("dd-MM-yyyy");}
+                <input type="text" readonly value="@dateString" class="order-input"/>
             </th>
 
         </tr>
+        
 
         <tr>
             <th>

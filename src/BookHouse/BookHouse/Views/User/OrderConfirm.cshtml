@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/OrderConfirm.css" rel="stylesheet">
+<link href="~/Content/_OrderConfirm.css" rel="stylesheet" />
 
 <div class="container">
 <h2>XÁC NHẬN ĐƠN HÀNG</h2> 
@@ -23,11 +23,14 @@
         <tr>
             <th><img class="order-detail" src="../Images/UIDesign/order.png"></th>
             <th>
-                <a href="" class ="cart-link">Chi tiết giỏ hàng</a>
+                @{DateTime _currentDate = DateTime.Now;
+                    string orderDate = _currentDate.ToString("dd-MM-yyyy");}
+                <p class="order-detail">Ngày đặt hàng: @orderDate</p>
             </th>
             <th>
                 <p class="order-detail"> 
-                    @{ var totalPrice = int.Parse(ViewBag.TotalPrice) + 20000; }
+                    @{ var totalPrice = int.Parse(ViewBag.TotalPrice) + 20000;
+                        totalPrice = totalPrice.ToString();}
                     @totalPrice VNĐ
                 </p>
             </th>
@@ -41,13 +44,15 @@
     </table>
 
     <form action="/User/OrderConfirm" method="post">
+        @Html.TextBoxFor(m => m.order.TotalPrice, new { @Value = totalPrice, @class = "hidden-input" })
+        @Html.TextBoxFor(m => m.order.GoodsPrice, new { @Value = ViewBag.TotalPrice, @class = "hidden-input" })
         <table>
             <tr>
                 <th>
                     <p class="order-detail">Người nhận: </p>
                 </th>
                 <th>
-                    @Html.TextBoxFor(m => m.order.RecipientName, new { @Value = "", @class = "order-input" })
+                    @Html.TextBoxFor(m => m.order.RecipientName, new { @Value = "", @class = "order-input", @required = "required" })
                 </th>
 
             </tr>
@@ -58,7 +63,7 @@
                 </th>
                 <th>
 
-                    @Html.TextBoxFor(m => m.order.Phone, new { @Value = "", @class = "order-input"})
+                    @Html.TextBoxFor(m => m.order.Phone, new { @Value = "", @class = "order-input", @required = "required" })
                 </th>
 
             </tr>
@@ -71,9 +76,8 @@
                 <th>
                     @{DateTime currentDate = DateTime.Now;
                         string dateString = currentDate.ToString("dd-MM-yyyy");}
-                    @Html.TextBoxFor(m => m.order.OrderDate, new { @class = "order-input", @readonly = "readonly", @Value = dateString})
+                    @Html.TextBoxFor(m => m.order.OrderDate, new { @class = "order-input", @readonly = "readonly", @Value = dateString, @required = "required" })
                 </th>
-
             </tr>
 
             <tr>
@@ -81,7 +85,7 @@
                     <p class="order-detail">Địa chỉ giao hàng: </p>
                 </th>
                 <th>
-                    @Html.TextBoxFor(m => m.order.Address, new { @class = "order-input" })
+                    @Html.TextBoxFor(m => m.order.Address, new { @class = "order-input", @required = "required" })
                 </th>
             </tr>
 
@@ -90,7 +94,7 @@
                     <p class="order-detail">Ghi chú: </p>
                 </th>
                 <th>
-                    @Html.TextBoxFor(m => m.order.NoteForOrder, new { @class = "order-input" })
+                    @Html.TextBoxFor(m => m.order.NoteForOrder, new { @class = "order-input"})
                 </th>
             </tr>
 

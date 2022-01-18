@@ -232,7 +232,10 @@ namespace DatabaseIO
             cmd.Parameters.Add(new SqlParameter("@bid", bid));
             cmd.Connection.Open();
             retVal.Load(cmd.ExecuteReader());
-            rating.rating = (int)float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+            if (retVal.Rows[0]["Rating"].ToString() == "")
+                rating.rating = 5;
+            else
+                rating.rating = (int)float.Parse(retVal.Rows[0]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             rating.image = retVal.Rows[0]["ImagePath"].ToString();
             rating.sold = int.Parse(retVal.Rows[0]["Sold"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
             return rating;
@@ -269,6 +272,11 @@ namespace DatabaseIO
                     loop = false;
                 }
 
+                if(idx == -1 && books.Count != 0)
+                {
+                    break;
+                }
+
                 if (filters.query != null && idx != -1 && price != false)
                 {
                     cmd.CommandText = "SELECT * FROM BestSellerNamePriceCategory(@name, @lowerBound, @uperBound, @bookcategoryName)";
@@ -279,7 +287,7 @@ namespace DatabaseIO
                 }
                 else if (filters.query != null & idx != -1 && price == false)
                 {
-                    cmd.CommandText = "SELECT * FROM BestSellerNameCategory(@name @bookcategoryName)";
+                    cmd.CommandText = "SELECT * FROM BestSellerNameCategory(@name, @bookcategoryName)";
                     cmd.Parameters.Add(new SqlParameter("@name", filters.query));
                     cmd.Parameters.Add(new SqlParameter("@bookcategoryName", filters.categories[idx]));
                 }
@@ -315,15 +323,22 @@ namespace DatabaseIO
                 }
 
                 retVal.Load(cmd.ExecuteReader());
+                cmd.Parameters.Clear();
                 for (int i = 0; i < retVal.Rows.Count; i++)
                 {
                     books.Add(new BookInforUI());
                     books[i].book.BookID = retVal.Rows[i]["BookID"].ToString();
                     books[i].book.BookName = retVal.Rows[i]["BookName"].ToString();
                     books[i].book.Price = int.Parse(retVal.Rows[i]["Price"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-                    books[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+                    if (retVal.Rows[i]["Rating"].ToString() == "")
+                        books[i].rating = 5;
+                    else
+                        books[i].rating = float.Parse(retVal.Rows[i]["Rating"].ToString(), CultureInfo.InvariantCulture.NumberFormat);
                     books[i].images = retVal.Rows[i]["ImagePath"].ToString();
                 }
+                retVal.Clear();
+                retVal.Columns.Clear();
+                retVal.Rows.Clear();
             }
             return books;
         }

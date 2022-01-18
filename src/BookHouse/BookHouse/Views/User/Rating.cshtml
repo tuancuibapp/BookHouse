@@ -20,7 +20,7 @@
         </div>
     </div>
     <div id="ratingRight">
-        <div style="font-weight: bold; color:green; margin-bottom: 2%; margin-top: 2%;">Husky Và Tôn Sư Mèo Trắng Của Hắn</div>
+        <div style="font-weight: bold; color:green; margin-bottom: 2%; margin-top: 2%;">@Model.book.BookName</div>
         <table>
             <tr>
                 <td>Tác giả: @Model.book.AuthorName</td>
@@ -146,7 +146,6 @@
             IsRunning = true;
             var bid = @Html.Raw(Json.Encode(Model.book.BookID));
             var cT = $("#commentText").val();
-            alert("Comment:" + cT);
             var r = 0;
             if ($("#star5").css("color") == "rgb(255, 255, 0)") {
                 r = 5;

@@ -1,5 +1,4 @@
-﻿p.order-detail 
-{
+﻿p.order-detail {
     color: green;
 }
 
@@ -45,6 +44,13 @@ table {
     font-size: 14px;
     font-weight: bold;
 }
+
 .hidden-input {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0px;
+    width: 0px;
+    height: 0px;
     visibility: hidden;
+    color: red;
 }
