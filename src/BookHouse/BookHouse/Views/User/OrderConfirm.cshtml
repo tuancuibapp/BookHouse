@@ -23,7 +23,7 @@
             <th><img class="order-detail" src="../Images/UIDesign/order.png"></th>
             <th>
                 <p class="order-detail">Mã đơn hàng: @Model.order.OrderCartID</p>
-                <a href="" class ="cart-link">Chi tiết giỏ hàng</a>
+                <a href="https://localhost:44339/User/Cart" class ="cart-link">Chi tiết giỏ hàng</a>
             </th>
             <th>
                 @{string price_string = Model.order.TotalPrice.ToString("C0", CI);}
@@ -47,7 +47,7 @@
                     <p class="order-detail">Người nhận: </p>
                 </th>
                 <th>
-                    @Html.TextBoxFor(m => m.order.RecipientName, new { @class = "order-input", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.order.RecipientName, new { @class = "order-input" })
                 </th>
 
             </tr>
@@ -58,7 +58,7 @@
                 </th>
                 <th>
 
-                    @Html.TextBoxFor(m => m.order.Phone, new { @class = "order-input", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.order.Phone, new { @class = "order-input" })
                 </th>
 
             </tr>

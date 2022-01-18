@@ -1,0 +1,48 @@
+﻿body {
+}
+p.order-detail {
+    color: green;
+}
+
+img.order-detail {
+    width: 100px;
+}
+
+a.cart-link {
+    text-decoration: underline;
+    font-weight: normal;
+    color: lightgreen;
+}
+
+th, td {
+    padding: 10px;
+}
+
+
+div.container {
+    padding-left: 200px;
+}
+
+table {
+    border-bottom: solid, 2px;
+    border-bottom-color: green;
+}
+
+.order-input {
+    width: 400px;
+    height: 30px;
+    background-color: #a8d3a1;
+    font-family: Arial;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.submit-button {
+    border-radius: 20px 20px;
+    background-color: darkgreen;
+    height: 40px;
+    width: 150px;
+    font-size: 14px;
+    font-weight: bold;
+}

@@ -145,6 +145,7 @@
     <Content Include="Content\ForgotPassword.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\OrderConfirm.css" />
+    <Content Include="Content\OrderManaging.css" />
     <Content Include="Content\Rating.css" />
     <Content Include="Content\SignIn.css" />
     <Content Include="Content\SignUp.css" />

@@ -4,7 +4,7 @@
     ViewBag.Title = "OrderManaging";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/Content/OrderManaging.css" rel="stylesheet">
 <div class="container">
     <h2>QUẢN LÝ ĐƠN HÀNG</h2>
     @{CultureInfo CI = new CultureInfo("vi-VN"); }
@@ -49,7 +49,7 @@
                 </th>
                 <th>
                     @{ price_string = Model[i].order.DeliveryCharrge.ToString("C0", CI);}
-                    <p class="order-detail">@price_string</p>
+                    <p class="order-detail">@Model[i].order.OrderState</p>
                 </th>
                 <th>
                     <p class="order-detail">@Model[i].order.DeliveryMethod</p>
