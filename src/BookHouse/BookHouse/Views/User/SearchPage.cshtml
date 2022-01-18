@@ -55,8 +55,7 @@
             {
                 for (int i = 1; i < ViewBag.currentPage; ++i)
                 {
-                    @Html.ActionLink(i, "User", "SearchPage", new { filters = ViewData["Filters"], page = i }, new { @class = "paging" })
-                    <a href="#" class=" paging"> @i </a>
+                    @Html.ActionLink(i.ToString(), "User", "SearchPage", new { filters = ViewData["Filters"], page = i }, new { @class = "paging" })
                 }
             }
             else
