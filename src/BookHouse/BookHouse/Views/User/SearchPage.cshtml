@@ -1,5 +1,6 @@
 ﻿@model List<DatabaseProvider.NewClassForUI.BookInforUI>
 @using System.Globalization
+@using DatabaseProvider.NewClassForUI
 
 @{
     ViewBag.Title = "SearchPage";
@@ -47,13 +48,14 @@
 
         <br/>
         <br/>
-
+        
         <div class="paging-container">
 
             @if (ViewBag.currentPage <= 3)
             {
                 for (int i = 1; i < ViewBag.currentPage; ++i)
                 {
+                    @Html.ActionLink(i, "User", "SearchPage", new { filters = ViewData["Filters"], page = i }, new { @class = "paging" })
                     <a href="#" class=" paging"> @i </a>
                 }
             }
