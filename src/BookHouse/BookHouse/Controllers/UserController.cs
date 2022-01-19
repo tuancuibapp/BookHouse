@@ -184,7 +184,7 @@ namespace BookHouse.Controllers
         public ActionResult _Profile()
         {
             if (Session["user"] == null)
-                return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+                return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/signin"));
             Customer tmp = (Customer)Session["user"];
             ProfileUI u = db.GetObject_ProfileUI(tmp.CustomerID);
             return View(u);
@@ -450,7 +450,7 @@ namespace BookHouse.Controllers
         public ActionResult ChangePassword()
         {
             if (Session["user"] == null)
-                return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/homepage"));
+                return Redirect(String.Concat(Request.Url.Scheme, "://", Request.Url.Host, ":44339", "/user/signinn"));
             return View();
         }
         [HttpPost]
@@ -459,24 +459,9 @@ namespace BookHouse.Controllers
             string pN = data["pN"];
             string oP = data["oP"];
             string nP = data["nP"];
-            string rNP = data["rNP"];
             JsonResult jr = new JsonResult();
-            /*Customer u = (Customer)Session["user"];
-            if(u != null && u.CustomerPhone == pN && u.Password == oP)
-            {
-                jr.Data = new
-                {
-                    status = "OK"
-                };
-            }
-            else
-            {
-                jr.Data = new
-                {
-                    status = "F"
-                };
-            }*/
-            if (pN == "123" && oP == "a")
+            Customer u = (Customer)Session["user"];
+            if (u != null && u.CustomerPhone.Contains(pN) && u.Password.Contains(oP))
             {
                 jr.Data = new
                 {
@@ -490,6 +475,20 @@ namespace BookHouse.Controllers
                     status = "F"
                 };
             }
+            /* if (pN == "123" && oP == "a")
+             {
+                 jr.Data = new
+                 {
+                     status = "OK"
+                 };
+             }
+             else
+             {
+                 jr.Data = new
+                 {
+                     status = "F"
+                 };
+             }*/
             return Json(jr, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ForgotPassword(string ePN ="")
